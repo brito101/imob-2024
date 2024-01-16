@@ -4,10 +4,15 @@ namespace App\Helpers;
 
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
+use function count;
 
 class CheckPermission
 {
 
+    /**
+     * @param string $auth
+     * @return void
+     */
     public static function checkAuth(string $auth): void
     {
         if (self::roleExist($auth) && !Auth::user()->hasPermissionTo($auth)) {
@@ -22,11 +27,13 @@ class CheckPermission
         }
     }
 
-    private static function roleExist($name)
+    /**
+     * @param $name
+     * @return bool
+     */
+    private static function roleExist($name): bool
     {
-        if (\count(Permission::where('name', $name)->get()) > 0) {
-            return true;
-        } else {
+        if (count(Permission::where('name', $name)->get()) <= 0) {
             if (is_array($name)) {
                 foreach ($name as $item) {
                     Permission::create(['name' => $item]);
@@ -34,7 +41,7 @@ class CheckPermission
             } else {
                 Permission::create(['name' => $name]);
             }
-            return true;
         }
+        return true;
     }
 }

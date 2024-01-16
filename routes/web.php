@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\{
     ChangelogController,
     ClientController,
     ClientFunnelController,
+    ExperienceController,
     PropertyController,
     StepController,
 };
@@ -54,6 +55,9 @@ Route::group(['middleware' => ['auth']], function () {
 
         /** Steps */
         Route::resource('steps', StepController::class)->except('show');
+
+          /** Experiences */
+          Route::resource('experiences', ExperienceController::class)->except('show');
 
         /**
          * ACL

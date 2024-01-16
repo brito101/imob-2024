@@ -4,15 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\CheckPermission;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\PropertyRequest;
-use App\Models\Agency;
-use App\Models\Property;
-use App\Models\Views\Property as ViewsProperty;
+use App\Models\Experience;
+use App\Models\Views\Experience as ViewsExperience;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
 
-class PropertyController extends Controller
+
+class ExperienceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,12 +20,12 @@ class PropertyController extends Controller
     {
         CheckPermission::checkAuth('Listar Propriedades');
 
-        $properties = ViewsProperty::all();
+        $experiences = ViewsExperience::all();
 
         if ($request->ajax()) {
             $token = csrf_token();
 
-            return Datatables::of($properties)
+            return Datatables::of($experiences)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) use ($token) {
                     $btn = '<a class="btn btn-xs btn-success mx-1 shadow" title="Visualizar" target="_blank" href="' .
@@ -34,14 +33,11 @@ class PropertyController extends Controller
                         '"><i class="fa fa-lg fa-fw fa-eye"></i></a>' . '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="properties/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' . '<form method="POST" action="properties/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão desta propriedade?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
                     return $btn;
                 })
-                ->addColumn('cover', function ($row) {
-                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/properties/min/' . $row->cover) .  ' class="img-thumbnail d-block" width="360" height="207" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
-                })
-                ->rawColumns(['action', 'cover'])
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
-        return view('admin.properties.index');
+        return view('admin.experiences.index');
     }
 
     /**
@@ -49,24 +45,15 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        CheckPermission::checkAuth('Criar Propriedades');
-
-        if (Auth::user()->hasRole('Programador|Administrador')) {
-            $agencies = Agency::all();
-        } else {
-            $agencies = Agency::whereIn('id', Auth::user()->brokers->pluck('agency_id'))->get();
-        }
-
-        return view('admin.properties.create', compact('agencies'));
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PropertyRequest $request)
+    public function store(Request $request)
     {
-        dd($request->all());
-        CheckPermission::checkAuth('Criar Propriedades');
+        //
     }
 
     /**
@@ -74,6 +61,7 @@ class PropertyController extends Controller
      */
     public function show(string $id)
     {
+        //
     }
 
     /**
@@ -81,7 +69,7 @@ class PropertyController extends Controller
      */
     public function edit(string $id)
     {
-        CheckPermission::checkAuth('Editar Propriedades');
+        //
     }
 
     /**
@@ -89,7 +77,7 @@ class PropertyController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        CheckPermission::checkAuth('Editar Propriedades');
+        //
     }
 
     /**
@@ -97,6 +85,6 @@ class PropertyController extends Controller
      */
     public function destroy(string $id)
     {
-        CheckPermission::checkAuth('Excluir Propriedades');
+        //
     }
 }
