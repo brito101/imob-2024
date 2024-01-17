@@ -67,8 +67,10 @@
                                     <div class="col-12 col-md-4 form-group px-0 pr-md-2">
                                         <label for="experience">Experiência</label>
                                         <x-adminlte-select2 name="experience">
-                                            <option {{ old('experience') == 'experiência' ? 'selected' : '' }}
-                                                value="experience">experiência</option>
+                                            @foreach ($experiences as $experience)
+                                                <option {{ old('experience_id') == $experience->id ? 'selected' : '' }}
+                                                    value="{{ $experience->id }}">{{ $experience->name }}</option>
+                                            @endforeach
                                         </x-adminlte-select2>
                                     </div>
                                     <div class="col-12 col-md-4 form-group px-0 px-md-2">
@@ -119,7 +121,8 @@
                                         <x-adminlte-select-bs name="goal">
                                             <option {{ old('goal') == 'Venda' ? 'selected' : '' }}>Venda</option>
                                             <option {{ old('goal') == 'Locação' ? 'selected' : '' }}>Locação</option>
-                                            <option {{ old('goal') == 'Venda ou Locação' ? 'selected' : '' }}>Venda ou Locação</option>
+                                            <option {{ old('goal') == 'Venda ou Locação' ? 'selected' : '' }}>Venda ou
+                                                Locação</option>
                                         </x-adminlte-select-bs>
                                     </div>
 

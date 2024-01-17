@@ -50,6 +50,7 @@ class PropertyRequest extends FormRequest
         return [
             'title'  => 'required|max:191',
             'headline'  => 'required|max:191',
+            'experiences_id' => 'required|exists:experiences,id',
             // 'experience', 'sale', 'rent',
             'category' => 'required',
             'type' => 'required',

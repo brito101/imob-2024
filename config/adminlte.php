@@ -355,6 +355,26 @@ return [
                         ],
                     ],
                 ],
+                [
+                    'text'        => 'Experiências',
+                    'url'         => '#',
+                    'icon'        => 'fas fa-fw fa-cloud mr-2',
+                    'can'         => 'Acessar Experiências',
+                    'submenu' => [
+                        [
+                            'text' => 'Listagem de Experiências',
+                            'url'  => 'admin/experiences',
+                            'icon' => 'fas fa-fw fa-chevron-right',
+                            'can'  => 'Listar Etapas',
+                        ],
+                        [
+                            'text' => 'Cadastro de Experiências',
+                            'url'  => 'admin/experiences/create',
+                            'icon' => 'fas fa-fw fa-chevron-right',
+                            'can'  => 'Criar Etapas',
+                        ],
+                    ],
+                ],
             ],
         ],
         [

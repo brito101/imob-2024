@@ -266,6 +266,8 @@ return [
         'client' => 'cliente',
         'client_id' => 'cliente',
         'owner' => 'proprietário',
+        'cover' => 'foto',
+        'experiences_id' => 'experiência',
     ],
 
 ];

@@ -6,6 +6,7 @@ use App\Helpers\CheckPermission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PropertyRequest;
 use App\Models\Agency;
+use App\Models\Experience;
 use App\Models\Property;
 use App\Models\Views\Property as ViewsProperty;
 use Illuminate\Http\Request;
@@ -57,7 +58,9 @@ class PropertyController extends Controller
             $agencies = Agency::whereIn('id', Auth::user()->brokers->pluck('agency_id'))->get();
         }
 
-        return view('admin.properties.create', compact('agencies'));
+        $experiences = Experience::orderBy('name')->get();
+
+        return view('admin.properties.create', compact('agencies', 'experiences'));
     }
 
     /**
