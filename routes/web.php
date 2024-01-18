@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\{
     ACL\PermissionController,
     ACL\RoleController,
     AgencyController,
+    CategoryController,
     ChangelogController,
     ClientController,
     ClientFunnelController,
@@ -56,8 +57,11 @@ Route::group(['middleware' => ['auth']], function () {
         /** Steps */
         Route::resource('steps', StepController::class)->except('show');
 
-          /** Experiences */
-          Route::resource('experiences', ExperienceController::class)->except('show');
+        /** Experiences */
+        Route::resource('categories', CategoryController::class)->except('show');
+
+        /** Experiences */
+        Route::resource('experiences', ExperienceController::class)->except('show');
 
         /**
          * ACL

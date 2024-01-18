@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', '- Experiências')
+@section('title', '- Categorias')
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesPlugins', true)
 
@@ -10,12 +10,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1><i class="fas fa-fw fa-cloud"></i> Experiências</h1>
+                    <h1><i class="fas fa-fw fa-tag"></i> Categorias</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Experiências</li>
+                        <li class="breadcrumb-item active">Categorias</li>
                     </ol>
                 </div>
             </div>
@@ -31,19 +31,19 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex flex-wrap justify-content-between col-12 align-content-center">
-                                <h3 class="card-title align-self-center">Experiências Cadastradas</h3>
-                                @can('Criar Experiências')
-                                    <a href="{{ route('admin.experiences.create') }}" title="Nova Experiência"
-                                        class="btn btn-success"><i class="fas fa-fw fa-plus"></i>Nova Experiência</a>
+                                <h3 class="card-title align-self-center">Categorias Cadastradas</h3>
+                                @can('Criar Categorias')
+                                    <a href="{{ route('admin.categories.create') }}" title="Nova Categoria"
+                                        class="btn btn-success"><i class="fas fa-fw fa-plus"></i>Nova Categoria</a>
                                 @endcan
                             </div>
                         </div>
 
                         @php
-                            $heads = [['label' => 'ID', 'width' => 10], ['label' => 'Imagem', 'no-export' => true], 'Nome', ['label' => 'Ações', 'no-export' => true, 'width' => 15]];
+                            $heads = [['label' => 'ID', 'width' => 10], 'Nome', ['label' => 'Ações', 'no-export' => true, 'width' => 15]];
                             $config = [
-                                'ajax' => url('/admin/experiences'),
-                                'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'cover', 'name' => 'cover', 'orderable' => false, 'searchable' => false], ['data' => 'name', 'name' => 'name'], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],
+                                'ajax' => url('/admin/categories'),
+                                'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'name', 'name' => 'name'], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],
                                 'language' => ['url' => asset('vendor/datatables/js/pt-BR.json')],
                                 'autoFill' => true,
                                 'processing' => true,

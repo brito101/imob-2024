@@ -65,26 +65,29 @@
                                     </div>
 
                                     <div class="col-12 col-md-4 form-group px-0 pr-md-2">
+                                        <label for="category">Categoria</label>
+                                        <x-adminlte-select2 name="category_id">
+                                            @foreach ($categories as $category)
+                                                <option {{ old('category_id') == $category->id ? 'selected' : '' }}
+                                                    value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </x-adminlte-select2>
+                                    </div>
+                                    
+                                    <div class="col-12 col-md-4 form-group px-0 px-md-2">
+                                        <label for="type">Tipo</label>
+                                        <x-adminlte-select2 name="type">
+                                            <option {{ old('type') == 'tipo' ? 'selected' : '' }} value="tipo">tipo
+                                            </option>
+                                        </x-adminlte-select2>
+                                    </div>
+                                    <div class="col-12 col-md-4 form-group px-0 pl-md-2">
                                         <label for="experience">Experiência</label>
                                         <x-adminlte-select2 name="experience">
                                             @foreach ($experiences as $experience)
                                                 <option {{ old('experience_id') == $experience->id ? 'selected' : '' }}
                                                     value="{{ $experience->id }}">{{ $experience->name }}</option>
                                             @endforeach
-                                        </x-adminlte-select2>
-                                    </div>
-                                    <div class="col-12 col-md-4 form-group px-0 px-md-2">
-                                        <label for="category">Categoria</label>
-                                        <x-adminlte-select2 name="category">
-                                            <option {{ old('category') == 'categoria' ? 'selected' : '' }}
-                                                value="categoria">tipo</option>
-                                        </x-adminlte-select2>
-                                    </div>
-                                    <div class="col-12 col-md-4 form-group px-0 pl-md-2">
-                                        <label for="type">Tipo</label>
-                                        <x-adminlte-select2 name="type">
-                                            <option {{ old('type') == 'tipo' ? 'selected' : '' }} value="tipo">tipo
-                                            </option>
                                         </x-adminlte-select2>
                                     </div>
 

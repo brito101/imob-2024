@@ -267,7 +267,8 @@ return [
         'client_id' => 'cliente',
         'owner' => 'proprietário',
         'cover' => 'foto',
-        'experiences_id' => 'experiência',
+        'experience_id' => 'experiência',
+        'category_id' => 'categoria',
     ],
 
 ];

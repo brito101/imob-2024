@@ -6,6 +6,7 @@ use App\Helpers\CheckPermission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PropertyRequest;
 use App\Models\Agency;
+use App\Models\Category;
 use App\Models\Experience;
 use App\Models\Property;
 use App\Models\Views\Property as ViewsProperty;
@@ -59,8 +60,9 @@ class PropertyController extends Controller
         }
 
         $experiences = Experience::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
 
-        return view('admin.properties.create', compact('agencies', 'experiences'));
+        return view('admin.properties.create', compact('agencies', 'experiences', 'categories'));
     }
 
     /**

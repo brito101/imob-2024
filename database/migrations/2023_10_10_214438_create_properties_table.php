@@ -18,16 +18,20 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->nullable();
             $table->string('headline')->nullable();
-            $table->foreignId('experiences_id')
+            $table->foreignId('category_id')
+                ->nullable()
+                ->constrained()
+                ->onDelete('cascade');
+            $table->foreignId('experience_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('cascade');
             $table->string('cover')->nullable();
 
+            $table->string('type')->nullable();
+
             $table->boolean('sale')->nullable();
             $table->boolean('rent')->nullable();
-            $table->string('category');
-            $table->string('type');
 
             /** pricing and values */
             $table->decimal('sale_price', 10, 2)->nullable();
@@ -93,9 +97,10 @@ return new class extends Migration
 
         DB::statement("
         CREATE OR REPLACE VIEW `properties_view` AS
-        SELECT p.id, p.title, p.cover, p.type, p.category, p.experiences_id, e.name, p.owner, p.views
+        SELECT p.id, p.title, p.cover, p.type, p.category_id, c.name as category, p.experience_id, e.name as experience, p.owner, p.views
         FROM properties as p
-        LEFT JOIN experiences as e ON e.id=p.experiences_id
+        LEFT JOIN categories as c ON c.id=p.category_id
+        LEFT JOIN experiences as e ON e.id=p.experience_id       
         WHERE p.deleted_at IS NULL
         ");
     }

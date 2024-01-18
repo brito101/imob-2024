@@ -356,6 +356,26 @@ return [
                     ],
                 ],
                 [
+                    'text'        => 'Categorias',
+                    'url'         => '#',
+                    'icon'        => 'fas fa-fw fa-tag mr-2',
+                    'can'         => 'Acessar Categorias',
+                    'submenu' => [
+                        [
+                            'text' => 'Listagem de Categorias',
+                            'url'  => 'admin/categories',
+                            'icon' => 'fas fa-fw fa-chevron-right',
+                            'can'  => 'Listar Etapas',
+                        ],
+                        [
+                            'text' => 'Cadastro de Categorias',
+                            'url'  => 'admin/categories/create',
+                            'icon' => 'fas fa-fw fa-chevron-right',
+                            'can'  => 'Criar Etapas',
+                        ],
+                    ],
+                ],
+                [
                     'text'        => 'Experiências',
                     'url'         => '#',
                     'icon'        => 'fas fa-fw fa-cloud mr-2',

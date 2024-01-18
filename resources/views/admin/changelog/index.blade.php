@@ -52,6 +52,8 @@
                                     title="1.0.0">
                                     <ul>
                                         <li>Módulo de ACL com perfis e permissões</li>
+                                        <li>Módulo de Categorias</li>
+                                        <li>Módulo de Experiências</li>
                                         <li>Módulo de Usuários</li>
                                         <li>Módulo de Agências</li>
                                         <li>Módulo de Clientes com:

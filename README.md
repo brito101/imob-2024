@@ -3,7 +3,8 @@
 ## Resources
 
 - Prospecting steps controller
-- Experience controller
+- Categories controller
+- Experiences controller
 - User controller
 - Agency controller with brokers
 - Client controller with timeline and kanban
