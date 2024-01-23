@@ -9,6 +9,7 @@ use App\Models\Agency;
 use App\Models\Category;
 use App\Models\Experience;
 use App\Models\Property;
+use App\Models\Type;
 use App\Models\Views\Property as ViewsProperty;
 use Illuminate\Http\Request;
 use DataTables;
@@ -58,11 +59,12 @@ class PropertyController extends Controller
         } else {
             $agencies = Agency::whereIn('id', Auth::user()->brokers->pluck('agency_id'))->get();
         }
-
-        $experiences = Experience::orderBy('name')->get();
+       
         $categories = Category::orderBy('name')->get();
+        $types = Type::orderBy('name')->get();
+        $experiences = Experience::orderBy('name')->get();
 
-        return view('admin.properties.create', compact('agencies', 'experiences', 'categories'));
+        return view('admin.properties.create', compact('agencies', 'categories', 'types', 'experiences'));
     }
 
     /**

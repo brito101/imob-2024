@@ -1,0 +1,1 @@
+const prevId=$("#category_id").select2().val();let types=$("#type_id option[data-category]");function changeType(e){types.prop("disabled",!0),$(`#type_id option[data-category=${e}]`).prop("disabled",!1),$("#type_id").val("").trigger("change")}changeType(prevId),$("#category_id").on("select2:select",(function(e){changeType(e.params.data.id)}));

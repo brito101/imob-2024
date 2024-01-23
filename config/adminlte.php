@@ -368,10 +368,30 @@ return [
                             'can'  => 'Listar Etapas',
                         ],
                         [
-                            'text' => 'Cadastro de Categorias',
+                            'text' => 'Cadastro de Categoria',
                             'url'  => 'admin/categories/create',
                             'icon' => 'fas fa-fw fa-chevron-right',
                             'can'  => 'Criar Etapas',
+                        ],
+                    ],
+                ],
+                [
+                    'text'        => 'Tipos',
+                    'url'         => '#',
+                    'icon'        => 'fas fa-fw fa-circle mr-2',
+                    'can'         => 'Acessar Tipos',
+                    'submenu' => [
+                        [
+                            'text' => 'Listagem de Tipos',
+                            'url'  => 'admin/types',
+                            'icon' => 'fas fa-fw fa-chevron-right',
+                            'can'  => 'Listar Tipos',
+                        ],
+                        [
+                            'text' => 'Cadastro de Tipo',
+                            'url'  => 'admin/types/create',
+                            'icon' => 'fas fa-fw fa-chevron-right',
+                            'can'  => 'Criar Tipos',
                         ],
                     ],
                 ],
@@ -388,7 +408,7 @@ return [
                             'can'  => 'Listar Etapas',
                         ],
                         [
-                            'text' => 'Cadastro de Experiências',
+                            'text' => 'Cadastro de Experiência',
                             'url'  => 'admin/experiences/create',
                             'icon' => 'fas fa-fw fa-chevron-right',
                             'can'  => 'Criar Etapas',

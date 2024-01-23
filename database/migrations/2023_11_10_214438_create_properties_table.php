@@ -18,7 +18,12 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->nullable();
             $table->string('headline')->nullable();
+            $table->string('type')->nullable();
             $table->foreignId('category_id')
+                ->nullable()
+                ->constrained()
+                ->onDelete('cascade');
+            $table->foreignId('type_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('cascade');
@@ -27,9 +32,6 @@ return new class extends Migration
                 ->constrained()
                 ->onDelete('cascade');
             $table->string('cover')->nullable();
-
-            $table->string('type')->nullable();
-
             $table->boolean('sale')->nullable();
             $table->boolean('rent')->nullable();
 

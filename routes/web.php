@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\{
     ExperienceController,
     PropertyController,
     StepController,
+    TypeController,
 };
 
 use Illuminate\Support\Facades\Auth;
@@ -57,8 +58,11 @@ Route::group(['middleware' => ['auth']], function () {
         /** Steps */
         Route::resource('steps', StepController::class)->except('show');
 
-        /** Experiences */
+        /** Categories */
         Route::resource('categories', CategoryController::class)->except('show');
+
+         /** Types */
+         Route::resource('types', TypeController::class)->except('show');
 
         /** Experiences */
         Route::resource('experiences', ExperienceController::class)->except('show');

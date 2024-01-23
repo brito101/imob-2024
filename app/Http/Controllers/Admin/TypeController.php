@@ -4,37 +4,37 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\CheckPermission;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\CategoryRequest;
+use App\Http\Requests\Admin\TypeRequest;
 use App\Models\Category;
-use App\Models\Views\Category as ViewsCategory;
+use App\Models\Type;
+use App\Models\Views\Type as ViewsType;
 use Illuminate\Http\Request;
 use DataTables;
-use Illuminate\Support\Str;
 
-class CategoryController extends Controller
+class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        CheckPermission::checkAuth('Listar Categorias');      
+        CheckPermission::checkAuth('Listar Tipos');
 
         if ($request->ajax()) {
-            $categories = ViewsCategory::all();
+            $types = ViewsType::all();
             $token = csrf_token();
 
-            return Datatables::of($categories)
+            return Datatables::of($types)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) use ($token) {
-                    $btn = '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="categories/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' . '<form method="POST" action="categories/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão desta categoria?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
+                    $btn = '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="types/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' . '<form method="POST" action="types/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão deste tipo?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
                 ->make();
         }
 
-        return view('admin.categories.index');
+        return view('admin.types.index');
     }
 
     /**
@@ -42,25 +42,26 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        CheckPermission::checkAuth('Criar Categorias');
+        CheckPermission::checkAuth('Criar Tipos');
+        $categories = Category::orderBy('name')->get();
 
-        return view('admin.categories.create');
+        return view('admin.types.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryRequest $request)
+    public function store(TypeRequest $request)
     {
-        CheckPermission::checkAuth('Criar Categorias');
+        CheckPermission::checkAuth('Criar Tipos');
 
         $data = $request->all();
 
-        $category = Category::create($data);
+        $type = Type::create($data);
 
-        if ($category->save()) {
+        if ($type->save()) {
             return redirect()
-                ->route('admin.categories.index')
+                ->route('admin.types.index')
                 ->with('success', 'Cadastro realizado!');
         } else {
             return redirect()
@@ -75,35 +76,37 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        CheckPermission::checkAuth('Editar Categorias');
+        CheckPermission::checkAuth('Editar Tipos');
 
-        $category = Category::find($id);
+        $type = Type::find($id);
 
-        if (!$category) {
+        if (!$type) {
             abort(403, 'Acesso não autorizado');
         }
 
-        return view('admin.categories.edit', compact('category'));
+        $categories = Category::orderBy('name')->get();
+
+        return view('admin.types.edit', compact('type', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryRequest $request, string $id)
+    public function update(TypeRequest $request, string $id)
     {
-        CheckPermission::checkAuth('Editar Categorias');
+        CheckPermission::checkAuth('Editar Tipos');
 
-        $category = Category::find($id);
+        $type = Type::find($id);
 
-        if (!$category) {
+        if (!$type) {
             abort(403, 'Acesso não autorizado');
         }
 
         $data = $request->all();
 
-        if ($category->update($data)) {
+        if ($type->update($data)) {
             return redirect()
-                ->route('admin.categories.index')
+                ->route('admin.types.index')
                 ->with('success', 'Atualização realizada!');
         } else {
             return redirect()
@@ -118,17 +121,17 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        CheckPermission::checkAuth('Excluir Categorias');
+        CheckPermission::checkAuth('Excluir Tipos');
 
-        $category = Category::find($id);
+        $type = Type::find($id);
 
-        if (!$category) {
+        if (!$type) {
             abort(403, 'Acesso não autorizado');
         }
 
-        if ($category->delete()) {
+        if ($type->delete()) {
             return redirect()
-                ->route('admin.categories.index')
+                ->route('admin.types.index')
                 ->with('success', 'Exclusão realizada!');
         } else {
             return redirect()

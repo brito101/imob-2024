@@ -3,13 +3,17 @@
     "/css/app.css": "/css/app.css",
     "/img/403-error.webp": "/img/403-error.webp",
     "/img/404-error.webp": "/img/404-error.webp",
+    "/img/experiences/alto.webp": "/img/experiences/alto.webp",
     "/img/experiences/alto_padrao.webp": "/img/experiences/alto_padrao.webp",
     "/img/experiences/apartamento.webp": "/img/experiences/apartamento.webp",
     "/img/experiences/casa.webp": "/img/experiences/casa.webp",
     "/img/experiences/cobertura.webp": "/img/experiences/cobertura.webp",
+    "/img/experiences/comercial.webp": "/img/experiences/comercial.webp",
     "/img/experiences/compacto.webp": "/img/experiences/compacto.webp",
+    "/img/experiences/condominio.webp": "/img/experiences/condominio.webp",
     "/img/experiences/condominio_fechado.webp": "/img/experiences/condominio_fechado.webp",
     "/img/experiences/de_frente_pro_marl.webp": "/img/experiences/de_frente_pro_marl.webp",
+    "/img/experiences/mar.webp": "/img/experiences/mar.webp",
     "/img/experiences/sala_comercia.webp": "/img/experiences/sala_comercia.webp",
     "/img/experiences/terreno.webp": "/img/experiences/terreno.webp",
     "/img/favicon.svg": "/img/favicon.svg",
@@ -17,5 +21,6 @@
     "/js/address.js": "/js/address.js",
     "/js/phone.js": "/js/phone.js",
     "/js/document-person.js": "/js/document-person.js",
-    "/js/kanban.js": "/js/kanban.js"
+    "/js/kanban.js": "/js/kanban.js",
+    "/js/properties-type.js": "/js/properties-type.js"
 }

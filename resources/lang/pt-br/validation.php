@@ -269,6 +269,7 @@ return [
         'cover' => 'foto',
         'experience_id' => 'experiência',
         'category_id' => 'categoria',
+        'type_id' => 'tipo',
     ],
 
 ];
