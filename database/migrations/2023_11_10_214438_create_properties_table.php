@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
-
             $table->string('title');
             $table->string('slug')->nullable();
             $table->string('headline')->nullable();
@@ -34,6 +33,8 @@ return new class extends Migration
             $table->string('cover')->nullable();
             $table->boolean('sale')->nullable();
             $table->boolean('rent')->nullable();
+
+            //Ok
 
             /** pricing and values */
             $table->decimal('sale_price', 10, 2)->nullable();
@@ -60,24 +61,6 @@ return new class extends Migration
             $table->string('neighborhood')->nullable();
             $table->string('state')->nullable();
             $table->string('city')->nullable();
-
-            /** structure */
-            $table->boolean('air_conditioning')->nullable();
-            $table->boolean('bar')->nullable();
-            $table->boolean('library')->nullable();
-            $table->boolean('barbecue_grill')->nullable();
-            $table->boolean('american_kitchen')->nullable();
-            $table->boolean('fitted_kitchen')->nullable();
-            $table->boolean('pantry')->nullable();
-            $table->boolean('shed')->nullable();
-            $table->boolean('office')->nullable();
-            $table->boolean('bathtub')->nullable();
-            $table->boolean('fireplace')->nullable();
-            $table->boolean('lavatory')->nullable();
-            $table->boolean('furnished')->nullable();
-            $table->boolean('pool')->nullable();
-            $table->boolean('steam_room')->nullable();
-            $table->boolean('view_of_the_sea')->nullable();
 
             $table->string('status')->nullable();
 

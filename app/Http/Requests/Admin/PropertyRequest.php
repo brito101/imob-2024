@@ -58,9 +58,7 @@ class PropertyRequest extends FormRequest
             'rent_price' => 'required_if:rent,on',
             // 'tribute', 'condominium', 'description', 'bedrooms',
             // 'suites', 'bathrooms', 'rooms', 'garage', 'garage_covered', 'area_total', 'area_util',
-            // 'zipcode', 'street', 'number', 'complement', 'neighborhood', 'state', 'city', 'air_conditioning',
-            // 'bar', 'library', 'barbecue_grill', 'american_kitchen', 'fitted_kitchen', 'pantry', 'shed',
-            // 'office', 'bathtub', 'fireplace', 'lavatory', 'furnished', 'pool', 'steam_room', 'view_of_the_sea',
+            // 'zipcode', 'street', 'number', 'complement', 'neighborhood', 'state', 'city',
             // 'status', 'user_id', 'agency_id', 'client_id', 'owner',
         ];
     }
