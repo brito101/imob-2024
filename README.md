@@ -5,6 +5,7 @@
 - Prospecting steps controller
 - Categories controller
 - Types controller
+- Differentials controller
 - Experiences controller
 - User controller
 - Agency controller with brokers

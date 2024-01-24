@@ -396,6 +396,26 @@ return [
                     ],
                 ],
                 [
+                    'text'        => 'Diferenciais',
+                    'url'         => '#',
+                    'icon'        => 'fas fa-fw fa-list mr-2',
+                    'can'         => 'Acessar Diferenciais',
+                    'submenu' => [
+                        [
+                            'text' => 'Listagem de Diferenciais',
+                            'url'  => 'admin/differentials',
+                            'icon' => 'fas fa-fw fa-chevron-right',
+                            'can'  => 'Listar Diferenciais',
+                        ],
+                        [
+                            'text' => 'Cadastro de Diferencial',
+                            'url'  => 'admin/differentials/create',
+                            'icon' => 'fas fa-fw fa-chevron-right',
+                            'can'  => 'Criar Diferenciais',
+                        ],
+                    ],
+                ],
+                [
                     'text'        => 'Experiências',
                     'url'         => '#',
                     'icon'        => 'fas fa-fw fa-cloud mr-2',

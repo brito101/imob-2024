@@ -14,6 +14,7 @@
             display: none;
         }
     </style>
+    <link rel="stylesheet" href="{{ asset('vendor/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 @endsection
 
 
@@ -130,6 +131,26 @@
                                             :config="$config">
                                             {!! old('description') !!}
                                         </x-adminlte-text-editor>
+                                    </div>
+
+                                    <div class="col-12 px-0">
+                                        <label for="differentials">Diferenciais</label>
+                                        <div class="d-flex flex-wrap justify-content-start">
+                                            @foreach ($differentials as $differential)
+                                                <div class="col-12 col-md-4">
+                                                    <div class="card p-0">
+                                                        <div class="card-body icheck-primary">
+                                                            <input type="checkbox"
+                                                                name="differential_{{ $differential->id }}"
+                                                                id="differential_{{ $differential->id }}">
+                                                            <label for="differential_{{ $differential->id }}"
+                                                                class="my-0 ml-2">{{ $differential->name }}</label>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     </div>
 
                                     <div class="col-12 col-md-4 form-group px-0 pr-md-2">

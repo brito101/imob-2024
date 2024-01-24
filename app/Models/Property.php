@@ -19,4 +19,10 @@ class Property extends Model
         'office', 'bathtub', 'fireplace', 'lavatory', 'furnished', 'pool', 'steam_room', 'view_of_the_sea',
         'status', 'views', 'user_id', 'agency_id', 'client_id', 'owner'
     ];
+
+    /** Relationships */
+    public function differentials()
+    {
+        return $this->hasMany(PropertyDifferentials::class);
+    }
 }

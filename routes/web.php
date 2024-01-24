@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\{
     ChangelogController,
     ClientController,
     ClientFunnelController,
+    DifferentialController,
     ExperienceController,
     PropertyController,
     StepController,
@@ -61,8 +62,11 @@ Route::group(['middleware' => ['auth']], function () {
         /** Categories */
         Route::resource('categories', CategoryController::class)->except('show');
 
-         /** Types */
-         Route::resource('types', TypeController::class)->except('show');
+        /** Types */
+        Route::resource('types', TypeController::class)->except('show');
+
+        /** Types */
+        Route::resource('differentials', DifferentialController::class)->except('show');
 
         /** Experiences */
         Route::resource('experiences', ExperienceController::class)->except('show');

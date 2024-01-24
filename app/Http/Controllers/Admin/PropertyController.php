@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PropertyRequest;
 use App\Models\Agency;
 use App\Models\Category;
+use App\Models\Differential;
 use App\Models\Experience;
 use App\Models\Property;
 use App\Models\Type;
@@ -59,12 +60,13 @@ class PropertyController extends Controller
         } else {
             $agencies = Agency::whereIn('id', Auth::user()->brokers->pluck('agency_id'))->get();
         }
-       
+
         $categories = Category::orderBy('name')->get();
         $types = Type::orderBy('name')->get();
         $experiences = Experience::orderBy('name')->get();
+        $differentials = Differential::orderBy('name')->get();
 
-        return view('admin.properties.create', compact('agencies', 'categories', 'types', 'experiences'));
+        return view('admin.properties.create', compact('agencies', 'categories', 'types', 'experiences', 'differentials'));
     }
 
     /**

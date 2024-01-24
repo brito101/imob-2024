@@ -54,6 +54,7 @@
                                         <li>Módulo de ACL com perfis e permissões</li>
                                         <li>Módulo de Categorias</li>
                                         <li>Módulo de Tipos</li>
+                                        <li>Módulo de Diferenciais</li>
                                         <li>Módulo de Experiências</li>
                                         <li>Módulo de Usuários</li>
                                         <li>Módulo de Agências</li>
