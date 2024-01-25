@@ -11,11 +11,12 @@ class Property extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'title', 'slug', 'headline', 'cover', 'category_id', 'type_id', 'experience_id', 'sale', 'rent',
-        'sale_price', 'rent_price', 'tribute', 'condominium', 'description', 'bedrooms',
+        'title', 'slug', 'headline', 'cover', 'category_id', 'type_id', 'experience_id', 'goal', 'status', 'owner',
+        'sale_price', 'rent_price', 'condominium', 'description',
+        //ok
+        'bedrooms',
         'suites', 'bathrooms', 'rooms', 'garage', 'garage_covered', 'area_total', 'area_util',
-        'zipcode', 'street', 'number', 'complement', 'neighborhood', 'state', 'city',
-        'status', 'views', 'user_id', 'agency_id', 'client_id', 'owner'
+        'zipcode', 'street', 'number', 'complement', 'neighborhood', 'state', 'city', 'views', 'user_id', 'agency_id', 'client_id',
     ];
 
     /** Relationships */

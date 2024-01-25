@@ -270,6 +270,7 @@ return [
         'experience_id' => 'experiência',
         'category_id' => 'categoria',
         'type_id' => 'tipo',
+        'goal' => 'finalidade',
     ],
 
 ];

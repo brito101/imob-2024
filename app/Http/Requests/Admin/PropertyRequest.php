@@ -14,29 +14,12 @@ class PropertyRequest extends FormRequest
         return true;
     }
 
-    public function prepareForValidation()
+    protected function prepareForValidation()
     {
-        $sale = false;
-        $rent = false;
-
-        switch ($this->goal) {
-            case 'Venda':
-                $sale = true;
-                break;
-            case 'Locação':
-                $rent = true;
-                break;
-            case 'Venda ou Locação':
-                $sale = true;
-                $rent = true;
-                break;
-            default:
-                $sale = true;
-                break;
-        }
         $this->merge([
-            'sale' => $sale,
-            'rent' => $rent,
+            'sale_price'  => str_replace(',', '.', str_replace('.', '', str_replace('R$ ', '', $this->sale_price))),
+            'rent_price'  => str_replace(',', '.', str_replace('.', '', str_replace('R$ ', '', $this->rent_price))),
+            'condominium'  => str_replace(',', '.', str_replace('.', '', str_replace('R$ ', '', $this->condominium))),
         ]);
     }
 
@@ -50,16 +33,23 @@ class PropertyRequest extends FormRequest
         return [
             'title'  => 'required|max:191',
             'headline'  => 'required|max:191',
+            'cover' => 'image|mimes:jpg,png,jpeg,gif,svg,webp|max:4096|dimensions:max_width=4000,max_height=4000',
             'category_id' => 'required|exists:categories,id',
             'experience_id' => 'required|exists:experiences,id',
-            //  'sale', 'rent',
-            'type' => 'required',
-            'sale_price' => 'required_if:sale,on',
-            'rent_price' => 'required_if:rent,on',
-            // 'tribute', 'condominium', 'description', 'bedrooms',
+            'type_id' => 'required|exists:types,id',
+            'goal' => 'required|in:Venda,Locação,Venda ou Locação',
+            'status' => 'required|in:Disponível,Indisponível',            
+            'owner' => 'nullable|max:191',
+            'sale_price' => 'nullable||numeric|between:0,999999999.999',
+            'rent_price' => 'nullable||numeric|between:0,999999999.999',
+            'condominium' => 'nullable||numeric|between:0,999999999.999',
+            'description' => 'required|max:400000000',
+            //ok
+
+            // 'bedrooms',
             // 'suites', 'bathrooms', 'rooms', 'garage', 'garage_covered', 'area_total', 'area_util',
             // 'zipcode', 'street', 'number', 'complement', 'neighborhood', 'state', 'city',
-            // 'status', 'user_id', 'agency_id', 'client_id', 'owner',
+            // 'user_id', 'agency_id', 'client_id',
         ];
     }
 }

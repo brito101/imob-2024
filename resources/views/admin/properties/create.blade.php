@@ -62,6 +62,7 @@
                                             placeholder="Título do Anúncio" name="title" value="{{ old('title') }}"
                                             required>
                                     </div>
+
                                     <div class="col-12 col-md-6 form-group px-0 pl-md-2">
                                         <label for="headline">Headline</label>
                                         <input type="text" class="form-control" id="headline"
@@ -74,7 +75,7 @@
                                             placeholder="Selecione uma imagem..." legend="Selecionar" />
                                     </div>
 
-                                    <div class="col-12 col-md-4 form-group px-0 pr-md-2">
+                                    <div class="col-12 col-md-3 form-group px-0 pr-md-2">
                                         <label for="category">Categoria</label>
                                         <x-adminlte-select2 name="category_id" id="category_id" required>
                                             @foreach ($categories as $category)
@@ -84,7 +85,7 @@
                                         </x-adminlte-select2>
                                     </div>
 
-                                    <div class="col-12 col-md-4 form-group px-0 px-md-2">
+                                    <div class="col-12 col-md-3 form-group px-0 px-md-2">
                                         <label for="type_id">Tipo</label>
                                         <x-adminlte-select2 name="type_id" id="type_id" data-placeholder="Selecione..."
                                             required>
@@ -95,7 +96,8 @@
                                             @endforeach
                                         </x-adminlte-select2>
                                     </div>
-                                    <div class="col-12 col-md-4 form-group px-0 pl-md-2">
+
+                                    <div class="col-12 col-md-3 form-group px-0 px-md-2">
                                         <label for="experience">Experiência</label>
                                         <x-adminlte-select2 name="experience" id="experience_id" required>
                                             @foreach ($experiences as $experience)
@@ -103,6 +105,52 @@
                                                     value="{{ $experience->id }}">{{ $experience->name }}</option>
                                             @endforeach
                                         </x-adminlte-select2>
+                                    </div>
+
+                                    <div class="col-12 col-md-3 form-group px-0 pl-md-2">
+                                        <label for="goal">Finalidade</label>
+                                        <x-adminlte-select2 name="experience" id="goal_id" required>
+                                            <option {{ old('goal') == 'Venda' ? 'selected' : '' }}>Venda</option>
+                                            <option {{ old('goal') == 'Locação' ? 'selected' : '' }}>Locação</option>
+                                            <option {{ old('goal') == 'Venda ou Locação' ? 'selected' : '' }}>Venda ou
+                                                Locação</option>
+                                        </x-adminlte-select2>
+                                    </div>
+
+                                    <div class="col-12 col-md-3 form-group px-0 pr-md-2">
+                                        <label for="status_id">Status</label>
+                                        <x-adminlte-select2 name="status" id="status_id" required>
+                                            <option {{ old('status') == 'Disponível' ? 'selected' : '' }}>Disponível
+                                            </option>
+                                            <option {{ old('Indisponível') == 'Indisponível' ? 'selected' : '' }}>
+                                                Indisponível
+                                            </option>
+                                        </x-adminlte-select2>
+                                    </div>
+
+                                    <div class="col-12 col-md-3 form-group px-0 px-md-2">
+                                        <label for="sale_price">Valor de Venda</label>
+                                        <input type="text" class="form-control money_format_2" id="sale_price"
+                                            placeholder="R$" name="sale_price" value="{{ old('sale_price') }}">
+                                    </div>
+
+                                    <div class="col-12 col-md-3 form-group px-0 px-md-2">
+                                        <label for="rent_price">Valor de Locação</label>
+                                        <input type="text" class="form-control money_format_2" id="rent_price"
+                                            placeholder="R$" name="rent_price" value="{{ old('rent_price') }}">
+                                    </div>
+
+                                    <div class="col-12 col-md-3 form-group px-0 pl-md-2">
+                                        <label for="condominium">Valor de Condomínio</label>
+                                        <input type="text" class="form-control money_format_2" id="condominium"
+                                            placeholder="R$" name="condominium" value="{{ old('condominium') }}">
+                                    </div>
+
+                                    <div class="col-12 form-group px-0">
+                                        <label for="owner">Proprietário</label>
+                                        <input type="text" class="form-control" id="owner"
+                                            placeholder="Dados do Proprietário (facultativo)" name="owner"
+                                            value="{{ old('owner') }}">
                                     </div>
 
                                     @php
@@ -152,18 +200,6 @@
                                             @endforeach
                                         </div>
                                     </div>
-
-                                    <div class="col-12 col-md-4 form-group px-0 pr-md-2">
-                                        <label for="goal">Finalidade</label>
-                                        <x-adminlte-select-bs name="goal">
-                                            <option {{ old('goal') == 'Venda' ? 'selected' : '' }}>Venda</option>
-                                            <option {{ old('goal') == 'Locação' ? 'selected' : '' }}>Locação</option>
-                                            <option {{ old('goal') == 'Venda ou Locação' ? 'selected' : '' }}>Venda ou
-                                                Locação</option>
-                                        </x-adminlte-select-bs>
-                                    </div>
-
-
                                 </div>
 
                             </div>
@@ -182,4 +218,6 @@
 
 @section('custom_js')
     <script src="{{ asset('js/properties-type.js') }}"></script>
+    <script src="{{ asset('vendor/jquery/jquery.inputmask.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/money.js') }}"></script>
 @endsection
