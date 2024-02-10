@@ -271,6 +271,7 @@ return [
         'category_id' => 'categoria',
         'type_id' => 'tipo',
         'goal' => 'finalidade',
+        'video' => 'vídeo',
     ],
 
 ];

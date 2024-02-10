@@ -28,23 +28,26 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('goal')->nullable();
             $table->string('status')->nullable();
-            $table->string('owner')->nullable();
+            
+            $table->unsignedBigInteger('owner')->nullable();
+            $table->foreign('owner')->references('id')->on('clients')->onDelete('CASCADE');
+
             $table->decimal('sale_price', 10, 2)->nullable();
             $table->decimal('rent_price', 10, 2)->nullable();
             $table->decimal('condominium', 10, 2)->nullable();
             $table->longText('description')->nullable();
+            $table->string('video')->nullable();
 
             $table->integer('rooms')->default('0');
             $table->integer('bedrooms')->default('0');
             $table->integer('suites')->default('0');
-            $table->integer('bathrooms')->default('0');            
+            $table->integer('bathrooms')->default('0');
             $table->integer('garage')->default('0');
             $table->integer('garage_covered')->default('0');
             $table->decimal('area_util')->default('0');
             $table->decimal('area_total')->default('0');
-            //Ok
 
-            /** address */
+            // Address
             $table->string('zipcode')->nullable();
             $table->string('street')->nullable();
             $table->string('number')->nullable();
@@ -52,8 +55,7 @@ return new class extends Migration
             $table->string('neighborhood')->nullable();
             $table->string('state')->nullable();
             $table->string('city')->nullable();
-
-            $table->string('video')->nullable();
+            //Ok
 
             $table->bigInteger('views')->default(0);
 
@@ -63,7 +65,6 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->onDelete('cascade');
-
 
             $table->softDeletes();
             $table->timestamps();

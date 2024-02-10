@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PropertyRequest;
 use App\Models\Agency;
 use App\Models\Category;
+use App\Models\Client;
 use App\Models\Differential;
 use App\Models\Experience;
 use App\Models\Property;
@@ -65,8 +66,9 @@ class PropertyController extends Controller
         $types = Type::orderBy('name')->get();
         $experiences = Experience::orderBy('name')->get();
         $differentials = Differential::orderBy('name')->get();
+        $clients = Client::orderBy('name')->get();
 
-        return view('admin.properties.create', compact('agencies', 'categories', 'types', 'experiences', 'differentials'));
+        return view('admin.properties.create', compact('agencies', 'categories', 'types', 'experiences', 'differentials', 'clients'));
     }
 
     /**

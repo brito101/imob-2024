@@ -14,8 +14,10 @@ class Property extends Model
         'title', 'slug', 'headline', 'cover', 'type_id', 'experience_id', 'goal', 'status', 'owner',
         'sale_price', 'rent_price', 'condominium', 'description',
         'rooms', 'bedrooms', 'suites', 'bathrooms', 'garage', 'garage_covered', 'area_total', 'area_util',
+        'zipcode', 'street', 'number', 'complement', 'neighborhood', 'state', 'city',
+        'video',
         //ok        
-        'zipcode', 'street', 'number', 'complement', 'neighborhood', 'state', 'city', 'views', 'user_id', 'agency_id', 'client_id',
+         'views', 'user_id', 'agency_id', 'client_id',
     ];
 
     /** Relationships */

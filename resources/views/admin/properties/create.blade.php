@@ -138,9 +138,15 @@
 
                                     <div class="col-12 form-group px-0">
                                         <label for="owner">Proprietário</label>
-                                        <input type="text" class="form-control" id="owner"
-                                            placeholder="Dados do Proprietário (facultativo)" name="owner"
-                                            value="{{ old('owner') }}">
+                                        <x-adminlte-select2 name="owner" id="owner">
+                                            <option {{ old('owner') == '' ? 'selected' : '' }}>Não Informado</option>
+                                            @foreach ($clients as $client)
+                                                <option {{ old('owner') == $client->id ? 'selected' : '' }}
+                                                    value="{{ $client->id }}">
+                                                    {{ $client->name . ' ' . ($client->document_person ? '- CPF: ' . $client->document_person : '') }}
+                                                </option>
+                                            @endforeach
+                                        </x-adminlte-select2>
                                     </div>
 
                                     @php
@@ -169,6 +175,13 @@
                                             :config="$config">
                                             {!! old('description') !!}
                                         </x-adminlte-text-editor>
+                                    </div>
+
+                                    <div class="col-12 form-group px-0">
+                                        <label for="instagram">Vídeo de apresentação do Youtube</label>
+                                        <input type="url" class="form-control" id="video"
+                                            placeholder="https://www.youtube.com/watch?v=..." name="video"
+                                            value="{{ old('video') }}">
                                     </div>
 
                                     <div class="col-12 col-md-3 form-group px-0 pr-md-2">
@@ -219,8 +232,6 @@
                                             placeholder="m2" name="area_total" value="{{ old('area_total') }}">
                                     </div>
 
-
-
                                     <div class="col-12 px-0">
                                         <label for="differentials">Diferenciais</label>
                                         <div class="d-flex flex-wrap justify-content-start">
@@ -240,6 +251,48 @@
                                             @endforeach
                                         </div>
                                     </div>
+
+                                    <h3 class="h6 col-12 px-0 mt-2 text-bold">Endereço</h3>
+
+                                    <div class="col-12 col-md-4 form-group px-0 pr-md-2">
+                                        <label for="zipcode">CEP</label>
+                                        <input type="tel" class="form-control" id="zipcode" placeholder="CEP"
+                                            name="zipcode" value="{{ old('zipcode') }}">
+                                    </div>
+                                    <div class="col-12 col-md-8 form-group px-0 pl-md-2">
+                                        <label for="street">Rua</label>
+                                        <input type="text" class="form-control" id="street" placeholder="Rua"
+                                            name="street" value="{{ old('street') }}">
+                                    </div>
+
+                                    <div class="col-12 col-md-4 form-group px-0 pr-md-2">
+                                        <label for="number">Número</label>
+                                        <input type="text" class="form-control" id="number" placeholder="Número"
+                                            name="number" value="{{ old('number') }}">
+                                    </div>
+                                    <div class="col-12 col-md-8 form-group px-0 pl-md-2">
+                                        <label for="complement">Complemento</label>
+                                        <input type="text" class="form-control" id="complement"
+                                            placeholder="Complemento" name="complement" value="{{ old('complement') }}">
+                                    </div>
+
+                                    <div class="col-12 col-md-6 form-group px-0 pr-md-2">
+                                        <label for="neighborhood">Bairro</label>
+                                        <input type="text" class="form-control" id="neighborhood"
+                                            placeholder="Bairro" name="neighborhood" value="{{ old('neighborhood') }}">
+                                    </div>
+                                    <div class="col-12 col-md-4 form-group px-0 px-md-2">
+                                        <label for="city">Cidade</label>
+                                        <input type="text" class="form-control" id="city" placeholder="Cidade"
+                                            name="city" value="{{ old('city') }}">
+                                    </div>
+
+                                    <div class="col-12 col-md-2 form-group px-0 pl-md-2">
+                                        <label for="state">Estado</label>
+                                        <input type="text" class="form-control" id="state" placeholder="UF"
+                                            name="state" value="{{ old('state') }}">
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -259,4 +312,5 @@
 @section('custom_js')
     <script src="{{ asset('vendor/jquery/jquery.inputmask.bundle.min.js') }}"></script>
     <script src="{{ asset('js/money.js') }}"></script>
+    <script src="{{ asset('js/address.js') }}"></script>
 @endsection
