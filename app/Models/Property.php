@@ -13,9 +13,8 @@ class Property extends Model
     protected $fillable = [
         'title', 'slug', 'headline', 'cover', 'type_id', 'experience_id', 'goal', 'status', 'owner',
         'sale_price', 'rent_price', 'condominium', 'description',
-        //ok
-        'bedrooms',
-        'suites', 'bathrooms', 'rooms', 'garage', 'garage_covered', 'area_total', 'area_util',
+        'rooms', 'bedrooms', 'suites', 'bathrooms', 'garage', 'garage_covered', 'area_total', 'area_util',
+        //ok        
         'zipcode', 'street', 'number', 'complement', 'neighborhood', 'state', 'city', 'views', 'user_id', 'agency_id', 'client_id',
     ];
 

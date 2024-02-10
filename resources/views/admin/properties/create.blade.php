@@ -88,8 +88,8 @@
                                     </div>
 
                                     <div class="col-12 col-md-3 form-group px-0 px-md-2">
-                                        <label for="experience">Experiência</label>
-                                        <x-adminlte-select2 name="experience" id="experience_id" required>
+                                        <label for="experience_id">Experiência</label>
+                                        <x-adminlte-select2 name="experience_id" id="experience_id" required>
                                             @foreach ($experiences as $experience)
                                                 <option {{ old('experience_id') == $experience->id ? 'selected' : '' }}
                                                     value="{{ $experience->id }}">{{ $experience->name }}</option>
@@ -99,7 +99,7 @@
 
                                     <div class="col-12 col-md-3 form-group px-0 px-md-2">
                                         <label for="goal">Finalidade</label>
-                                        <x-adminlte-select2 name="experience" id="goal_id" required>
+                                        <x-adminlte-select2 name="goal" id="goal" required>
                                             <option {{ old('goal') == 'Venda' ? 'selected' : '' }}>Venda</option>
                                             <option {{ old('goal') == 'Locação' ? 'selected' : '' }}>Locação</option>
                                             <option {{ old('goal') == 'Venda ou Locação' ? 'selected' : '' }}>Venda ou
@@ -170,6 +170,56 @@
                                             {!! old('description') !!}
                                         </x-adminlte-text-editor>
                                     </div>
+
+                                    <div class="col-12 col-md-3 form-group px-0 pr-md-2">
+                                        <label for="rooms">Salas</label>
+                                        <input type="number" step="1" class="form-control" id="rooms"
+                                            placeholder="Qtd" name="rooms" value="{{ old('rooms') }}">
+                                    </div>
+
+                                    <div class="col-12 col-md-3 form-group px-0 px-md-2">
+                                        <label for="bedrooms">Quartos</label>
+                                        <input type="number" step="1" class="form-control" id="bedrooms"
+                                            placeholder="Qtd" name="bedrooms" value="{{ old('bedrooms') }}">
+                                    </div>
+
+                                    <div class="col-12 col-md-3 form-group px-0 px-md-2">
+                                        <label for="bathrooms">Banheiros</label>
+                                        <input type="number" step="1" class="form-control" id="bathrooms"
+                                            placeholder="Qtd" name="bathrooms" value="{{ old('bathrooms') }}">
+                                    </div>
+
+                                    <div class="col-12 col-md-3 form-group px-0 pl-md-2">
+                                        <label for="suites">Suites</label>
+                                        <input type="number" step="1" class="form-control" id="suites"
+                                            placeholder="Qtd" name="suites" value="{{ old('suites') }}">
+                                    </div>
+
+                                    <div class="col-12 col-md-3 form-group px-0 pr-md-2">
+                                        <label for="garage">Garagens</label>
+                                        <input type="number" step="1" class="form-control" id="garage"
+                                            placeholder="Qtd" name="garage" value="{{ old('garage') }}">
+                                    </div>
+
+                                    <div class="col-12 col-md-3 form-group px-0 px-md-2">
+                                        <label for="garage_covered">Garagens Cobertas</label>
+                                        <input type="number" step="1" class="form-control" id="garage_covered"
+                                            placeholder="Qtd" name="garage_covered" value="{{ old('garage_covered') }}">
+                                    </div>
+
+                                    <div class="col-12 col-md-3 form-group px-0 px-md-2">
+                                        <label for="area_util">Área Útil (m<sup>2</sup>)</label>
+                                        <input type="number" step="0.1" class="form-control" id="area_util"
+                                            placeholder="m2" name="area_util" value="{{ old('area_util') }}">
+                                    </div>
+
+                                    <div class="col-12 col-md-3 form-group px-0 pl-md-2">
+                                        <label for="area_total">Área Total (m<sup>2</sup>)</label>
+                                        <input type="number" step="0.1" class="form-control" id="area_total"
+                                            placeholder="m2" name="area_total" value="{{ old('area_total') }}">
+                                    </div>
+
+
 
                                     <div class="col-12 px-0">
                                         <label for="differentials">Diferenciais</label>

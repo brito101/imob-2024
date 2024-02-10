@@ -33,20 +33,16 @@ return new class extends Migration
             $table->decimal('rent_price', 10, 2)->nullable();
             $table->decimal('condominium', 10, 2)->nullable();
             $table->longText('description')->nullable();
-            //Ok
 
-            /** pricing and values */
-
-
-            /** description */
+            $table->integer('rooms')->default('0');
             $table->integer('bedrooms')->default('0');
             $table->integer('suites')->default('0');
-            $table->integer('bathrooms')->default('0');
-            $table->integer('rooms')->default('0');
+            $table->integer('bathrooms')->default('0');            
             $table->integer('garage')->default('0');
             $table->integer('garage_covered')->default('0');
-            $table->integer('area_total')->default('0');
-            $table->integer('area_util')->default('0');
+            $table->decimal('area_util')->default('0');
+            $table->decimal('area_total')->default('0');
+            //Ok
 
             /** address */
             $table->string('zipcode')->nullable();
