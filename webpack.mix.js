@@ -24,7 +24,6 @@ mix.js("resources/js/app.js", "public/js")
         "public/js/document-person.js"
     )
     .scripts(["resources/js/kanban.js"], "public/js/kanban.js")
-    .scripts(["resources/js/properties-type.js"], "public/js/properties-type.js")
     .scripts(["resources/js/money.js"], "public/js/money.js")
     .options({
         processCssUrls: false,

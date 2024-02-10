@@ -11,7 +11,7 @@ class Property extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'title', 'slug', 'headline', 'cover', 'category_id', 'type_id', 'experience_id', 'goal', 'status', 'owner',
+        'title', 'slug', 'headline', 'cover', 'type_id', 'experience_id', 'goal', 'status', 'owner',
         'sale_price', 'rent_price', 'condominium', 'description',
         //ok
         'bedrooms',

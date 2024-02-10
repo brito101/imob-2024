@@ -34,7 +34,6 @@ class PropertyRequest extends FormRequest
             'title'  => 'required|max:191',
             'headline'  => 'required|max:191',
             'cover' => 'image|mimes:jpg,png,jpeg,gif,svg,webp|max:4096|dimensions:max_width=4000,max_height=4000',
-            'category_id' => 'required|exists:categories,id',
             'experience_id' => 'required|exists:experiences,id',
             'type_id' => 'required|exists:types,id',
             'goal' => 'required|in:Venda,Locação,Venda ou Locação',

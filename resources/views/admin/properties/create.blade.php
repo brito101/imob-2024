@@ -76,16 +76,6 @@
                                     </div>
 
                                     <div class="col-12 col-md-3 form-group px-0 pr-md-2">
-                                        <label for="category">Categoria</label>
-                                        <x-adminlte-select2 name="category_id" id="category_id" required>
-                                            @foreach ($categories as $category)
-                                                <option {{ old('category_id') == $category->id ? 'selected' : '' }}
-                                                    value="{{ $category->id }}">{{ $category->name }}</option>
-                                            @endforeach
-                                        </x-adminlte-select2>
-                                    </div>
-
-                                    <div class="col-12 col-md-3 form-group px-0 px-md-2">
                                         <label for="type_id">Tipo</label>
                                         <x-adminlte-select2 name="type_id" id="type_id" data-placeholder="Selecione..."
                                             required>
@@ -107,7 +97,7 @@
                                         </x-adminlte-select2>
                                     </div>
 
-                                    <div class="col-12 col-md-3 form-group px-0 pl-md-2">
+                                    <div class="col-12 col-md-3 form-group px-0 px-md-2">
                                         <label for="goal">Finalidade</label>
                                         <x-adminlte-select2 name="experience" id="goal_id" required>
                                             <option {{ old('goal') == 'Venda' ? 'selected' : '' }}>Venda</option>
@@ -117,7 +107,7 @@
                                         </x-adminlte-select2>
                                     </div>
 
-                                    <div class="col-12 col-md-3 form-group px-0 pr-md-2">
+                                    <div class="col-12 col-md-3 form-group px-0 pl-md-2">
                                         <label for="status_id">Status</label>
                                         <x-adminlte-select2 name="status" id="status_id" required>
                                             <option {{ old('status') == 'Disponível' ? 'selected' : '' }}>Disponível
@@ -128,7 +118,7 @@
                                         </x-adminlte-select2>
                                     </div>
 
-                                    <div class="col-12 col-md-3 form-group px-0 px-md-2">
+                                    <div class="col-12 col-md-3 form-group px-0 pr-md-2">
                                         <label for="sale_price">Valor de Venda</label>
                                         <input type="text" class="form-control money_format_2" id="sale_price"
                                             placeholder="R$" name="sale_price" value="{{ old('sale_price') }}">
@@ -217,7 +207,6 @@
 @endsection
 
 @section('custom_js')
-    <script src="{{ asset('js/properties-type.js') }}"></script>
     <script src="{{ asset('vendor/jquery/jquery.inputmask.bundle.min.js') }}"></script>
     <script src="{{ asset('js/money.js') }}"></script>
 @endsection

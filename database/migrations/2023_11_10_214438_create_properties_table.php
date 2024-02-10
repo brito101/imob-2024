@@ -18,10 +18,6 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->string('headline')->nullable();
             $table->string('cover')->nullable();
-            $table->foreignId('category_id')
-                ->nullable()
-                ->constrained()
-                ->onDelete('cascade');
             $table->foreignId('type_id')
                 ->nullable()
                 ->constrained()
@@ -79,11 +75,11 @@ return new class extends Migration
 
         DB::statement("
         CREATE OR REPLACE VIEW `properties_view` AS
-        SELECT p.id, p.title, p.cover, p.category_id, c.name as category, p.experience_id, e.name as experience, p.type_id, t.name as type, p.goal, p.owner, p.views
+        SELECT p.id, p.title, p.cover, t.category_id, c.name as category, p.experience_id, e.name as experience, p.type_id, t.name as type, p.goal, p.owner, p.views
         FROM properties as p
-        LEFT JOIN categories as c ON c.id=p.category_id
-        LEFT JOIN experiences as e ON e.id=p.experience_id       
-        LEFT JOIN types as t ON t.id=p.type_id       
+        LEFT JOIN types as t ON t.id=p.type_id
+        LEFT JOIN categories as c ON c.id=t.category_id
+        LEFT JOIN experiences as e ON e.id=p.experience_id    
         WHERE p.deleted_at IS NULL
         ");
     }
