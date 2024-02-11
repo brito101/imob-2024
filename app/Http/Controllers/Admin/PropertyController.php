@@ -11,11 +11,16 @@ use App\Models\Client;
 use App\Models\Differential;
 use App\Models\Experience;
 use App\Models\Property;
+use App\Models\PropertyImage;
 use App\Models\Type;
 use App\Models\Views\Property as ViewsProperty;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Image;
 
 class PropertyController extends Controller
 {
@@ -26,9 +31,15 @@ class PropertyController extends Controller
     {
         CheckPermission::checkAuth('Listar Propriedades');
 
-        $properties = ViewsProperty::all();
-
         if ($request->ajax()) {
+
+            if (Auth::user()->hasRole('Programador|Administrador')) {
+                $properties = ViewsProperty::all();
+            } else {
+                $agencies = Auth::user()->brokers->pluck('agency_id');
+                $properties = ViewsProperty::whereIn('agency_id', $agencies)->get();
+            }
+
             $token = csrf_token();
 
             return Datatables::of($properties)
@@ -76,8 +87,103 @@ class PropertyController extends Controller
      */
     public function store(PropertyRequest $request)
     {
-        dd($request->all());
         CheckPermission::checkAuth('Criar Propriedades');
+
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+
+        if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
+            $name = Str::slug(mb_substr($data['title'], 0, 100)) . time();
+            $extension = $request->cover->extension();
+            $nameFile = "{$name}.{$extension}";
+
+            $data['cover'] = $nameFile;
+
+            $destinationPath = storage_path() . '/app/public/properties';
+            $destinationPathMedium = storage_path() . '/app/public/properties/medium';
+            $destinationPathMin = storage_path() . '/app/public/properties/min';
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 755, true);
+            }
+
+            if (!file_exists($destinationPathMedium)) {
+                mkdir($destinationPathMedium, 755, true);
+            }
+
+            if (!file_exists($destinationPathMin)) {
+                mkdir($destinationPathMin, 755, true);
+            }
+
+            $img = Image::make($request->cover)->resize(null, 490, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->crop(860, 490)->save($destinationPath . '/' . $nameFile);
+
+            $imgMedium = Image::make($request->cover)->resize(null, 385, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->crop(675, 385)->save($destinationPathMedium  . '/' .  $nameFile);
+
+            $imgMin = Image::make($request->cover)->resize(null, 207, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->crop(360, 207)->save($destinationPathMin  . '/' .  $nameFile);
+        }
+
+        $property = Property::create($data);
+
+        if ($property->save()) {
+
+            if ($request->images) {
+                $rules = array(
+                    'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000'
+                );
+
+                $validator = Validator::make($request->images, $rules);
+
+                if ($validator) {
+                    foreach ($request->images as $key => $img) {
+                        $name = Str::slug($request->title . '-' . $key) . '-' . time();
+                        $extension = $img->extension();
+
+                        $nameFile = "$name.$extension";
+                        $i['location'] = $nameFile;
+                        $i['order'] =  $key;
+                        $i['property_id'] =  $property->id;
+                        $file = PropertyImage::create($i);
+                        $file->save();
+
+                        $destinationPath = storage_path() . '/app/public/properties/album/';
+
+                        if (!file_exists($destinationPath)) {
+                            mkdir($destinationPath, 755, true);
+                        }
+                        
+                        $img = Image::make($img)->resize(null, 490, function ($constraint) {
+                            $constraint->aspectRatio();
+                            $constraint->upsize();
+                        })->crop(860, 490)->save($destinationPath . '/' . $nameFile);
+
+                        $img->save($destinationPath . '/' . $nameFile);
+                    }
+                } else {
+                    redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('error', 'Falha ao fazer o upload das imagens da propriedade');
+                }
+            }
+
+            return redirect()
+                ->route('admin.properties.index')
+                ->with('success', 'Cadastro realizado!');
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Erro ao cadastrar!');
+        }
     }
 
     /**
@@ -92,6 +198,13 @@ class PropertyController extends Controller
      */
     public function edit(string $id)
     {
+        if (Auth::user()->hasRole('Programador|Administrador')) {
+            $property = Property::find($id);
+        } else {
+            $agencies = Auth::user()->brokers->pluck('agency_id');
+            $property = Property::whereIn('agency_id', $agencies)->find($id);
+        }
+
         CheckPermission::checkAuth('Editar Propriedades');
     }
 
@@ -108,6 +221,28 @@ class PropertyController extends Controller
      */
     public function destroy(string $id)
     {
+        if (Auth::user()->hasRole('Programador|Administrador')) {
+            $property = Property::find($id);
+        } else {
+            $agencies = Auth::user()->brokers->pluck('agency_id');
+            $property = Property::whereIn('agency_id', $agencies)->find($id);
+        }
+
+        if (!$property) {
+            abort(403, 'Acesso não autorizado');
+        }
+
+        if ($property->delete()) {
+            return redirect()
+                ->route('admin.properties.index')
+                ->with('success', 'Exclusão realizada!');
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Erro ao atualizar!');
+        }
+
         CheckPermission::checkAuth('Excluir Propriedades');
     }
 }

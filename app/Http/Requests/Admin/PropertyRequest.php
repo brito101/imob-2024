@@ -39,6 +39,7 @@ class PropertyRequest extends FormRequest
             'goal' => 'required|in:Venda,Locação,Venda ou Locação',
             'status' => 'required|in:Disponível,Indisponível',
             'owner' => 'nullable||exists:clients,id',
+            'client_id' => 'nullable||exists:clients,id',
             'sale_price' => 'nullable||numeric|between:0,999999999.999',
             'rent_price' => 'nullable||numeric|between:0,999999999.999',
             'condominium' => 'nullable||numeric|between:0,999999999.999',
@@ -59,8 +60,7 @@ class PropertyRequest extends FormRequest
             'neighborhood' => 'nullable|max:191',
             'state' => 'nullable|max:191',
             'city' => 'nullable|max:191',
-            //ok
-            // 'user_id', 'agency_id', 'client_id',
+            'agency_id' => 'nullable|exists:agencies,id'
         ];
     }
 }

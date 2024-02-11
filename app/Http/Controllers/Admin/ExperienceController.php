@@ -82,13 +82,6 @@ class ExperienceController extends Controller
                 $constraint->aspectRatio();
                 $constraint->upsize();
             })->save($destinationPath . '/' . $nameFile);
-
-            if (!$img) {
-                return redirect()
-                    ->back()
-                    ->withInput()
-                    ->with('error', 'Falha ao fazer o upload da imagem');
-            }
         }
 
         $experience = Experience::create($data);

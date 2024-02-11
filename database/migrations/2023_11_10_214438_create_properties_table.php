@@ -28,9 +28,13 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('goal')->nullable();
             $table->string('status')->nullable();
-            
+
             $table->unsignedBigInteger('owner')->nullable();
             $table->foreign('owner')->references('id')->on('clients')->onDelete('CASCADE');
+            $table->foreignId('client_id')
+                ->nullable()
+                ->constrained()
+                ->onDelete('cascade');
 
             $table->decimal('sale_price', 10, 2)->nullable();
             $table->decimal('rent_price', 10, 2)->nullable();
@@ -38,14 +42,14 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->string('video')->nullable();
 
-            $table->integer('rooms')->default('0');
-            $table->integer('bedrooms')->default('0');
-            $table->integer('suites')->default('0');
-            $table->integer('bathrooms')->default('0');
-            $table->integer('garage')->default('0');
-            $table->integer('garage_covered')->default('0');
-            $table->decimal('area_util')->default('0');
-            $table->decimal('area_total')->default('0');
+            $table->integer('rooms')->nullable()->default(0);
+            $table->integer('bedrooms')->nullable()->default(0);
+            $table->integer('suites')->nullable()->default(0);
+            $table->integer('bathrooms')->nullable()->default(0);
+            $table->integer('garage')->nullable()->default(0);
+            $table->integer('garage_covered')->nullable()->default(0);
+            $table->decimal('area_util')->nullable()->default(0);
+            $table->decimal('area_total')->nullable()->default(0);
 
             // Address
             $table->string('zipcode')->nullable();
@@ -55,13 +59,11 @@ return new class extends Migration
             $table->string('neighborhood')->nullable();
             $table->string('state')->nullable();
             $table->string('city')->nullable();
-            //Ok
 
             $table->bigInteger('views')->default(0);
-
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('agency_id')->constrained()->onDelete('cascade');
-            $table->foreignId('client_id')
+
+            $table->foreignId('agency_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('cascade');
@@ -72,7 +74,7 @@ return new class extends Migration
 
         DB::statement("
         CREATE OR REPLACE VIEW `properties_view` AS
-        SELECT p.id, p.title, p.cover, t.category_id, c.name as category, p.experience_id, e.name as experience, p.type_id, t.name as type, p.goal, p.owner, p.views
+        SELECT p.id, p.title, p.cover, t.category_id, c.name as category, p.experience_id, e.name as experience, p.type_id, t.name as type, p.goal, p.owner, p.agency_id, p.views
         FROM properties as p
         LEFT JOIN types as t ON t.id=p.type_id
         LEFT JOIN categories as c ON c.id=t.category_id

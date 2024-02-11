@@ -139,11 +139,37 @@
                                     <div class="col-12 form-group px-0">
                                         <label for="owner">Proprietário</label>
                                         <x-adminlte-select2 name="owner" id="owner">
-                                            <option {{ old('owner') == '' ? 'selected' : '' }}>Não Informado</option>
+                                            <option {{ old('owner') == '' ? 'selected' : '' }} value="">Não Informado</option>
                                             @foreach ($clients as $client)
                                                 <option {{ old('owner') == $client->id ? 'selected' : '' }}
                                                     value="{{ $client->id }}">
                                                     {{ $client->name . ' ' . ($client->document_person ? '- CPF: ' . $client->document_person : '') }}
+                                                </option>
+                                            @endforeach
+                                        </x-adminlte-select2>
+                                    </div>
+
+                                    <div class="col-12 form-group px-0">
+                                        <label for="client_id">Cliente</label>
+                                        <x-adminlte-select2 name="client_id" id="client_id">
+                                            <option {{ old('client_id') == '' ? 'selected' : '' }} value="">Não Informado</option>
+                                            @foreach ($clients as $client)
+                                                <option {{ old('client_id') == $client->id ? 'selected' : '' }}
+                                                    value="{{ $client->id }}">
+                                                    {{ $client->name . ' ' . ($client->document_person ? '- CPF: ' . $client->document_person : '') }}
+                                                </option>
+                                            @endforeach
+                                        </x-adminlte-select2>
+                                    </div>
+
+                                    <div class="col-12 form-group px-0">
+                                        <label for="agency_id">Agência</label>
+                                        <x-adminlte-select2 name="agency_id" id="agency_id">
+                                            <option {{ old('agency_id') == '' ? 'selected' : '' }} value="">Não Informada</option>
+                                            @foreach ($agencies as $agency)
+                                                <option {{ old('agency_id') == $agency->id ? 'selected' : '' }}
+                                                    value="{{ $agency->id }}">
+                                                    {{ $agency->alias_name . ' ' . ($agency->document_company ? '- CNPJ: ' . $agency->document_company : '') }}
                                                 </option>
                                             @endforeach
                                         </x-adminlte-select2>
@@ -172,7 +198,7 @@
                                     <div class="col-12 cform-group px-0">
                                         <x-adminlte-text-editor name="description" label="Descrição"
                                             label-class="text-black" igroup-size="md" placeholder="Texto descritivo..."
-                                            :config="$config">
+                                            :config="$config" required>
                                             {!! old('description') !!}
                                         </x-adminlte-text-editor>
                                     </div>
@@ -291,6 +317,13 @@
                                         <label for="state">Estado</label>
                                         <input type="text" class="form-control" id="state" placeholder="UF"
                                             name="state" value="{{ old('state') }}">
+                                    </div>
+
+                                    <div class="col-12 form-group px-0">
+                                        <x-adminlte-input-file id="images" name="images[]" label="Imagens da Propriedade"
+                                            placeholder="Selecione múltiplos..." igroup-size="md" legend="Selecione"
+                                            multiple>
+                                        </x-adminlte-input-file>
                                     </div>
 
                                 </div>
