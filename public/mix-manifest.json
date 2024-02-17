@@ -22,5 +22,6 @@
     "/js/phone.js": "/js/phone.js",
     "/js/document-person.js": "/js/document-person.js",
     "/js/kanban.js": "/js/kanban.js",
-    "/js/money.js": "/js/money.js"
+    "/js/money.js": "/js/money.js",
+    "/js/image-delete.js": "/js/image-delete.js"
 }

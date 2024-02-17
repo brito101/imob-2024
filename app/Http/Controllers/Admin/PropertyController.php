@@ -11,11 +11,13 @@ use App\Models\Client;
 use App\Models\Differential;
 use App\Models\Experience;
 use App\Models\Property;
+use App\Models\PropertyDifferentials;
 use App\Models\PropertyImage;
 use App\Models\Type;
 use App\Models\Views\Property as ViewsProperty;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -73,13 +75,12 @@ class PropertyController extends Controller
             $agencies = Agency::whereIn('id', Auth::user()->brokers->pluck('agency_id'))->get();
         }
 
-        $categories = Category::orderBy('name')->get();
         $types = Type::orderBy('name')->get();
         $experiences = Experience::orderBy('name')->get();
         $differentials = Differential::orderBy('name')->get();
         $clients = Client::orderBy('name')->get();
 
-        return view('admin.properties.create', compact('agencies', 'categories', 'types', 'experiences', 'differentials', 'clients'));
+        return view('admin.properties.create', compact('agencies', 'types', 'experiences', 'differentials', 'clients'));
     }
 
     /**
@@ -91,6 +92,7 @@ class PropertyController extends Controller
 
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
+        $data['slug'] = Str::slug(mb_substr($data['title'], 0, 100) . '-' .  time());
 
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
             $name = Str::slug(mb_substr($data['title'], 0, 100)) . time();
@@ -133,6 +135,13 @@ class PropertyController extends Controller
 
         $property = Property::create($data);
 
+        $differentialsIds = [];
+        foreach ($request->all() as $key => $value) {
+            if (str_starts_with($key, 'differential_') && ($value == 'on' || $value == true || $value = '1')) {
+                $differentialsIds[] = (str_replace('differential_', '', $key));
+            }
+        }
+
         if ($property->save()) {
 
             if ($request->images) {
@@ -159,7 +168,7 @@ class PropertyController extends Controller
                         if (!file_exists($destinationPath)) {
                             mkdir($destinationPath, 755, true);
                         }
-                        
+
                         $img = Image::make($img)->resize(null, 490, function ($constraint) {
                             $constraint->aspectRatio();
                             $constraint->upsize();
@@ -172,6 +181,17 @@ class PropertyController extends Controller
                         ->back()
                         ->withInput()
                         ->with('error', 'Falha ao fazer o upload das imagens da propriedade');
+                }
+            }
+
+            if (count($differentialsIds) > 0) {
+                $differentials = Differential::whereIn('id', $differentialsIds)->pluck('id');
+                foreach ($differentials as $differential) {
+                    $pivot = new PropertyDifferentials();
+                    $pivot->create([
+                        'property_id' => $property->id,
+                        'differential_id' => $differential
+                    ]);
                 }
             }
 
@@ -199,13 +219,21 @@ class PropertyController extends Controller
     public function edit(string $id)
     {
         if (Auth::user()->hasRole('Programador|Administrador')) {
-            $property = Property::find($id);
+            $agencies = Agency::all();
+            $property = Property::with('differentials', 'images')->find($id);
         } else {
             $agencies = Auth::user()->brokers->pluck('agency_id');
-            $property = Property::whereIn('agency_id', $agencies)->find($id);
+            $property = Property::whereIn('agency_id', $agencies)->with('differentials', 'images')->find($id);
         }
 
         CheckPermission::checkAuth('Editar Propriedades');
+
+        $types = Type::orderBy('name')->get();
+        $experiences = Experience::orderBy('name')->get();
+        $differentials = Differential::orderBy('name')->get();
+        $clients = Client::orderBy('name')->get();
+
+        return view('admin.properties.edit', compact('agencies', 'property', 'types', 'experiences', 'differentials', 'clients'));
     }
 
     /**
@@ -244,5 +272,23 @@ class PropertyController extends Controller
         }
 
         CheckPermission::checkAuth('Excluir Propriedades');
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function imageDelete(Request $request): JsonResponse
+    {
+        CheckPermission::checkAuth('Editar Propriedades');
+
+        $image = PropertyImage::find($request->id);
+
+        if ($image) {
+            $image->delete();
+            return response()->json(['message' => 'success']);
+        } else {
+            return response()->json(['message' => 'fail']);
+        }
     }
 }

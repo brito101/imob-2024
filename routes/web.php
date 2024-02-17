@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         /** Properties */
         Route::resource('properties', PropertyController::class)->except('show');
+        Route::delete('/properties/image-delete/{id}', [PropertyController::class, 'imageDelete'])->name('properties.image-delete');
 
         /** Steps */
         Route::resource('steps', StepController::class)->except('show');
