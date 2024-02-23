@@ -375,11 +375,13 @@
                                     </div>
 
                                     @if ($property->images->count() > 0)
-                                        <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-start ">
+                                        <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-start"
+                                            id="property-images" data-id={{ $property->id }}
+                                            data-url="{{ route('admin.properties.images-order') }}">
                                             @foreach ($property->images as $image)
                                                 <div class="col-12 col-md-3 p-2 card">
                                                     <div class="card-body d-flex justify-content-center align-items-center draggable-area"
-                                                        data-position="{{ $image->order }}">{{ $image->order }}
+                                                        data-position="{{ $image->order }}">
                                                         <img class="img-fluid draggable-item"
                                                             src="{{ asset('storage/properties/album/' . $image->location) }}"
                                                             alt="" data-order="{{ $image->order }}">
@@ -388,8 +390,8 @@
                                                         class="card-footer
                                                             d-flex justify-content-center">
                                                         <button class="btn btn-sm btn-danger image-delete"
-                                                            data-id={{ $image->id }}
-                                                            data-action="{{ route('admin.properties.image-delete', ['id' => $image->id]) }}"><i
+                                                            data-id={{ $image->id }} data-property={{ $property->id }}
+                                                            data-action="{{ route('admin.properties.image-delete') }}"><i
                                                                 class="fa fa-trash"></i>Excluir</button>
                                                     </div>
                                                 </div>
@@ -417,64 +419,5 @@
     <script src="{{ asset('js/money.js') }}"></script>
     <script src="{{ asset('js/address.js') }}"></script>
     <script src="{{ asset('js/image-delete.js') }}"></script>
-    <script>
-        let order = null;
-        let postion = null;
-        let timer;
-
-        // function updateKanban() {
-        //     $.ajax({
-        //         headers: {
-        //             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        //         },
-        //         type: "POST",
-        //         // url: $("#kanban").data("action"),
-        //         data: {
-        //             client,
-        //             step,
-        //         },
-        //         success: function(res) {
-        //             client = null;
-        //             step = null;
-        //         },
-        //     });
-        // }
-
-        // items functions
-        function dragStart(e) {
-            e.currentTarget.classList.add("dragging");
-        }
-
-        function dragEnd(e) {
-            e.currentTarget.classList.remove("dragging");
-        }
-
-        // areas functions
-        function dragOver(e) {
-            let dragItem = document.querySelector(".draggable-item.dragging");
-            e.currentTarget.appendChild(dragItem);
-            if (e.target.dataset.step !== undefined) {
-                client = dragItem.dataset.client;
-                step = e.target.dataset.step;
-                if (client && step) {
-                    if (timer) clearTimeout(timer);
-                    timer = setTimeout(() => {
-                        // updateKanban();
-                        timer = null;
-                    }, 500);
-                }
-            }
-        }
-
-        // Events
-        document.querySelectorAll(".draggable-item").forEach((item) => {
-            item.addEventListener("dragstart", dragStart);
-            item.addEventListener("dragend", dragEnd);
-        });
-
-        document.querySelectorAll(".draggable-area").forEach((area) => {
-            area.addEventListener("dragover", dragOver);
-            area.addEventListener("drop", dragOver);
-        });
-    </script>
+    <script src="{{ asset('js/image-order.js') }}"></script>
 @endsection

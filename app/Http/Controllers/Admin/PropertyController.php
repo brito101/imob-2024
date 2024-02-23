@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\CheckPermission;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\PropertyChangeImage;
+use App\Http\Requests\Admin\PropertyDeleteImage;
 use App\Http\Requests\Admin\PropertyRequest;
 use App\Models\Agency;
 use App\Models\Category;
@@ -278,14 +280,66 @@ class PropertyController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function imageDelete(Request $request): JsonResponse
+    public function imageDelete(PropertyDeleteImage $request): JsonResponse
     {
         CheckPermission::checkAuth('Editar Propriedades');
 
-        $image = PropertyImage::find($request->id);
+        if (Auth::user()->hasRole('Programador|Administrador')) {
+            $property = Property::find($request->property);
+        } else {
+            $agencies = Auth::user()->brokers->pluck('agency_id');
+            $property = Property::whereIn('agency_id', $agencies)->find($request->property);
+        }
+
+        if (!$property) {
+            return response()->json(['message' => 'fail']);
+        }
+
+        $image = PropertyImage::where('id', $request->image)->where('property_id', $property->id)->first();
+
+        if (!$image) {
+            return response()->json(['message' => 'fail']);
+        }
 
         if ($image) {
             $image->delete();
+            return response()->json(['message' => 'success']);
+        } else {
+            return response()->json(['message' => 'fail']);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function imagesOrder(PropertyChangeImage $request): JsonResponse
+    {
+        CheckPermission::checkAuth('Editar Propriedades');
+
+        if (Auth::user()->hasRole('Programador|Administrador')) {
+            $property = Property::find($request->property);
+        } else {
+            $agencies = Auth::user()->brokers->pluck('agency_id');
+            $property = Property::whereIn('agency_id', $agencies)->find($request->property);
+        }
+
+        if (!$property) {
+            return response()->json(['message' => 'fail']);
+        }
+
+        $currentImage = PropertyImage::where('property_id', $property->id)->where('order', $request->old_position)->first();
+        $changeImage = PropertyImage::where('property_id', $property->id)->where('order', $request->current_position)->first();
+
+        if (!$currentImage && !$changeImage) {
+            return response()->json(['message' => 'fail']);
+        }
+
+        if ($currentImage && $changeImage) {
+            $currentImage->order = $request->current_position;
+            $currentImage->update();
+            $changeImage->order = $request->old_position;
+            $changeImage->update();
             return response()->json(['message' => 'success']);
         } else {
             return response()->json(['message' => 'fail']);

@@ -26,6 +26,7 @@ mix.js("resources/js/app.js", "public/js")
     .scripts(["resources/js/kanban.js"], "public/js/kanban.js")
     .scripts(["resources/js/money.js"], "public/js/money.js")
     .scripts(["resources/js/image-delete.js"], "public/js/image-delete.js")
+    .scripts(["resources/js/image-order.js"], "public/js/image-order.js")
     .options({
         processCssUrls: false,
     })
