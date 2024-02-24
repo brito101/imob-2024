@@ -3,18 +3,35 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Property;
 use App\Models\User;
+use App\Models\Views\Agency as ViewsAgency;
+use App\Models\Views\Property as ViewsProperty;
 use App\Models\Views\User as ViewsUser;
 use App\Models\Views\Visit;
 use App\Models\Views\VisitYesterday;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        $administrators = ViewsUser::where('type', 'Administrador')->count();
+        $administrators = 0;
+        $brokers = 0;
+        if (Auth::user()->hasRole('Programador|Administrador')) {
+            $administrators = ViewsUser::where('type', 'Administrador')->count();
+            $brokers = ViewsUser::where('type', 'Corretor')->count();
+            $agencies = ViewsAgency::count();
+            $properties = ViewsProperty::count();
+            $lastProperties = Property::latest()->limit(6)->get();
+        } else {
+            $agencies_id = Auth::user()->brokers->pluck('agency_id');
+            $agencies = ViewsAgency::whereIn('id', $agencies_id)->count();
+            $properties = ViewsProperty::whereIn('agency_id', $agencies)->count();
+            $lastProperties = Property::whereIn('id', $agencies)->latest()->limit(6)->get();
+        }
 
         $visits = Visit::where('url', '!=', route('admin.home.chart'))
             ->where('url', 'NOT LIKE', '%columns%')
@@ -44,6 +61,10 @@ class AdminController extends Controller
 
         return view('admin.home.index', compact(
             'administrators',
+            'brokers',
+            'agencies',
+            'properties',
+            'lastProperties',
             'onlineUsers',
             'percent',
             'access',

@@ -13,6 +13,14 @@
         li[aria-disabled='true'] {
             display: none;
         }
+
+        .draggable-item{
+            cursor: grab;
+        }
+
+        .draggable-item .dragging  {
+            cursor: grabbing;
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('vendor/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 @endsection
