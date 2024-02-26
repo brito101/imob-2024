@@ -8,7 +8,6 @@ use App\Http\Requests\Admin\PropertyChangeImage;
 use App\Http\Requests\Admin\PropertyDeleteImage;
 use App\Http\Requests\Admin\PropertyRequest;
 use App\Models\Agency;
-use App\Models\Category;
 use App\Models\Client;
 use App\Models\Differential;
 use App\Models\Experience;
@@ -55,7 +54,11 @@ class PropertyController extends Controller
                     return $btn;
                 })
                 ->addColumn('cover', function ($row) {
-                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/properties/min/' . $row->cover) .  ' class="img-thumbnail d-block" width="360" height="207" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
+                    if (!$row->cover) {
+                        return '<div class="d-flex justify-content-center align-items-center"><img src=' . asset('img/share.webp') .  ' class="img-thumbnail d-block" width="360" height="207" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
+                    } else {
+                        return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/properties/min/' . $row->cover) .  ' class="img-thumbnail d-block" width="360" height="207" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
+                    }
                 })
                 ->rawColumns(['action', 'cover'])
                 ->make(true);
@@ -220,6 +223,8 @@ class PropertyController extends Controller
      */
     public function edit(string $id)
     {
+        CheckPermission::checkAuth('Editar Propriedades');
+
         if (Auth::user()->hasRole('Programador|Administrador')) {
             $agencies = Agency::all();
             $property = Property::with('differentials', 'images')->find($id);
@@ -228,7 +233,9 @@ class PropertyController extends Controller
             $property = Property::whereIn('agency_id', $agencies)->with('differentials', 'images')->find($id);
         }
 
-        CheckPermission::checkAuth('Editar Propriedades');
+        if (!$property) {
+            abort(403, 'Acesso não autorizado');
+        }
 
         $types = Type::orderBy('name')->get();
         $experiences = Experience::orderBy('name')->get();
@@ -241,9 +248,136 @@ class PropertyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PropertyRequest $request, string $id)
     {
         CheckPermission::checkAuth('Editar Propriedades');
+
+        if (Auth::user()->hasRole('Programador|Administrador')) {
+            $agencies = Agency::all();
+            $property = Property::with('differentials', 'images')->find($id);
+        } else {
+            $agencies = Auth::user()->brokers->pluck('agency_id');
+            $property = Property::whereIn('agency_id', $agencies)->with('differentials', 'images')->find($id);
+        }
+
+        if (!$property) {
+            abort(403, 'Acesso não autorizado');
+        }
+
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+        $data['slug'] = Str::slug(mb_substr($data['title'], 0, 100) . '-' .  time());
+
+        if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
+            $name = Str::slug(mb_substr($data['title'], 0, 100)) . time();
+            $extension = $request->cover->extension();
+            $nameFile = "{$name}.{$extension}";
+
+            $data['cover'] = $nameFile;
+
+            $destinationPath = storage_path() . '/app/public/properties';
+            $destinationPathMedium = storage_path() . '/app/public/properties/medium';
+            $destinationPathMin = storage_path() . '/app/public/properties/min';
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 755, true);
+            }
+
+            if (!file_exists($destinationPathMedium)) {
+                mkdir($destinationPathMedium, 755, true);
+            }
+
+            if (!file_exists($destinationPathMin)) {
+                mkdir($destinationPathMin, 755, true);
+            }
+
+            $img = Image::make($request->cover)->resize(null, 490, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->crop(860, 490)->save($destinationPath . '/' . $nameFile);
+
+            $imgMedium = Image::make($request->cover)->resize(null, 385, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->crop(675, 385)->save($destinationPathMedium  . '/' .  $nameFile);
+
+            $imgMin = Image::make($request->cover)->resize(null, 207, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->crop(360, 207)->save($destinationPathMin  . '/' .  $nameFile);
+        }
+
+        $differentialsIds = [];
+        foreach ($request->all() as $key => $value) {
+            if (str_starts_with($key, 'differential_') && ($value == 'on' || $value == true || $value = '1')) {
+                $differentialsIds[] = (str_replace('differential_', '', $key));
+            }
+        }
+
+        if ($property->update($data)) {
+
+            if ($request->images) {
+                $rules = array(
+                    'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000'
+                );
+
+                $validator = Validator::make($request->images, $rules);
+                $lastImage = $property->images->last()->order;
+
+                if ($validator) {
+                    foreach ($request->images as $key => $img) {
+                        $name = Str::slug($request->title . '-' . $key) . '-' . time();
+                        $extension = $img->extension();
+
+                        $nameFile = "$name.$extension";
+                        $i['location'] = $nameFile;
+                        $i['order'] = $lastImage + 1 + $key;
+                        $i['property_id'] =  $property->id;
+                        $file = PropertyImage::create($i);
+                        $file->save();
+
+                        $destinationPath = storage_path() . '/app/public/properties/album/';
+
+                        if (!file_exists($destinationPath)) {
+                            mkdir($destinationPath, 755, true);
+                        }
+
+                        $img = Image::make($img)->resize(null, 490, function ($constraint) {
+                            $constraint->aspectRatio();
+                            $constraint->upsize();
+                        })->crop(860, 490)->save($destinationPath . '/' . $nameFile);
+
+                        $img->save($destinationPath . '/' . $nameFile);
+                    }
+                } else {
+                    redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('error', 'Falha ao fazer o upload das imagens da propriedade');
+                }
+            }
+
+            $property->differentials()->delete();
+            if (count($differentialsIds) > 0) {
+                $differentials = Differential::whereIn('id', $differentialsIds)->pluck('id');
+                foreach ($differentials as $differential) {
+                    $pivot = new PropertyDifferentials();
+                    $pivot->create([
+                        'property_id' => $property->id,
+                        'differential_id' => $differential
+                    ]);
+                }
+            }
+
+            return redirect()
+                ->route('admin.properties.index')
+                ->with('success', 'Cadastro realizado!');
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Erro ao cadastrar!');
+        }
     }
 
     /**

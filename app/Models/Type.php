@@ -16,4 +16,10 @@ class Type extends Model
         'name',
         'category_id',
     ];
+
+     /** Relationships */
+ 
+     public function category(){
+         return $this->belongsTo(Category::class);
+     }
 }

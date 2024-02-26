@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DeepCopy\Matcher\PropertyTypeMatcher;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,6 +23,38 @@ class Property extends Model
     public function differentials()
     {
         return $this->hasMany(PropertyDifferentials::class);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
+
+    public function experience()
+    {
+        return $this->belongsTo(Experience::class);
+    }
+
+    public function agency()
+    {
+        return $this->belongsTo(Agency::class);
+    }
+
+    /** Accessors */
+
+    public function getSalePriceAttribute($value)
+    {
+        return 'R$ ' . number_format($value, 2, ',', '.');
+    }
+
+    public function getRentPriceAttribute($value)
+    {
+        return 'R$ ' . number_format($value, 2, ',', '.');
+    }
+
+    public function getCondominiumAttribute($value)
+    {
+        return 'R$ ' . number_format($value, 2, ',', '.');
     }
 
     public function images()

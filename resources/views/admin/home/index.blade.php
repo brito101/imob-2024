@@ -69,7 +69,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header border-transparent">
-                            <h3 class="card-title"><i class="fa fa-clock mr-2"></i> Últimas Imóveis Cadastrados</h3>
+                            <h3 class="card-title"><i class="fa fa-clock mr-2"></i> Últimos Imóveis Cadastrados</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                     <i class="fas fa-minus"></i>
@@ -87,8 +87,7 @@
                                     <div class="card card-solid">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-12 col-sm-6" style="cursor: pointer;">
-                                                    <h3 class="d-inline-block d-sm-none">{{ $property->title }}</h3>
+                                                <div class="col-12 col-sm-6 border rounded pb-2" style="cursor: pointer;">
                                                     @if ($property->cover)
                                                         <div class="col-12">
                                                             <img src="{{ url('storage/properties/min/' . $property->cover) }}"
@@ -114,6 +113,11 @@
                                                                 <img src="{{ url('storage/properties/' . $property->cover) }}"
                                                                     alt="Product Image" style="cursor: :pointer;">
                                                             </div>
+                                                        @else
+                                                            <div class="product-image-thumb" data-id="{{ $property->id }}">
+                                                                <img src="{{ asset('img/share.webp') }}"
+                                                                    alt="Product Image" style="cursor: :pointer;">
+                                                            </div>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -122,68 +126,41 @@
                                                         {{ Str::limit($property->title) }}</p>
                                                         <hr>
                                                         <h4>{{ Str::limit($property->headline, 50) }}</h4>
-
-                                                        <h4 class="mt-3">Size <small>Please select one</small></h4>
-                                                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                                            <label class="btn btn-default text-center">
-                                                                <input type="radio" name="color_option"
-                                                                    id="color_option_b1" autocomplete="off">
-                                                                <span class="text-xl">S</span>
-                                                                <br>
-                                                                Small
-                                                            </label>
-                                                            <label class="btn btn-default text-center">
-                                                                <input type="radio" name="color_option"
-                                                                    id="color_option_b2" autocomplete="off">
-                                                                <span class="text-xl">M</span>
-                                                                <br>
-                                                                Medium
-                                                            </label>
-                                                            <label class="btn btn-default text-center">
-                                                                <input type="radio" name="color_option"
-                                                                    id="color_option_b3" autocomplete="off">
-                                                                <span class="text-xl">L</span>
-                                                                <br>
-                                                                Large
-                                                            </label>
-                                                            <label class="btn btn-default text-center">
-                                                                <input type="radio" name="color_option"
-                                                                    id="color_option_b4" autocomplete="off">
-                                                                <span class="text-xl">XL</span>
-                                                                <br>
-                                                                Xtra-Large
-                                                            </label>
+                                                        <div class="text-muted">
+                                                            <p class="mt-3">Categoria:
+                                                                {{ $property->type->category->name }}</p>
+                                                            <p>Tipo: {{ $property->type->name }}</p>
+                                                            <p>Experiência: {{ $property->experience->name }}</p>
                                                         </div>
+
                                                         <div class="bg-gray py-2 px-3 mt-4">
                                                             <h2 class="mb-0">
-                                                                {{ $property->sale_price }}
+                                                                @if (str_starts_with($property->goal, 'Venda'))
+                                                                    Venda: {{ $property->sale_price }}
+                                                                @endif
                                                             </h2>
-                                                            <h4 class="mt-0">
-                                                                <small>{{ $property->condominium }}</small>
-                                                            </h4>
+                                                            <h2 class="mb-0">
+                                                                @if (str_ends_with($property->goal, 'Locação'))
+                                                                    Locação: {{ $property->sale_price }}
+                                                                @endif
+                                                            </h2>
+                                                            @if ($property->condominium != 'R$ 0,00')
+                                                                <h4 class="mt-0">
+                                                                    <small>Condomínio: {{ $property->condominium }}</small>
+                                                                </h4>
+                                                            @endif
                                                         </div>
                                                         <div class="mt-4">
-                                                            <div class="btn btn-primary btn-lg btn-flat">
-                                                                <i class="fas fa-cart-plus fa-lg mr-2"></i>
-                                                                Add to Cart
-                                                            </div>
-                                                            <div class="btn btn-default btn-lg btn-flat">
-                                                                <i class="fas fa-heart fa-lg mr-2"></i>
-                                                                Add to Wishlist
-                                                            </div>
-                                                        </div>
-                                                        <div class="mt-4 product-share">
-                                                            <a href="#" class="text-gray">
-                                                                <i class="fab fa-facebook-square fa-2x"></i>
-                                                            </a>
-                                                            <a href="#" class="text-gray">
-                                                                <i class="fab fa-twitter-square fa-2x"></i>
-                                                            </a>
-                                                            <a href="#" class="text-gray">
-                                                                <i class="fas fa-envelope-square fa-2x"></i>
-                                                            </a>
-                                                            <a href="#" class="text-gray">
-                                                                <i class="fas fa-rss-square fa-2x"></i>
+                                                            @can('Editar Propriedades')
+                                                                <a class="btn btn-primary btn-lg btn-flat"
+                                                                    href="{{ route('admin.properties.edit', ['property' => $property->id]) }}">
+                                                                    <i class="fas fa-edit fa-lg"></i>
+                                                                </a>
+                                                            @endcan
+
+                                                            <a class="btn btn-success btn-lg btn-flat" href="#"
+                                                                target="_blank">
+                                                                <i class="fas fa-eye fa-lg"></i>
                                                             </a>
                                                         </div>
                                                 </div>
