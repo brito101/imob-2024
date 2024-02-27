@@ -13,6 +13,7 @@ use App\Models\Views\VisitYesterday;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -24,13 +25,36 @@ class AdminController extends Controller
             $administrators = ViewsUser::where('type', 'Administrador')->count();
             $brokers = ViewsUser::where('type', 'Corretor')->count();
             $agencies = ViewsAgency::count();
-            $properties = ViewsProperty::count();
+            $propertiesModel = ViewsProperty::all();
+            $properties =  $propertiesModel->count();
             $lastProperties = Property::latest()->limit(6)->get();
         } else {
             $agencies_id = Auth::user()->brokers->pluck('agency_id');
             $agencies = ViewsAgency::whereIn('id', $agencies_id)->count();
-            $properties = ViewsProperty::whereIn('agency_id', $agencies)->count();
+            $propertiesModel = ViewsProperty::whereIn('agency_id', $agencies)->count();
+            $properties =  $propertiesModel->count();
             $lastProperties = Property::whereIn('id', $agencies)->latest()->limit(6)->get();
+        }
+
+        $propertiesType = $propertiesModel->groupBy('type')->toArray();
+        $propertiesTypeChart = ['label' => [], 'data' => []];
+        foreach ($propertiesType as $key => $value) {
+            $propertiesTypeChart['label'][] = Str::of($key)->words(1);
+            $propertiesTypeChart['data'][] = count($value);
+        }
+
+        $propertiesCategory = $propertiesModel->groupBy('category')->toArray();
+        $propertiesCategoryChart = ['label' => [], 'data' => []];
+        foreach ($propertiesCategory as $key => $value) {
+            $propertiesCategoryChart['label'][] = Str::of($key)->words(2);
+            $propertiesCategoryChart['data'][] = count($value);
+        }
+
+        $propertiesExperience = $propertiesModel->groupBy('experience')->toArray();
+        $propertiesExperienceChart = ['label' => [], 'data' => []];
+        foreach ($propertiesExperience as $key => $value) {
+            $propertiesExperienceChart['label'][] = Str::of($key)->words(2);
+            $propertiesExperienceChart['data'][] = count($value);
         }
 
         $visits = Visit::where('url', '!=', route('admin.home.chart'))
@@ -69,6 +93,9 @@ class AdminController extends Controller
             'percent',
             'access',
             'chart',
+            'propertiesTypeChart',
+            'propertiesCategoryChart',
+            'propertiesExperienceChart',
         ));
     }
 

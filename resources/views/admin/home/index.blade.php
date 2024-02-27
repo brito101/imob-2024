@@ -201,6 +201,85 @@
                 </div>
             </div>
 
+            {{-- Chart --}}
+            <div class="row px-2">
+                <div class="card col-12">
+                    <div class="card-header">
+                        <i class="fa fa-chart-line ml-n2 mr-2"></i> Propriedades
+                    </div>
+                    <div class="card-body px-0 pb-0 d-flex flex-wrap justify-content-center">
+                        <div class="col-12 col-md-6">
+                            <div class="card">
+                                <div class="card-header border-0">
+                                    <p class="mb-0">Por Tipo</p>
+                                </div>
+                                <div class="cardy-body py-2">
+                                    <div class="chart-responsive">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="properties-type-chart"
+                                            style="display: block; width: 203px; height: 100px;"
+                                            class="chartjs-render-monitor" width="203" height="100"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="card">
+                                <div class="card-header border-0">
+                                    <p class="mb-0">Por Categoria</p>
+                                </div>
+                                <div class="cardy-body py-2">
+                                    <div class="chart-responsive">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="properties-category-chart"
+                                            style="display: block; width: 203px; height: 100px;"
+                                            class="chartjs-render-monitor" width="203" height="100"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header border-0">
+                                    <div class="d-flex justify-content-between">
+                                        <h3 class="card-title">Experiência</h3>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="position-relative mb-4">
+                                        <div class="chartjs-size-monitor" z>
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="properties-experience-chart"
+                                            style="display: block; width: 203px; height: 100px;"
+                                            class="chartjs-render-monitor" width="203" height="100"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             @if (Auth::user()->hasRole('Programador|Administrador'))
                 <div class="card">
                     <div class="card-header">
@@ -248,7 +327,8 @@
                             <div class="card-header border-0">
                                 <div class="d-flex justify-content-between">
                                     <h3 class="card-title">Usuários Online: <span
-                                            id="onlineusers">{{ $onlineUsers }}</span></h3>
+                                            id="onlineusers">{{ $onlineUsers }}</span>
+                                    </h3>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -292,6 +372,132 @@
 @endsection
 
 @section('custom_js')
+    <script>
+        const propertiesType = document.getElementById('properties-type-chart');
+        const propertiesCategory = document.getElementById('properties-category-chart');
+        if (propertiesType) {
+            propertiesType.getContext('2d');
+            const propertiesTypeChart = new Chart(propertiesType, {
+                type: 'doughnut',
+                data: {
+                    labels: {!! json_encode($propertiesTypeChart['label']) !!},
+                    datasets: [{
+                        label: 'Clientes',
+                        data: {!! json_encode($propertiesTypeChart['data']) !!},
+                        backgroundColor: [
+                            '#dc3545',
+                            '#ffc107',
+                            '#28a745',
+                            '#17a2b8',
+                            '#6c757d',
+                            '#007bff',
+                            '#ff851b',
+                            '#39cccc',
+                            '#605ca8',
+                        ],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'left',
+                        labels: {
+                            fontColor: "#212529",
+                            fontSize: 12
+                        }
+                    },
+                },
+            });
+        }
+        if (propertiesCategory) {
+            propertiesCategory.getContext('2d');
+            const propertiesCategoryChart = new Chart(propertiesCategory, {
+                type: 'doughnut',
+                data: {
+                    labels: {!! json_encode($propertiesCategoryChart['label']) !!},
+                    datasets: [{
+                        label: 'Clientes',
+                        data: {!! json_encode($propertiesCategoryChart['data']) !!},
+                        backgroundColor: [
+                            '#dc3545',
+                            '#ffc107',
+                            '#28a745',
+                            '#17a2b8',
+                            '#6c757d',
+                            '#007bff',
+                            '#ff851b',
+                            '#39cccc',
+                            '#605ca8',
+                        ],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'left',
+                        labels: {
+                            fontColor: "#212529",
+                            fontSize: 12
+                        }
+                    },
+                },
+            });
+        }
+
+        const propertiesExperience = document.getElementById('properties-experience-chart');
+            if (propertiesExperience) {
+                const propertiesExperienceChart = new Chart(propertiesExperience, {
+                    type: 'bar',
+                    data: {
+                        labels: ({!! json_encode($propertiesExperienceChart['label']) !!}),
+                        datasets: [{
+                            label: '',
+                            data: {!! json_encode($propertiesExperienceChart['data']) !!},
+                            backgroundColor: [
+                                'rgba(0, 63, 92, 0.5)',
+                                'rgba(47, 75, 124, 0.5)',
+                                'rgba(102, 81, 145, 0.5)',
+                                'rgba(160, 81, 149, 0.5)',
+                                'rgba(212, 80, 135, 0.5)',
+                                'rgba(249, 93, 106, 0.5)',
+                                'rgba(255, 124, 67, 0.5)',
+                                'rgba(255, 166, 0, 0.5)'
+                            ],
+                            borderColor: [
+                                'rgba(0, 63, 92)',
+                                'rgb(47, 75, 124)',
+                                'rgb(102, 81, 145)',
+                                'rgb(160, 81, 149)',
+                                'rgb(212, 80, 135)',
+                                'rgb(249, 93, 106)',
+                                'rgb(255, 124, 67)',
+                                'rgb(255, 166, 0)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }],
+                            xAxes: [{
+                                barThickness: 50,
+                                maxBarThickness: 50
+                            }]
+                        },
+                        legend: {
+                            labels: {
+                                boxWidth: 0,
+                            }
+                        },
+                    },
+                });
+            }
+    </script>
     <script>
         $(document).ready(function() {
             $('.product-image-thumb').on('click', function() {
