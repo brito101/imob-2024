@@ -26,7 +26,7 @@
                     {{ $property->rent_price }}/mês
                 @endif
             </p>
-            <a href="#" class="btn-custom text-opposit btn-block shadow-sm font-weight-bold">Ver Imóvel</a>
+            <a href="#" class="btn-custom text-opposit d-block shadow-sm font-weight-bold">Ver Imóvel</a>
         </div>
         <div class="card-footer d-flex">
             <div class="main_properties_features col-4 text-center">
