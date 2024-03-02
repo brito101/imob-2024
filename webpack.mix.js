@@ -27,6 +27,10 @@ mix.js("resources/js/app.js", "public/js")
     .scripts(["resources/js/money.js"], "public/js/money.js")
     .scripts(["resources/js/image-delete.js"], "public/js/image-delete.js")
     .scripts(["resources/js/image-order.js"], "public/js/image-order.js")
+    /** Web */
+    .copy("node_modules/bootstrap/dist/css/bootstrap.min.css", "public/css/bootstrap.css")
+    .sass("resources/sass/site/site.scss", "public/css")
+    .scripts("resources/js/bootstrap.js", "public/js/bootstrap.js")
     .options({
         processCssUrls: false,
     })

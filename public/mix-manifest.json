@@ -1,8 +1,11 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/css/site.css": "/css/site.css",
     "/img/403-error.webp": "/img/403-error.webp",
     "/img/404-error.webp": "/img/404-error.webp",
+    "/img/brand.jpeg": "/img/brand.jpeg",
+    "/img/brand.webp": "/img/brand.webp",
     "/img/experiences/alto.webp": "/img/experiences/alto.webp",
     "/img/experiences/alto_padrao.webp": "/img/experiences/alto_padrao.webp",
     "/img/experiences/apartamento.webp": "/img/experiences/apartamento.webp",
@@ -17,6 +20,17 @@
     "/img/experiences/sala_comercia.webp": "/img/experiences/sala_comercia.webp",
     "/img/experiences/terreno.webp": "/img/experiences/terreno.webp",
     "/img/favicon.svg": "/img/favicon.svg",
+    "/img/footer.png": "/img/footer.png",
+    "/img/home-hero.webp": "/img/home-hero.webp",
+    "/img/icons/bathtub.png": "/img/icons/bathtub.png",
+    "/img/icons/bed.png": "/img/icons/bed.png",
+    "/img/icons/garage.png": "/img/icons/garage.png",
+    "/img/icons/location.png": "/img/icons/location.png",
+    "/img/icons/total-area.png": "/img/icons/total-area.png",
+    "/img/icons/util-area.png": "/img/icons/util-area.png",
+    "/img/logo.png": "/img/logo.png",
+    "/img/logo.webp": "/img/logo.webp",
+    "/img/share.png": "/img/share.png",
     "/img/share.webp": "/img/share.webp",
     "/js/company.js": "/js/company.js",
     "/js/address.js": "/js/address.js",
@@ -25,5 +39,7 @@
     "/js/kanban.js": "/js/kanban.js",
     "/js/money.js": "/js/money.js",
     "/js/image-delete.js": "/js/image-delete.js",
-    "/js/image-order.js": "/js/image-order.js"
+    "/js/image-order.js": "/js/image-order.js",
+    "/css/bootstrap.css": "/css/bootstrap.css",
+    "/js/bootstrap.js": "/js/bootstrap.js"
 }

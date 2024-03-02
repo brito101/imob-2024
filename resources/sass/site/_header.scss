@@ -1,0 +1,37 @@
+.main_header {
+    .header_bar {
+        background-color: $color-palette-1;
+
+        p {
+            font-size: 0.875em;
+            color: $font-color;
+        }
+
+        i {
+            font-size: 1.6em;
+            color: $font-color;
+        }
+    }
+}
+
+.brand-image-custom {
+    width: 360px;
+}
+
+@media (min-width: 354px) and (max-width: 465px) {
+    .brand-image-custom {
+        width: 250px;
+    }
+}
+
+@media (min-width: 304px) and (max-width: 353px) {
+    .brand-image-custom {
+        width: 200px;
+    }
+}
+
+@media (max-width: 303px) {
+    .brand-image-custom {
+        width: 180px;
+    }
+}

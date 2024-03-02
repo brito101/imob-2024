@@ -16,7 +16,7 @@ use App\Http\Controllers\Admin\{
     StepController,
     TypeController,
 };
-
+use App\Http\Controllers\Web\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -90,11 +90,13 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 /** Web */
-Route::group(['middleware' => ['auth']], function () {
-    /** Home */
-    // Route::get('/', [SiteController::class, 'index'])->name('home');
-    Route::get('/', function () {
-        return redirect('admin');
+Route::group(['middleware' => ['log']], function () {
+    Route::name('web.')->group(function () {
+        /** Home */
+        Route::get('/', [HomeController::class, 'index'])->name('home');
+
+        /** Cookie */
+        // Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');
     });
 });
 

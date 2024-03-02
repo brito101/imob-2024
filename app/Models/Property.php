@@ -61,4 +61,25 @@ class Property extends Model
     {
         return $this->hasMany(PropertyImage::class)->orderBy('order');
     }
+
+    /** Scopes */
+    public function scopeAvailable($query)
+    {
+        return $query->where('status', 'Disponível');
+    }
+
+    public function scopeUnavailable($query)
+    {
+        return $query->where('status', 'Indisponível');
+    }
+
+    public function scopeSale($query)
+    {
+        return $query->where('goal', 'Venda')->orWhere('goal', 'Venda ou Locação');
+    }
+
+    public function scopeRent($query)
+    {
+        return $query->where('goal', 'Locação')->orWhere('goal', 'Venda ou Locação');
+    }
 }
