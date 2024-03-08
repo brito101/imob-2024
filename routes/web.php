@@ -16,7 +16,12 @@ use App\Http\Controllers\Admin\{
     StepController,
     TypeController,
 };
-use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Web\{
+    ContactController,
+    FilterController,
+    HomeController,
+    PolicyController
+};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -94,6 +99,11 @@ Route::group(['middleware' => ['log']], function () {
     Route::name('web.')->group(function () {
         /** Home */
         Route::get('/', [HomeController::class, 'index'])->name('home');
+        Route::get('/contato', [ContactController::class, 'index'])->name('contact');
+        Route::get('/politica-de-privacidade', [PolicyController::class, 'index'])->name('policy');
+        Route::get('/quero-comprar', [FilterController::class, 'sale'])->name('sale');
+        Route::get('/quero-alugar', [FilterController::class, 'rent'])->name('rent');
+        Route::get('/filtro', [FilterController::class, 'filter'])->name('filter');
 
         /** Cookie */
         // Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');

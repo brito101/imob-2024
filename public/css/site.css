@@ -280,3 +280,24 @@
     left: 0 !important;
   }
 }
+.main_contact form {
+  padding: 20px;
+  width: 600px;
+  max-width: calc(100% - 40px);
+  background: #fff;
+  margin: 0 auto;
+  margin-top: 40px;
+  border-radius: 4px;
+}
+.main_contact form h2 {
+  margin-bottom: 20px;
+  font-size: 1.2em;
+}
+
+.main_contact_types h2 {
+  font-size: 1.4em;
+  color: #707176;
+}
+.main_contact_types p {
+  font-size: 0.875em;
+}

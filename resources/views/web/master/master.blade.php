@@ -65,13 +65,14 @@
 
                 <div class="collapse navbar-collapse justify-content-end" id="navbar">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><a href="#" class="nav-link text-support">Home</a>
+                        <li class="nav-item"><a href="{{ route('web.home') }}" class="nav-link text-support">Home</a>
                         </li>
-                        <li class="nav-item"><a href="#" class="nav-link text-support">Comprar</a>
+                        <li class="nav-item"><a href="{{ route('web.sale') }}" class="nav-link text-support">Comprar</a>
                         </li>
-                        <li class="nav-item"><a href="#" class="nav-link text-support">Alugar</a>
+                        <li class="nav-item"><a href="{{ route('web.rent') }}" class="nav-link text-support">Alugar</a>
                         </li>
-                        <li class="nav-item"><a href="#" class="nav-link text-support">Contato</a></li>
+                        <li class="nav-item"><a href="{{ route('web.contact') }}"
+                                class="nav-link text-support">Contato</a></li>
                     </ul>
                 </div>
 
@@ -110,12 +111,12 @@
                 <div class="col-12 col-md-3 col-lg-3">
                     <h1 class="pb-2">Navegue <span class="text-front">Aqui!</span></h1>
                     <ul>
-                        <li><a href="#" class="text-back text-decoration-none">Home</a></li>
-                        <li><a href="#" class="text-back text-decoration-none">Comprar</a></li>
-                        <li><a href="#" class="text-back text-decoration-none">Alugar</a></li>
-                        <li><a href="#" class="text-back text-decoration-none">Contato</a>
+                        <li><a href="{{ route('web.home') }}" class="text-back text-decoration-none">Home</a></li>
+                        <li><a href="{{ route('web.sale') }}" class="text-back text-decoration-none">Comprar</a></li>
+                        <li><a href="{{ route('web.rent') }}" class="text-back text-decoration-none">Alugar</a></li>
+                        <li><a href="{{ route('web.contact') }}" class="text-back text-decoration-none">Contato</a>
                         </li>
-                        <li><a href="#" class="text-back text-decoration-none">Política de
+                        <li><a href="{{ route('web.policy') }}" class="text-back text-decoration-none">Política de
                                 Privacidade</a></li>
                     </ul>
                 </div>

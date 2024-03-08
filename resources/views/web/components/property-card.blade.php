@@ -1,4 +1,4 @@
-<div class="col-12 col-md-6 col-lg-4 mb-4">
+<div class="col-12 col-md-6 {{ isset($page) && $page == 'filter' ? 'col-lg-6' : 'col-lg-4' }} mb-4">
     <article class="card main_properties_item shadow-sm">
         <div class="img-responsive-16by9">
             <a href="#">
