@@ -58,10 +58,6 @@ class FilterController extends Controller
         return view('web.filter.index', compact('properties', 'type'));
     }
 
-    public function filter()
-    {
-    }
-
     public function experience(Request $request)
     {
         $experiences = Experience::get()->pluck('slug', 'id')->toArray();
@@ -96,5 +92,9 @@ class FilterController extends Controller
         $type = null;
 
         return view('web.filter.index', compact('properties', 'type'));
+    }
+
+    public function filter()
+    {
     }
 }

@@ -44,29 +44,29 @@
         <div class="container">
             <div class="row text-center">
                 <div class="col-12 col-md-4">
-                    <h2 class="icon-envelope">Por E-mail</h2>
+                    <h2><i class="fa fa-envelope"></i> E-mail</h2>
                     <p>Nossos atendentes irão entrar em contato com você assim que possível.</p>
                     <p class="pt-2"><a href="mailto:contato@vmdimóveis.com.br"
                             class="text-front text-decoration-none">contato@vmdimoveis.com.br</a></p>
                 </div>
 
                 <div class="col-12 col-md-4">
-                    <h2 class="icon-phone">Por Telefone</h2>
+                    <h2><i class="fa fa-phone-alt"></i> Por Telefone</h2>
                     <p>Estamos disponíveis nos números abaixo no horário comercial.</p>
                     <p class="pt-2 text-front">+55 (27) 99623-5139</p>
                     <p class="text-front">+55 (27) 99244-0238</p>
                 </div>
 
                 <div class="col-12 col-md-4">
-                    <h2 class="icon-share-alt">Redes Sociais</h2>
+                    <h2><i class="fa fa-share-alt"></i> Redes Sociais</h2>
                     <p>Fique por dentro do tudo o que a gente compartilha em nossas redes sociais!</p>
                     <p>
                         <a href="{{ env('CLIENT_DATA_LINK_FACEBOOK') }}" target="_blank"
-                            class="btn-custom text-opposit icon-facebook icon-notext"></a>
+                            class="btn-custom text-opposit"><i class="fab fa-facebook"></i></a>
                         <a href="{{ env('CLIENT_DATA_LINK_INSTAGRAM') }}" target="_blank"
-                            class="btn-custom text-opposit icon-instagram icon-notext"></a>
+                            class="btn-custom text-opposit mx-1"><i class="fab fa-instagram"></i></a>
                         <a href="{{ env('CLIENT_DATA_LINK_YOUTUBE') }}" target="_blank"
-                            class="btn-custom text-opposit icon-youtube-play icon-notext"></a>
+                            class="btn-custom text-opposit"><i class="fab fa-youtube"></i></a>
                     </p>
                 </div>
             </div>
