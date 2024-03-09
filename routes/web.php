@@ -103,6 +103,7 @@ Route::group(['middleware' => ['log']], function () {
         Route::get('/politica-de-privacidade', [PolicyController::class, 'index'])->name('policy');
         Route::get('/quero-comprar', [FilterController::class, 'sale'])->name('sale');
         Route::get('/quero-alugar', [FilterController::class, 'rent'])->name('rent');
+        Route::get('/experiencias/{slug}', [FilterController::class, 'experience'])->name('experience');
         Route::get('/filtro', [FilterController::class, 'filter'])->name('filter');
 
         /** Cookie */

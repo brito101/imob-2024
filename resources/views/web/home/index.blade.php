@@ -17,22 +17,124 @@
     </div>
 
     <div class="main_filter">
+        <div class="container my-5">
+            <div class="row">
+                <form action="{{ route('web.filter') }}" method="post" class="form-inline w-100">
+                    @csrf
+                    <div class="form-group col-6 col-lg-3">
+                        <label for="search" class="mb-2 text-back text-support"><b>Comprar ou Alugar?</b></label>
+                        <select class="selectpicker" id="search" name="filter_search" title="Escolha..." data-index="1"
+                            data-action="#">
+                            <option value="buy">Comprar</option>
+                            <option value="rent">Alugar</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6 col-lg-3">
+                        <label for="category" class="mb-2 text-back text-support"><b>O que você quer?</b></label>
+                        <select class="selectpicker" id="category" name="filter_category" title="Escolha..." data-index="2"
+                            data-action="#">
+                            <option disabled>Selecione o filtro anterior</option>
+                        </select>
+                    </div>
 
-        Filtro
+                    <div class="form-group col-6 mt-2 mt col-lg-3 mt-lg-0">
+                        <label for="type" class="mb-2 d-block text-back text-support"><b>Qual o tipo do
+                                imóvel?</b></label>
+                        <select class="selectpicker input-large" id="type" name="filter_type" multiple
+                            data-actions-box="true" title="Escolha..." data-index="3" data-action="#">
+                            <option disabled>Selecione o filtro anterior</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6 mt-2 col-lg-3 mt-lg-0">
+                        <label for="search_locale" class="mb-2 text-back text-support"><b>Onde você quer?</b></label>
+                        <select class="selectpicker" name="filter_neighborhood" id="neighborhood" title="Escolha..."
+                            data-index="4" data-action="#" multiple data-actions-box="true">
+                            <option disabled>Selecione o filtro anterior</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 mt-3 form_advanced text-decoration-none" style="display: none;">
+
+                        <div class="row">
+                            <div class="form-group col-6 mt-2 col-lg-3 mt-lg-0">
+                                <label for="bedrooms" class="mb-2 text-back text-support"><b>Quartos</b></label>
+                                <select class="selectpicker" name="filter_bedrooms" data-index="5" data-action="#"
+                                    id="bedrooms" title="Escolha...">
+                                    <option disabled>Selecione o filtro anterior</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-6 mt-2 col-lg-3 mt-lg-0">
+                                <label for="bedrooms" class="mb-2 text-back text-support"><b>Suítes</b></label>
+                                <select class="selectpicker" name="filter_suites" id="suites" title="Escolha..."
+                                    data-index="6" data-action="#">
+                                    <option disabled>Selecione o filtro anterior</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-6 mt-2 col-lg-3 mt-lg-0">
+                                <label for="bedrooms" class="mb-2 text-back text-support"><b>Banheiros</b></label>
+                                <select class="selectpicker" name="filter_bathrooms" id="bathrooms" title="Escolha..."
+                                    data-index="7" data-action="#">
+                                    <option disabled>Selecione o filtro anterior</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-6 mt-2 col-lg-3 mt-lg-0">
+                                <label for="bedrooms" class="mb-2 text-back text-support"><b>Garagem</b></label>
+                                <select class="selectpicker" name="filter_garage" id="garage" title="Escolha..."
+                                    data-index="8" data-action="#">
+                                    <option disabled>Selecione o filtro anterior</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="form-group col-6 mt-2 col-lg-6 mt-lg-0">
+                                <label for="bedrooms" class="mb-2 text-back text-support"><b>Preço Base</b></label>
+                                <select class="selectpicker" name="filter_base" id="base" title="Escolha..."
+                                    data-index="9" data-action="#">
+                                    <option disabled>Selecione o filtro anterior</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-6 mt-2 col-lg-6 mt-lg-0">
+                                <label for="bedrooms" class="mb-2 text-back text-support"><b>Preço Limite</b></label>
+                                <select class="selectpicker" name="filter_limit" id="limit" title="Escolha..."
+                                    data-index="10" data-action="#">
+                                    <option disabled>Selecione o filtro anterior</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 mt-3">
+                        <a href="" class="text-front open_filter text-decoration-none">Filtro avançado
+                            &downarrow;</a>
+                    </div>
+
+                    <div class="col-6 text-right mt-3 button_search">
+                        <button class="btn-custom text-opposit"><i class="fas fa-search me-1"></i> Pesquisar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
 
     @if ($experiences->count() > 0)
         <section class="main_list_group py-5 bg-light">
             <div class="container">
                 <div class="p-4 main_list_group_title">
-                    <h1 class="text-center text-support">Ambiente no seu <span class="text-front"><b>estilo</b></span></h1>
+                    <h1 class="text-center text-support">Ambiente no seu <span class="text-front"><b>estilo</b></span>
+                    </h1>
                     <p class="text-center text-muted mb-0 h4">Encontre o imóvel com a experiência que você quer viver</p>
                 </div>
 
                 <div class="main_list_group_item row mt-5 d-flex justify-content-around">
                     @foreach ($experiences as $experience)
                         <article class="main_list_group_items_item col-12 col-md-6 col-lg-4 mb-4">
-                            <a href="#">
+                            <a href="{{ route('web.experience', ['slug' => $experience->slug]) }}">
                                 <div class="d-flex align-items-center justify-content-center shadow-sm rounded"
                                     style="background: url({{ $experience->cover }}) no-repeat; background-size: cover;">
                                     <h2 class="text-opposit">{{ $experience->name }}</h2>
@@ -50,7 +152,8 @@
             <div class="container">
                 <header class="d-flex justify-content-between align-items-center mb-5 flex-wrap">
                     <h1 class="text-front main_properties_title">À Venda</h1>
-                    <a href="#" class="badge badge-front p-2 text-opposit text-decoration-none text-bold">Ver mais</a>
+                    <a href="#" class="badge badge-front p-2 text-opposit text-decoration-none text-bold">Ver
+                        mais</a>
                 </header>
 
                 <div class="row d-flex justify-content-center">
@@ -70,7 +173,8 @@
             <div class="container">
                 <header class="d-flex justify-content-between align-items-center mb-5">
                     <h1 class="text-front main_properties_title">Para Alugar</h1>
-                    <a href="#" class="badge badge-front p-2 text-opposit text-decoration-none text-bold">Ver mais</a>
+                    <a href="#" class="badge badge-front p-2 text-opposit text-decoration-none text-bold">Ver
+                        mais</a>
                 </header>
 
                 <div class="row d-flex justify-content-center">

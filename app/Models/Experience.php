@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Experience extends Model
 {
@@ -16,4 +17,15 @@ class Experience extends Model
         'name',
         'cover',
     ];
+
+    /** Appends */
+    protected $appends = [
+        'slug',
+    ];
+
+
+    public function getSlugAttribute()
+    {
+        return Str::slug($this->name);
+    }
 }

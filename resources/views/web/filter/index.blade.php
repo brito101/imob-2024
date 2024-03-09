@@ -101,9 +101,7 @@
                 </div>
 
                 <div class="col-12 col-md-8">
-
                     <section class="row main_properties">
-
                         @if ($properties->count())
                             @foreach ($properties as $property)
                                 @include('web.components.property-card', [
@@ -114,13 +112,12 @@
                             @endforeach
                         @else
                             <div class="col-12 p-5 bg-white shadow-sm">
-                                <h2 class="text-front icon-frown-o text-center">Não encontramos nenhum imóvel para você
+                                <h2 class="text-front text-center"><i class="fa fa-frown"></i> Não encontramos nenhum imóvel para você
                                     comprar ou alugar!</h2>
                                 <p class="text-center text-support">Utilize o filtro avançado para encontrar o imóvel dos
                                     seus sonhos...</p>
                             </div>
                         @endif
-
                     </section>
                 </div>
             </section>

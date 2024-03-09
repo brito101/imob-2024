@@ -18,15 +18,32 @@
                 @if ($property->neighborhood)
                     {{ ' - ' . $property->neighborhood }} <i class="fa fa-map"></i>
                 @endif
-            <p class="main_properties_price text-front">
-                @if ($type == 'sale')
-                    {{ $property->sale_price }}
+                @if ($type)
+                    @if ($type == 'sale')
+                        <p class="main_properties_price text-front">
+                            {{ $property->sale_price }}
+                        </p>
+                    @else
+                        <p class="main_properties_price text-front">
+                            {{ $property->rent_price }}/mês
+                        </p>
+                    @endif
+                @else
+                    @if ($property->goal == 'Venda')
+                        <p class="main_properties_price text-front">
+                            {{ $property->sale_price }}
+                        </p>
+                    @elseif ($property->goal == 'Aluguel')
+                        <p class="main_properties_price text-front">
+                            {{ $property->rent_price }}/mês
+                        </p>
+                    @else
+                        <p class="main_properties_price text-front">
+                            {{ $property->sale_price . ' ou ' . $property->rent_price }}/mês
+                        </p>
+                    @endif
                 @endif
-                @if ($type == 'rent')
-                    {{ $property->rent_price }}/mês
-                @endif
-            </p>
-            <a href="#" class="btn-custom text-opposit d-block shadow-sm font-weight-bold">Ver Imóvel</a>
+                <a href="#" class="btn-custom text-opposit d-block shadow-sm font-weight-bold">Ver Imóvel</a>
         </div>
         <div class="card-footer d-flex">
             <div class="main_properties_features col-4 text-center">
