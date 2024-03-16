@@ -1,7 +1,7 @@
 <div class="col-12 col-md-6 {{ isset($page) && $page == 'filter' ? 'col-lg-6' : 'col-lg-4' }} mb-4">
     <article class="card main_properties_item shadow-sm">
         <div class="img-responsive-16by9">
-            <a href="#">
+            <a href="{{ route('web.property', ['slug' => $property->slug]) }}">
                 @if ($property->cover)
                     <img src="{{ url('storage/properties/min/' . $property->cover) }}" class="card-img-top"
                         alt="{{ $property->title }}">
@@ -11,7 +11,8 @@
             </a>
         </div>
         <div class="card-body">
-            <h2><a href="#" class="text-title">{{ $property->title }}</a></h2>
+            <h2><a href="{{ route('web.property', ['slug' => $property->slug]) }}"
+                    class="text-title">{{ $property->title }}</a></h2>
             <p class="main_properties_item_category text-back text-front mb-0">
                 {{ $property->type->category->name }}</p>
             <p class="main_properties_item_type text-front mt-0">{{ $property->type->name }}
@@ -43,7 +44,8 @@
                         </p>
                     @endif
                 @endif
-                <a href="#" class="btn-custom text-opposit d-block shadow-sm font-weight-bold">Ver Imóvel</a>
+                <a href="{{ route('web.property', ['slug' => $property->slug]) }}"
+                    class="btn-custom text-opposit d-block shadow-sm font-weight-bold">Ver Imóvel</a>
         </div>
         <div class="card-footer d-flex">
             <div class="main_properties_features col-4 text-center">

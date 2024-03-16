@@ -20,7 +20,8 @@ use App\Http\Controllers\Web\{
     ContactController,
     FilterController,
     HomeController,
-    PolicyController
+    PolicyController,
+    PropertyController as WebPropertyController
 };
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -99,12 +100,17 @@ Route::group(['middleware' => ['log']], function () {
     Route::name('web.')->group(function () {
         /** Home */
         Route::get('/', [HomeController::class, 'index'])->name('home');
+        /** Contact */
         Route::get('/contato', [ContactController::class, 'index'])->name('contact');
+        /** Policies */
         Route::get('/politica-de-privacidade', [PolicyController::class, 'index'])->name('policy');
+        /** Filters */
         Route::get('/quero-comprar', [FilterController::class, 'sale'])->name('sale');
-        Route::get('/quero-alugar', [FilterController::class, 'rent'])->name('rent');
+        Route::get('/quero-alugar', [FilterController::class, 'rent'])->name('rent');        
         Route::get('/experiencias/{slug}', [FilterController::class, 'experience'])->name('experience');
         Route::get('/filtro', [FilterController::class, 'filter'])->name('filter');
+        /** Property */
+        Route::get('/imovel/{slug}', [WebPropertyController::class, 'index'])->name('property');
 
         /** Cookie */
         // Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');
