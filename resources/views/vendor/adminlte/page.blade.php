@@ -45,10 +45,8 @@
 
     </div>
     <footer class="main-footer fixed-bottom">
-        <strong>Copyright © 2022-{{ date('Y') }} <a href="https://www.rodrigobrito.dev.br" target="_blank"
-                rel="noreferrer" title="Rodrigo Brito Desenvolvedor Web">rodrigobrito.dev.br</a>.</strong>
-        Todos os direitos Reservados.
-        <div class="float-right d-none d-sm-inline-block">
+        Copyright © 2022-{{ date('Y') }} <strong>{{ env('APP_NAME') }}</strong> todos os direitos Reservados. <div
+            class="float-right d-none d-sm-inline-block">
             <b>Versão</b> 1.0.0
         </div>
     </footer>

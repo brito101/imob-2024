@@ -106,8 +106,11 @@ Route::group(['middleware' => ['log']], function () {
         Route::get('/politica-de-privacidade', [PolicyController::class, 'index'])->name('policy');
         /** Filters */
         Route::get('/quero-comprar', [FilterController::class, 'sale'])->name('sale');
-        Route::get('/quero-alugar', [FilterController::class, 'rent'])->name('rent');        
+        Route::get('/quero-alugar', [FilterController::class, 'rent'])->name('rent');
         Route::get('/experiencias/{slug}', [FilterController::class, 'experience'])->name('experience');
+
+        Route::post('/filtro/objetivo', [FilterController::class, 'goal'])->name('goal');
+        
         Route::get('/filtro', [FilterController::class, 'filter'])->name('filter');
         /** Property */
         Route::get('/imovel/{slug}', [WebPropertyController::class, 'index'])->name('property');

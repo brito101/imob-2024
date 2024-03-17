@@ -16,8 +16,8 @@ return [
     |
     */
 
-    'title' => env('APP_NAME'),
-    'title_prefix' => env('APP_NAME'),
+    'title' => env('APP_NAME_SHORT'),
+    'title_prefix' => env('APP_NAME_SHORT'),
     'title_postfix' => '',
 
     /*
@@ -47,12 +47,12 @@ return [
     |
     */
 
-    'logo' => env('APP_NAME'),
-    'logo_img' => 'vendor/adminlte/dist/img/logo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => env('APP_NAME_SHORT'),
+    'logo_img' => 'img/logo.webp',
+    'logo_img_class' => 'brand-image elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => env('APP_NAME'),
+    'logo_img_alt' => env('APP_NAME_SHORT'),
 
     /*
     |--------------------------------------------------------------------------

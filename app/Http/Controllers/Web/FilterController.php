@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Web\FilterRequest;
+use App\Models\Category;
 use App\Models\Experience;
 use App\Models\Property;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Meta;
 
@@ -94,7 +97,35 @@ class FilterController extends Controller
         return view('web.filter.index', compact('properties', 'type'));
     }
 
-    public function filter()
+    public function goal(FilterRequest $request)
     {
+        switch ($request->goal) {
+            case 'Venda':
+                $types = Property::sale()->available()->pluck('type_id');
+                break;
+            case 'Locação':
+                $types = Property::rent()->available()->pluck('type_id');
+                break;
+            default:
+                $types = Property::available()->pluck('type_id');
+                break;
+        }
+
+        $categories = Type::whereIn('id', $types)->orderBy('name')->pluck('name')->unique();
+
+        if ($categories) {
+            return response()->json($categories);
+        } else {
+            return response()->json(Category::all()->orderBy('name')->pluck('name')->unique());
+        }
+    }
+
+    public function filter(FilterRequest $request)
+    {
+        $properties = Property::where(function ($query) use ($request) {
+            if ($request->goal) {
+                $query->where('goal', $request->goal);
+            };
+        });
     }
 }

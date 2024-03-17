@@ -12,12 +12,21 @@
                     <form action="{{ route('web.filter') }}" method="post" class="w-100 p-3 bg-white mb-5 shadow-sm">
                         @csrf
                         <div class="row">
-                            <div class="form-group col-12">
-                                <label for="search" class="mb-2 text-back">Comprar ou Alugar?</label>
-                                <select class="selectpicker" id="search" name="filter_search" title="Escolha..."
-                                    data-index="1" data-action="#">
-                                    <option value="buy">Comprar</option>
-                                    <option value="rent">Alugar</option>
+                            <div class="mb-3 col-12">
+                                <label for="goal" class="mb-2 text-back">Comprar ou Alugar?</label>
+                                <select class="form-select" aria-label="Escolha..." id="goal"
+                                    data-url="{{ route('web.goal') }}">
+                                    <option value="" disabled selected>Selecione</option>
+                                    <option value="Venda">Comprar</option>
+                                    <option value="Locação">Alugar</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 col-12">
+                                <label for="category" class="mb-2 text-back">O que você quer?</label>
+                                <select class="form-select" aria-label="Escolha..." id="category"
+                                    data-url="{{ route('web.goal') }}">
+                                    <option>Selecione o filtro anterior</option>
                                 </select>
                             </div>
 
@@ -94,7 +103,8 @@
                             </div>
 
                             <div class="col-12 text-right mt-3 button_search">
-                                <button class="btn-custom icon-search  text-opposit">Pesquisar</button>
+                                <button class="btn-custom text-opposit"><i class="fa fa-search me-2"></i>
+                                    Pesquisar</button>
                             </div>
                         </div>
                     </form>
@@ -110,17 +120,63 @@
                                     'page' => 'filter',
                                 ])
                             @endforeach
+
+                            <div class="d-flex flex-wrap justifty-content-center">
+                                {{ $properties->links() }}
+                            </div>
                         @else
                             <div class="col-12 p-5 bg-white shadow-sm">
-                                <h2 class="text-front text-center"><i class="fa fa-frown"></i> Não encontramos nenhum imóvel para você
+                                <h2 class="text-front text-center"><i class="fa fa-frown"></i> Não encontramos nenhum
+                                    imóvel para você
                                     comprar ou alugar!</h2>
                                 <p class="text-center text-support">Utilize o filtro avançado para encontrar o imóvel dos
                                     seus sonhos...</p>
                             </div>
                         @endif
+
+
                     </section>
                 </div>
             </section>
         </div>
     </div>
+@endsection
+
+@section('custom_js')
+    <script>
+        let goal = '';
+        let category = '';
+
+        const goalSelect = $("#goal");
+        const categorySelect = $("#category");
+
+        goalSelect.val("");
+
+        function getData(url, field) {
+            $.ajax({
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                },
+                data: {
+                    goal
+                },
+                url,
+                success: function(res) {
+                    if (res) {
+                        res.forEach(element => {
+                            $(`#${field}`).children().remove();
+                            $(`#${field}`).append(
+                                `<option value="${element}">${element}</option>`)
+                        });
+                    }
+                },
+            });
+        }
+
+        goalSelect.on('change', function() {
+            goal = $(this).val();
+            getData($(this).data('url'), 'category');
+        });
+    </script>
 @endsection
