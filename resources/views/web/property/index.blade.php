@@ -156,7 +156,8 @@
                                 <h2 class="text-title">Estrutura</h2>
                                 <div class="d-flex flex-wrap justify-content-start gap-2">
                                     @foreach ($property->differentials as $item)
-                                        <span class="main_property_structure_item mx-0"><i class="fa fa-check me-1"></i> {{ $item->differential->name }}</span>
+                                        <span class="main_property_structure_item mx-0"><i class="fa fa-check me-1"></i>
+                                            {{ $item->differential->name }}</span>
                                     @endforeach
                                 </div>
                             </div>
@@ -170,61 +171,49 @@
                     </div>
 
                     <div class="col-12 col-lg-4 mt-md-0">
-                        @if ($property->broker)
-                            <a target="_blank"
-                                href="https://api.whatsapp.com/send?phone={{ $property->brokerObject()->cell ?? env('CELL') }}&text=Olá, me interessei sobre o seu anúncio."
-                                class="btn btn-success btn-lg btn-block icon-whatsapp mb-3 w-100">Converse com o
-                                Corretor!
-                            </a>
-                        @else
-                            <a target="_blank"
-                                href="https://api.whatsapp.com/send?phone={{ env('CELL') }}&text=Olá, me interessei sobre o seu anúncio."
-                                class="btn btn-success btn-lg btn-block icon-whatsapp mb-3 w-110">Converse com o
-                                Corretor!
-                            </a>
-                        @endif
+                        <a target="_blank"
+                            href="https://api.whatsapp.com/send?phone={{ $property->user->cell ?? env('CELL') }}&text=Olá, me interessei sobre o seu anúncio."
+                            class="btn btn-success btn-lg btn-block mb-3 w-100"><i class="fab fa-whatsapp me-2"></i>
+                            Converse com o
+                            Corretor!
+                        </a>
 
                         <div class="main_property_contact">
                             <h2 class="bg-custom">Entre em contato</h2>
 
                             <form action="#" method="post">
                                 @csrf
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <label for="name">Seu nome:</label>
                                     <input type="text" class="form-control" name="name"
                                         placeholder="Informe seu nome completo" required>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <label for="telephone">Seu telefone:</label>
                                     <input type="tel" name="cell" class="form-control"
                                         placeholder="Informe seu telefone com DDD" required>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <label for="email">Seu e-mail:</label>
                                     <input type="email" name="email" class="form-control"
                                         placeholder="Informe seu melhor e-mail" required>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <label for="message">Sua Mensagem:</label>
-                                    <textarea name="message" id="message" cols="30" rows="5" class="form-control">
-Quero ter mais informações sobre esse imóvel. (#{{ $property->id }})</textarea>
+                                    <textarea name="message" id="message" cols="30" rows="5" class="form-control">Quero ter mais informações sobre esse imóvel.</textarea>
                                 </div>
-                                <input type="hidden" name="broker"
-                                    value="{{ $property->broker ? $property->brokerObject()->email : null }}">
                                 <div class="form-group">
-                                    <button class="btn-custom btn-block text-opposit">Enviar</button>
-                                    <p class="text-center text-front mb-0 mt-4 font-weight-bold">
-                                        {{ $property->broker }}</p>
+                                    <button class="btn-custom btn-block text-opposit w-100">Enviar</button>
                                 </div>
                             </form>
                         </div>
 
 
                         <div class="main_property_share">
-                            <div class="fb-share-button mr-2" data-href="{{ url()->current() }}"
+                            <div class="fb-share-button me-2" data-href="{{ url()->current() }}"
                                 data-layout="button_count" data-size="large">
                                 <a target="_blank"
                                     href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}&amp;src=sdkpreparse"
@@ -235,8 +224,8 @@ Quero ter mais informações sobre esse imóvel. (#{{ $property->id }})</textare
                                 data-hashtags="{{ env('APP_NAME') }}" data-related="RodrigoBritoDesenvolvedorWeb"
                                 data-lang="pt" data-show-count="false">Tweet</a>
                             <a style="padding: 0 10px; margin: 0; font-size: 0.875em; padding-top: 2px;"
-                                href="https://instagram.com/" target="_blank"
-                                class="btn btn-front icon-instagram ml-2">Instagram</a>
+                                href="https://instagram.com/" target="_blank" class="btn btn-front ms-2"><i
+                                    class="fab fa-instagram me-2"></i> Instagram</a>
                         </div>
                     </div>
                 </div>

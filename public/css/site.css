@@ -351,6 +351,14 @@
   justify-content: center;
   flex-wrap: wrap;
 }
+.main_property_share .btn-front {
+  background-color: #00354e;
+  border-color: #00354e;
+  color: #fff;
+}
+.main_property_share .btn-front:hover {
+  background-color: #062330;
+}
 
 @media (max-width: 370px) {
   .main_property_share {

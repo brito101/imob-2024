@@ -5,6 +5,8 @@ namespace App\Models;
 use DeepCopy\Matcher\PropertyTypeMatcher;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Property extends Model
@@ -20,24 +22,29 @@ class Property extends Model
     ];
 
     /** Relationships */
-    public function differentials()
+    public function differentials(): HasMany
     {
         return $this->hasMany(PropertyDifferentials::class);
     }
 
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(Type::class);
     }
 
-    public function experience()
+    public function experience(): BelongsTo
     {
         return $this->belongsTo(Experience::class);
     }
 
-    public function agency()
+    public function agency(): BelongsTo
     {
         return $this->belongsTo(Agency::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     /** Accessors */

@@ -65,6 +65,16 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+
+    .btn-front {
+        background-color: $color-front-default;
+        border-color: $color-front-default;
+        color: #fff;
+
+        &:hover {
+            background-color: $color-palette-13;
+        }
+    }
 }
 
 @media (max-width: 370px) {
