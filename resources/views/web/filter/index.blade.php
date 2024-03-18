@@ -15,7 +15,7 @@
                             <div class="mb-3 col-12">
                                 <label for="goal" class="mb-2 text-back">Comprar ou Alugar?</label>
                                 <select class="form-select" aria-label="Escolha..." id="goal"
-                                    data-url="{{ route('web.goal') }}">
+                                    data-url="{{ route('web.category') }}" name="goal">
                                     <option value="" disabled selected>Selecione</option>
                                     <option value="Venda">Comprar</option>
                                     <option value="Locação">Alugar</option>
@@ -25,32 +25,24 @@
                             <div class="mb-3 col-12">
                                 <label for="category" class="mb-2 text-back">O que você quer?</label>
                                 <select class="form-select" aria-label="Escolha..." id="category"
-                                    data-url="{{ route('web.goal') }}">
-                                    <option>Selecione o filtro anterior</option>
+                                    data-url="{{ route('web.type') }}" name="category">
+                                    <option value="" disabled selected>Selecione o filtro anterior</option>
                                 </select>
                             </div>
 
-                            <div class="form-group col-12">
-                                <label for="category" class="mb-2 text-back">O que você quer?</label>
-                                <select class="selectpicker" id="category" name="filter_category" title="Escolha..."
-                                    data-index="2" data-action="#">
-                                    <option disabled>Selecione o filtro anterior</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group col-12">
+                            <div class="mb-3 col-12">
                                 <label for="type" class="mb-2 text-back">Qual o tipo do imóvel?</label>
-                                <select class="selectpicker input-large" id="type" name="filter_type"
-                                    title="Escolha..." multiple data-actions-box="true" data-index="3" data-action="#">
-                                    <option disabled>Selecione o filtro anterior</option>
+                                <select class="form-select" aria-label="Escolha..." id="type"
+                                    data-url="{{ route('web.city') }}" name="type">
+                                    <option value="" disabled selected>Selecione o filtro anterior</option>
                                 </select>
                             </div>
 
-                            <div class="form-group col-12">
-                                <label for="search_locale" class="mb-2 text-back">Onde você quer?</label>
-                                <select class="selectpicker" name="filter_neighborhood" id="neighborhood" title="Escolha..."
-                                    multiple data-actions-box="true" data-index="4" data-action="#">
-                                    <option disabled>Selecione o filtro anterior</option>
+                            <div class="mb-3 col-12">
+                                <label for="city" class="mb-2 text-back">Onde você quer?</label>
+                                <select class="form-select" aria-label="Escolha..." id="city"
+                                    data-url="{{ route('web.city') }}" name="city">
+                                    <option value="" disabled selected>Selecione o filtro anterior</option>
                                 </select>
                             </div>
 
@@ -146,11 +138,18 @@
     <script>
         let goal = '';
         let category = '';
+        let type = '';
+        let city = '';
 
         const goalSelect = $("#goal");
         const categorySelect = $("#category");
+        const typeSelect = $("#type");
+        const citySelect = $("#city");
 
         goalSelect.val("");
+        categorySelect.val("");
+        typeSelect.val("");
+        citySelect.val("");
 
         function getData(url, field) {
             $.ajax({
@@ -159,15 +158,22 @@
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                 },
                 data: {
-                    goal
+                    goal,
+                    category,
+                    type,
+                    city,
                 },
                 url,
                 success: function(res) {
                     if (res) {
+                        $(`#${field}`).children().remove();
+                        $(`#${field}`).append(
+                            `<option value="">Indiferente</option>`)
                         res.forEach(element => {
-                            $(`#${field}`).children().remove();
-                            $(`#${field}`).append(
-                                `<option value="${element}">${element}</option>`)
+                            if (element !== null) {
+                                $(`#${field}`).append(
+                                    `<option value="${element}">${element}</option>`);
+                            }
                         });
                     }
                 },
@@ -176,7 +182,29 @@
 
         goalSelect.on('change', function() {
             goal = $(this).val();
+
+            typeSelect.val("");            
+            citySelect.val("");
+
+            type = "";
+            city = "";
+
             getData($(this).data('url'), 'category');
+        });
+
+        categorySelect.on('change', function() {
+            category = $(this).val();
+            
+            citySelect.val("");
+
+            city = "";
+
+            getData($(this).data('url'), 'type');
+        });
+
+        typeSelect.on('change', function() {
+            type = $(this).val();
+            getData($(this).data('url'), 'city');
         });
     </script>
 @endsection

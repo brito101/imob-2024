@@ -109,8 +109,11 @@ Route::group(['middleware' => ['log']], function () {
         Route::get('/quero-alugar', [FilterController::class, 'rent'])->name('rent');
         Route::get('/experiencias/{slug}', [FilterController::class, 'experience'])->name('experience');
 
-        Route::post('/filtro/objetivo', [FilterController::class, 'goal'])->name('goal');
-        
+        /** Form Filter */
+        Route::post('/filtro/categoria', [FilterController::class, 'category'])->name('category');
+        Route::post('/filtro/tipos', [FilterController::class, 'type'])->name('type');
+        Route::post('/filtro/cidades', [FilterController::class, 'city'])->name('city');
+
         Route::get('/filtro', [FilterController::class, 'filter'])->name('filter');
         /** Property */
         Route::get('/imovel/{slug}', [WebPropertyController::class, 'index'])->name('property');

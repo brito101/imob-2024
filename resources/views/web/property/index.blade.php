@@ -164,7 +164,7 @@
                         @endif
 
                         <div class="main_property_location mb-3">
-                            <h2 class="text-front">Localização</h2>
+                            <h2 class="text-title">Localização</h2>
                             <div id="map" style="width: 100%; min-height: 400px;"></div>
                         </div>
 
