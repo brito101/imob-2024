@@ -96,7 +96,7 @@ class FilterController extends Controller
         return view('web.filter.index', compact('properties', 'type'));
     }
 
-    public function category(Request $request)
+    public function categories(Request $request)
     {
         switch ($request->goal) {
             case 'Venda':
@@ -113,11 +113,11 @@ class FilterController extends Controller
         $ids = array_unique((($properties->pluck('category'))->pluck('id'))->toArray());
 
         $categories = Category::whereIn('id', $ids)->orderBy('name')->pluck('name')->unique();
-        
+
         return response()->json($categories);
     }
 
-    public function type(Request $request)
+    public function types(Request $request)
     {
         switch ($request->goal) {
             case 'Venda':
@@ -131,17 +131,21 @@ class FilterController extends Controller
                 break;
         }
 
-        $category = Category::where('name', $request->category)->first();
-
         $ids = array_unique((($properties->pluck('type'))->pluck('id'))->toArray());
 
-        $types = Type::where('category_id', $category->id)
-            ->whereIn('id', $ids)->orderBy('name')->pluck('name')->unique();
+        if ($request->category) {
+            $category = Category::where('name', $request->category)->first();
+
+            $types = Type::where('category_id', $category->id)
+                ->whereIn('id', $ids)->orderBy('name')->pluck('name')->unique();
+        } else {
+            $types = Type::whereIn('id', $ids)->orderBy('name')->pluck('name')->unique();
+        }
 
         return response()->json($types);
     }
 
-    public function city(Request $request)
+    public function cities(Request $request)
     {
         $type = Type::where('name', $request->type)->first();
 
@@ -162,6 +166,94 @@ class FilterController extends Controller
         return response()->json($cities);
     }
 
+
+    public function bedrooms(Request $request)
+    {
+        $type = Type::where('name', $request->type)->first();
+
+        switch ($request->goal) {
+            case 'Venda':
+                $properties = Property::sale()->available()->where('type_id', $type->id)->where('city', $request->city)->get();
+                break;
+            case 'Locação':
+                $properties = Property::rent()->available()->where('type_id', $type->id)->where('city', $request->city)->get();
+                break;
+            default:
+                $properties = Property::available()->where('type_id', $type->id)->where('city', $request->city)->get();
+                break;
+        }
+
+        $bedrooms = array_unique(($properties->pluck('bedrooms'))->toArray());
+
+        return response()->json($bedrooms);
+    }
+
+    public function suites(Request $request)
+    {
+        $type = Type::where('name', $request->type)->first();
+
+        switch ($request->goal) {
+            case 'Venda':
+                $properties = Property::sale()->available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('bedrooms', $request->bedroom)
+                    ->get();
+                break;
+            case 'Locação':
+                $properties = Property::rent()->available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('bedrooms', $request->bedroom)
+                    ->get();
+                break;
+            default:
+                $properties = Property::available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('bedrooms', $request->bedroom)
+                    ->get();
+                break;
+        }
+
+        $suites = array_unique(($properties->pluck('suites'))->toArray());
+
+        return response()->json($suites);
+    }
+
+    public function bathrooms(Request $request)
+    {
+        $type = Type::where('name', $request->type)->first();
+
+        switch ($request->goal) {
+            case 'Venda':
+                $properties = Property::sale()->available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('bedrooms', $request->bedroom)
+                    ->where('suites', $request->suite)
+                    ->get();
+                break;
+            case 'Locação':
+                $properties = Property::rent()->available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('suites', $request->suite)
+                    ->get();
+                break;
+            default:
+                $properties = Property::available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('suites', $request->suite)
+                    ->get();
+                break;
+        }
+
+        $suites = array_unique(($properties->pluck('bathrooms'))->toArray());
+
+        return response()->json($suites);
+    }
     public function filter(Request $request)
     {
         $properties = Property::where(function ($query) use ($request) {

@@ -110,9 +110,12 @@ Route::group(['middleware' => ['log']], function () {
         Route::get('/experiencias/{slug}', [FilterController::class, 'experience'])->name('experience');
 
         /** Form Filter */
-        Route::post('/filtro/categoria', [FilterController::class, 'category'])->name('category');
-        Route::post('/filtro/tipos', [FilterController::class, 'type'])->name('type');
-        Route::post('/filtro/cidades', [FilterController::class, 'city'])->name('city');
+        Route::post('/filtro/categorias', [FilterController::class, 'categories'])->name('categories');
+        Route::post('/filtro/tipos', [FilterController::class, 'types'])->name('types');
+        Route::post('/filtro/cidades', [FilterController::class, 'cities'])->name('cities');
+        Route::post('/filtro/quartos', [FilterController::class, 'bedrooms'])->name('bedrooms');
+        Route::post('/filtro/suites', [FilterController::class, 'suites'])->name('suites');
+        Route::post('/filtro/banheiros', [FilterController::class, 'bathrooms'])->name('bathrooms');
 
         Route::get('/filtro', [FilterController::class, 'filter'])->name('filter');
         /** Property */

@@ -15,7 +15,7 @@
                             <div class="mb-3 col-12">
                                 <label for="goal" class="mb-2 text-back">Comprar ou Alugar?</label>
                                 <select class="form-select" aria-label="Escolha..." id="goal"
-                                    data-url="{{ route('web.category') }}" name="goal">
+                                    data-url="{{ route('web.categories') }}" name="goal">
                                     <option value="" disabled selected>Selecione</option>
                                     <option value="Venda">Comprar</option>
                                     <option value="Locação">Alugar</option>
@@ -25,7 +25,7 @@
                             <div class="mb-3 col-12">
                                 <label for="category" class="mb-2 text-back">O que você quer?</label>
                                 <select class="form-select" aria-label="Escolha..." id="category"
-                                    data-url="{{ route('web.type') }}" name="category">
+                                    data-url="{{ route('web.types') }}" name="category">
                                     <option value="" disabled selected>Selecione o filtro anterior</option>
                                 </select>
                             </div>
@@ -33,7 +33,7 @@
                             <div class="mb-3 col-12">
                                 <label for="type" class="mb-2 text-back">Qual o tipo do imóvel?</label>
                                 <select class="form-select" aria-label="Escolha..." id="type"
-                                    data-url="{{ route('web.city') }}" name="type">
+                                    data-url="{{ route('web.cities') }}" name="type">
                                     <option value="" disabled selected>Selecione o filtro anterior</option>
                                 </select>
                             </div>
@@ -41,32 +41,32 @@
                             <div class="mb-3 col-12">
                                 <label for="city" class="mb-2 text-back">Onde você quer?</label>
                                 <select class="form-select" aria-label="Escolha..." id="city"
-                                    data-url="{{ route('web.city') }}" name="city">
+                                    data-url="{{ route('web.bedrooms') }}" name="city">
                                     <option value="" disabled selected>Selecione o filtro anterior</option>
                                 </select>
                             </div>
 
-                            <div class="form-group col-12">
-                                <label for="bedrooms" class="mb-2 text-back">Quartos</label>
-                                <select class="selectpicker" name="filter_bedrooms" id="bedrooms" title="Escolha..."
-                                    data-index="5" data-action="#">
-                                    <option disabled>Selecione o filtro anterior</option>
+                            <div class="mb-3 col-12">
+                                <label for="bedroom" class="mb-2 text-back">Quartos</label>
+                                <select class="form-select" aria-label="Escolha..." id="bedroom"
+                                    data-url="{{ route('web.suites') }}" name="bedroom">
+                                    <option value="" disabled selected>Selecione o filtro anterior</option>
                                 </select>
                             </div>
 
-                            <div class="form-group col-12">
-                                <label for="bedrooms" class="mb-2 text-back">Suítes</label>
-                                <select class="selectpicker" name="filter_suites" id="suites" title="Escolha..."
-                                    data-index="6" data-action="#">
-                                    <option disabled>Selecione o filtro anterior</option>
+                            <div class="mb-3 col-12">
+                                <label for="suite" class="mb-2 text-back">Suítes</label>
+                                <select class="form-select" aria-label="Escolha..." id="suite"
+                                    data-url="{{ route('web.bathrooms') }}" name="suite">
+                                    <option value="" disabled selected>Selecione o filtro anterior</option>
                                 </select>
                             </div>
 
-                            <div class="form-group col-12">
-                                <label for="bedrooms" class="mb-2 text-back">Banheiros</label>
-                                <select class="selectpicker" name="filter_bathrooms" id="bathrooms" title="Escolha..."
-                                    data-index="7" data-action="#">
-                                    <option disabled>Selecione o filtro anterior</option>
+                            <div class="mb-3 col-12">
+                                <label for="bathroom" class="mb-2 text-back">Banheiros</label>
+                                <select class="form-select" aria-label="Escolha..." id="bathroom"
+                                    data-url="#" name="bathroom">
+                                    <option value="" disabled selected>Selecione o filtro anterior</option>
                                 </select>
                             </div>
 
@@ -140,16 +140,25 @@
         let category = '';
         let type = '';
         let city = '';
+        let bedroom = '';
+        let suite = '';
+        let bathroom = '';
 
         const goalSelect = $("#goal");
         const categorySelect = $("#category");
         const typeSelect = $("#type");
         const citySelect = $("#city");
+        const bedroomSelect = $("#bedroom");
+        const suiteSelect = $("#suite");
+        const bathroomSelect = $("#bathroom");
 
         goalSelect.val("");
         categorySelect.val("");
         typeSelect.val("");
         citySelect.val("");
+        bedroomSelect.val("");
+        suiteSelect.val("");
+        bathroomSelect.val("");
 
         function getData(url, field) {
             $.ajax({
@@ -162,6 +171,9 @@
                     category,
                     type,
                     city,
+                    bedroom,
+                    suite,
+                    bathroom,
                 },
                 url,
                 success: function(res) {
@@ -183,28 +195,85 @@
         goalSelect.on('change', function() {
             goal = $(this).val();
 
-            typeSelect.val("");            
-            citySelect.val("");
-
+            categorySelect.val("");
+            category = "";
+            typeSelect.val("");
             type = "";
+            citySelect.val("");
             city = "";
+            bedroomSelect.val("");
+            bedroom = "";
+            suiteSelect.val("");
+            suite = "";
+            bathroomSelect.val("");
+            bathroom = "";
 
             getData($(this).data('url'), 'category');
         });
 
         categorySelect.on('change', function() {
             category = $(this).val();
-            
-            citySelect.val("");
 
+            typeSelect.val("");
+            type = "";
+            citySelect.val("");
             city = "";
+            bedroomSelect.val("");
+            bedroom = "";
+            suiteSelect.val("");
+            suite = "";
+            bathroomSelect.val("");
+            bathroom = "";
 
             getData($(this).data('url'), 'type');
         });
 
         typeSelect.on('change', function() {
             type = $(this).val();
+
+            citySelect.val("");
+            city = "";
+            bedroomSelect.val("");
+            bedroom = "";
+            suiteSelect.val("");
+            suite = "";
+            bathroomSelect.val("");
+            bathroom = "";
+
             getData($(this).data('url'), 'city');
+        });
+
+        citySelect.on('change', function() {
+            city = $(this).val();
+
+            bedroomSelect.val("");
+            bedroom = "";
+            suiteSelect.val("");
+            suite = "";
+            bathroomSelect.val("");
+            bathroom = "";
+
+            getData($(this).data('url'), 'bedroom');
+        });
+
+        bedroomSelect.on('change', function() {
+            bedroom = $(this).val();
+           
+            suiteSelect.val("");
+            suite = "";
+            bathroomSelect.val("");
+            bathroom = "";                
+            
+            getData($(this).data('url'), 'suite');
+        });
+
+        suiteSelect.on('change', function() {
+            suite = $(this).val();
+
+            bathroomSelect.val("");
+            bathroom = "";                
+            
+            getData($(this).data('url'), 'bathroom');
         });
     </script>
 @endsection
