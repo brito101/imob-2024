@@ -41,5 +41,6 @@
     "/js/image-delete.js": "/js/image-delete.js",
     "/js/image-order.js": "/js/image-order.js",
     "/css/bootstrap.css": "/css/bootstrap.css",
-    "/js/bootstrap.js": "/js/bootstrap.js"
+    "/js/bootstrap.js": "/js/bootstrap.js",
+    "/js/properties-filter.js": "/js/properties-filter.js"
 }

@@ -120,7 +120,7 @@ Route::group(['middleware' => ['log']], function () {
         Route::post('/filtro/preco-base', [FilterController::class, 'basePrice'])->name('base-price');
         Route::post('/filtro/preco-limite', [FilterController::class, 'limitPrice'])->name('limit-price');
 
-        Route::post('/filtro', [FilterController::class, 'filter'])->name('filter');
+        Route::any('/filtro', [FilterController::class, 'filter'])->name('filter');
         /** Property */
         Route::get('/imovel/{slug}', [WebPropertyController::class, 'index'])->name('property');
 

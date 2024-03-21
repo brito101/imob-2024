@@ -96,6 +96,8 @@ class FilterController extends Controller
         return view('web.filter.index', compact('properties', 'type'));
     }
 
+    /** Filter  */
+
     public function categories(Request $request)
     {
         switch ($request->goal) {
@@ -449,34 +451,74 @@ class FilterController extends Controller
                             $query->where('sale_price', '>=', $basePrice);
                         }
                         if ($request->limit_price) {
-                            $query->where('sale_price', '<=', $basePrice);
+                            $query->where('sale_price', '<=', $limitPrice);
                         }
                     }
                 )->paginate(12);
 
-                return redirect()
-                    ->route('web.sale', compact('properties', 'type'));
+                $type = 'sale';
+                return view('web.filter.index', compact('properties', 'type'));
                 break;
 
             case 'Locação':
-                $properties = Property::rent()->available()
-                    ->where('type_id', $type->id)
-                    ->where('city', $request->city)
-                    ->where('suites', $request->suite)
-                    ->where('bathrooms', $request->bathroom)
-                    ->where('rent_price', '>=', $basePrice)
-                    ->where('sale_price', '<=', $limitPrice)
-                    ->get();
+                $properties = Property::rent()->available()->where(
+                    function ($query) use ($request, $type, $basePrice, $limitPrice) {
+                        if ($request->type) {
+                            $query->where('type_id', $type->id);
+                        }
+                        if ($request->city) {
+                            $query->where('city', $request->city);
+                        }
+                        if ($request->bedroom) {
+                            $query->where('bedrooms', $request->bedroom);
+                        }
+                        if ($request->suites) {
+                            $query->where('suites', $request->suites);
+                        }
+                        if ($request->bathrooms) {
+                            $query->where('bathrooms', $request->bathrooms);
+                        }
+                        if ($request->base_price) {
+                            $query->where('rent_price', '>=', $basePrice);
+                        }
+                        if ($request->limit_price) {
+                            $query->where('rent_price', '<=', $limitPrice);
+                        }
+                    }
+                )->paginate(12);
+
+                $type = 'rent';
+                return view('web.filter.index', compact('properties', 'type'));
                 break;
             default:
-                $properties = Property::available()
-                    ->where('type_id', $type->id)
-                    ->where('city', $request->city)
-                    ->where('suites', $request->suite)
-                    ->where('bathrooms', $request->bathroom)
-                    ->where('sale_price', '>=', $basePrice)
-                    ->where('sale_price', '<=', $limitPrice)
-                    ->get();
+                $properties = Property::sale()->available()->where(
+                    function ($query) use ($request, $type, $basePrice, $limitPrice) {
+                        if ($request->type) {
+                            $query->where('type_id', $type->id);
+                        }
+                        if ($request->city) {
+                            $query->where('city', $request->city);
+                        }
+                        if ($request->bedroom) {
+                            $query->where('bedrooms', $request->bedroom);
+                        }
+                        if ($request->suites) {
+                            $query->where('suites', $request->suites);
+                        }
+                        if ($request->bathrooms) {
+                            $query->where('bathrooms', $request->bathrooms);
+                        }
+                        if ($request->base_price) {
+                            $query->where('sale_price', '>=', $basePrice);
+                        }
+                        if ($request->limit_price) {
+                            $query->where('sale_price', '<=', $limitPrice);
+                        }
+                    }
+                )->paginate(12);
+
+                $type = 'sale';
+                return view('web.filter.index', compact('properties', 'type'));
                 break;
         }
     }
