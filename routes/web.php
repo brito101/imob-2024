@@ -116,8 +116,11 @@ Route::group(['middleware' => ['log']], function () {
         Route::post('/filtro/quartos', [FilterController::class, 'bedrooms'])->name('bedrooms');
         Route::post('/filtro/suites', [FilterController::class, 'suites'])->name('suites');
         Route::post('/filtro/banheiros', [FilterController::class, 'bathrooms'])->name('bathrooms');
+        Route::post('/filtro/garagens', [FilterController::class, 'garages'])->name('garages');
+        Route::post('/filtro/preco-base', [FilterController::class, 'basePrice'])->name('base-price');
+        Route::post('/filtro/preco-limite', [FilterController::class, 'limitPrice'])->name('limit-price');
 
-        Route::get('/filtro', [FilterController::class, 'filter'])->name('filter');
+        Route::post('/filtro', [FilterController::class, 'filter'])->name('filter');
         /** Property */
         Route::get('/imovel/{slug}', [WebPropertyController::class, 'index'])->name('property');
 

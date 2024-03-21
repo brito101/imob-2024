@@ -173,13 +173,25 @@ class FilterController extends Controller
 
         switch ($request->goal) {
             case 'Venda':
-                $properties = Property::sale()->available()->where('type_id', $type->id)->where('city', $request->city)->get();
+                $properties = Property::sale()->available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->orderBy('bedrooms')
+                    ->get();
                 break;
             case 'Locação':
-                $properties = Property::rent()->available()->where('type_id', $type->id)->where('city', $request->city)->get();
+                $properties = Property::rent()->available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->orderBy('bedrooms')
+                    ->get();
                 break;
             default:
-                $properties = Property::available()->where('type_id', $type->id)->where('city', $request->city)->get();
+                $properties = Property::available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->orderBy('bedrooms')
+                    ->get();
                 break;
         }
 
@@ -198,6 +210,7 @@ class FilterController extends Controller
                     ->where('type_id', $type->id)
                     ->where('city', $request->city)
                     ->where('bedrooms', $request->bedroom)
+                    ->orderBy('suites')
                     ->get();
                 break;
             case 'Locação':
@@ -205,6 +218,7 @@ class FilterController extends Controller
                     ->where('type_id', $type->id)
                     ->where('city', $request->city)
                     ->where('bedrooms', $request->bedroom)
+                    ->orderBy('suites')
                     ->get();
                 break;
             default:
@@ -212,6 +226,7 @@ class FilterController extends Controller
                     ->where('type_id', $type->id)
                     ->where('city', $request->city)
                     ->where('bedrooms', $request->bedroom)
+                    ->orderBy('suites')
                     ->get();
                 break;
         }
@@ -232,6 +247,7 @@ class FilterController extends Controller
                     ->where('city', $request->city)
                     ->where('bedrooms', $request->bedroom)
                     ->where('suites', $request->suite)
+                    ->orderBy('bathrooms')
                     ->get();
                 break;
             case 'Locação':
@@ -239,6 +255,7 @@ class FilterController extends Controller
                     ->where('type_id', $type->id)
                     ->where('city', $request->city)
                     ->where('suites', $request->suite)
+                    ->orderBy('bathrooms')
                     ->get();
                 break;
             default:
@@ -246,20 +263,221 @@ class FilterController extends Controller
                     ->where('type_id', $type->id)
                     ->where('city', $request->city)
                     ->where('suites', $request->suite)
+                    ->orderBy('bathrooms')
                     ->get();
                 break;
         }
 
-        $suites = array_unique(($properties->pluck('bathrooms'))->toArray());
+        $bathrooms = array_unique(($properties->pluck('bathrooms'))->toArray());
 
-        return response()->json($suites);
+        return response()->json($bathrooms);
     }
+
+    public function garages(Request $request)
+    {
+        $type = Type::where('name', $request->type)->first();
+
+        switch ($request->goal) {
+            case 'Venda':
+                $properties = Property::sale()->available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('bedrooms', $request->bedroom)
+                    ->where('suites', $request->suite)
+                    ->where('bathrooms', $request->bathroom)
+                    ->get();
+                break;
+            case 'Locação':
+                $properties = Property::rent()->available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('suites', $request->suite)
+                    ->where('bathrooms', $request->bathroom)
+                    ->get();
+                break;
+            default:
+                $properties = Property::available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('suites', $request->suite)
+                    ->where('bathrooms', $request->bathroom)
+                    ->get();
+                break;
+        }
+
+
+        $garages = [];
+        foreach ($properties as $property) {
+            $garages[] = $property->garage + $property->garage_covered;
+        }
+
+        sort($garages);
+
+        return response()->json(array_unique($garages));
+    }
+
+    public function basePrice(Request $request)
+    {
+        $type = Type::where('name', $request->type)->first();
+
+        switch ($request->goal) {
+            case 'Venda':
+                $properties = Property::sale()->available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('bedrooms', $request->bedroom)
+                    ->where('suites', $request->suite)
+                    ->where('bathrooms', $request->bathroom)
+                    ->orderBy('sale_price')
+                    ->get();
+                break;
+            case 'Locação':
+                $properties = Property::rent()->available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('suites', $request->suite)
+                    ->where('bathrooms', $request->bathroom)
+                    ->orderBy('rent_price')
+                    ->get();
+                break;
+            default:
+                $properties = Property::available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('suites', $request->suite)
+                    ->where('bathrooms', $request->bathroom)
+                    ->orderBy('sale_price')
+                    ->get();
+                break;
+        }
+
+        $base_price = [];
+        foreach ($properties as $property) {
+            if (($property->garage + $property->garage_covered) == $request->garage) {
+                if ($request->type == 'Venda') {
+                    $base_price[] = $property->sale_price;
+                } else {
+                    $base_price[] = $property->rent_price;
+                }
+            }
+        }
+
+        return response()->json(array_unique($base_price));
+    }
+
+    public function limitPrice(Request $request)
+    {
+        $type = Type::where('name', $request->type)->first();
+
+        $basePrice = str_replace(',', '.', str_replace('.', '', str_replace('R$ ', '', $request->base_price)));
+
+        switch ($request->goal) {
+            case 'Venda':
+                $properties = Property::sale()->available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('bedrooms', $request->bedroom)
+                    ->where('suites', $request->suite)
+                    ->where('bathrooms', $request->bathroom)
+                    ->where('sale_price', '>=', $basePrice)
+                    ->orderBy('sale_price')
+                    ->get();
+                break;
+            case 'Locação':
+                $properties = Property::rent()->available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('suites', $request->suite)
+                    ->where('bathrooms', $request->bathroom)
+                    ->where('rent_price', '>=', $basePrice)
+                    ->orderBy('rent_price')
+                    ->get();
+                break;
+            default:
+                $properties = Property::available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('suites', $request->suite)
+                    ->where('bathrooms', $request->bathroom)
+                    ->where('sale_price', '>=', $basePrice)
+                    ->orderBy('sale_price')
+                    ->get();
+                break;
+        }
+
+        $limit_price = [];
+        foreach ($properties as $property) {
+            if (($property->garage + $property->garage_covered) == $request->garage) {
+                if ($request->type == 'Venda') {
+                    $limit_price[] = $property->sale_price;
+                } else {
+                    $limit_price[] = $property->rent_price;
+                }
+            }
+        }
+
+        return response()->json(array_unique($limit_price));
+    }
+
     public function filter(Request $request)
     {
-        $properties = Property::where(function ($query) use ($request) {
-            if ($request->goal) {
-                $query->where('goal', $request->goal);
-            };
-        });
+        $type = Type::where('name', $request->type)->first();
+
+        $basePrice = str_replace(',', '.', str_replace('.', '', str_replace('R$ ', '', $request->base_price)));
+        $limitPrice = str_replace(',', '.', str_replace('.', '', str_replace('R$ ', '', $request->limit_price)));
+
+        switch ($request->goal) {
+            case 'Venda':
+                $properties = Property::sale()->available()->where(
+                    function ($query) use ($request, $type, $basePrice, $limitPrice) {
+                        if ($request->type) {
+                            $query->where('type_id', $type->id);
+                        }
+                        if ($request->city) {
+                            $query->where('city', $request->city);
+                        }
+                        if ($request->bedroom) {
+                            $query->where('bedrooms', $request->bedroom);
+                        }
+                        if ($request->suites) {
+                            $query->where('suites', $request->suites);
+                        }
+                        if ($request->bathrooms) {
+                            $query->where('bathrooms', $request->bathrooms);
+                        }
+                        if ($request->base_price) {
+                            $query->where('sale_price', '>=', $basePrice);
+                        }
+                        if ($request->limit_price) {
+                            $query->where('sale_price', '<=', $basePrice);
+                        }
+                    }
+                )->paginate(12);
+
+                return redirect()
+                    ->route('web.sale', compact('properties', 'type'));
+                break;
+
+            case 'Locação':
+                $properties = Property::rent()->available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('suites', $request->suite)
+                    ->where('bathrooms', $request->bathroom)
+                    ->where('rent_price', '>=', $basePrice)
+                    ->where('sale_price', '<=', $limitPrice)
+                    ->get();
+                break;
+            default:
+                $properties = Property::available()
+                    ->where('type_id', $type->id)
+                    ->where('city', $request->city)
+                    ->where('suites', $request->suite)
+                    ->where('bathrooms', $request->bathroom)
+                    ->where('sale_price', '>=', $basePrice)
+                    ->where('sale_price', '<=', $limitPrice)
+                    ->get();
+                break;
+        }
     }
 }

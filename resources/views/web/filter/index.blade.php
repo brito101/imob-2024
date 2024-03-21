@@ -65,37 +65,36 @@
                             <div class="mb-3 col-12">
                                 <label for="bathroom" class="mb-2 text-back">Banheiros</label>
                                 <select class="form-select" aria-label="Escolha..." id="bathroom"
-                                    data-url="#" name="bathroom">
+                                    data-url="{{ route('web.garages') }}" name="bathroom">
                                     <option value="" disabled selected>Selecione o filtro anterior</option>
                                 </select>
                             </div>
 
-                            <div class="form-group col-12">
-                                <label for="bedrooms" class="mb-2 text-back">Garagem</label>
-                                <select class="selectpicker" name="filter_garage" id="garage" title="Escolha..."
-                                    data-index="8" data-action="#">
-                                    <option disabled>Selecione o filtro anterior</option>
+                            <div class="mb-3 col-12">
+                                <label for="garage" class="mb-2 text-back">Garagem</label>
+                                <select class="form-select" aria-label="Escolha..." id="garage"
+                                    data-url="{{ route('web.base-price') }}" name="garage">
+                                    <option value="" disabled selected>Selecione o filtro anterior</option>
                                 </select>
                             </div>
 
-                            <div class="form-group col-12">
-                                <label for="bedrooms" class="mb-2 text-back">Preço Base</label>
-                                <select class="selectpicker" name="filter_base" id="base" title="Escolha..."
-                                    data-index="9" data-action="#">
-                                    <option disabled>Selecione o filtro anterior</option>
+                            <div class="mb-3 col-12">
+                                <label for="base_price" class="mb-2 text-back">Preço Base</label>
+                                <select class="form-select" aria-label="Escolha..." id="base_price"
+                                    data-url="{{ route('web.base-price') }}" name="base_price">
+                                    <option value="" disabled selected>Selecione o filtro anterior</option>
                                 </select>
                             </div>
 
-                            <div class="form-group col-12">
-                                <label for="bedrooms" class="mb-2 text-back">Preço Limite</label>
-                                <select class="selectpicker" name="filter_limit" id="limit" title="Escolha..."
-                                    data-index="10" data-action="#">
-                                    <option disabled>Selecione o filtro anterior</option>
+                            <div class="mb-3 col-12">
+                                <label for="limit_price" class="mb-2 text-back">Preço Limite</label>
+                                <select class="form-select" aria-label="Escolha..." id="limit_price" name="limit_price">
+                                    <option value="" disabled selected>Selecione o filtro anterior</option>
                                 </select>
                             </div>
 
                             <div class="col-12 text-right mt-3 button_search">
-                                <button class="btn-custom text-opposit"><i class="fa fa-search me-2"></i>
+                                <button class="btn-custom text-opposit" type="submit"><i class="fa fa-search me-2"></i>
                                     Pesquisar</button>
                             </div>
                         </div>
@@ -143,6 +142,9 @@
         let bedroom = '';
         let suite = '';
         let bathroom = '';
+        let garage = '';
+        let base_price = '';
+        let limit_price = '';
 
         const goalSelect = $("#goal");
         const categorySelect = $("#category");
@@ -151,6 +153,9 @@
         const bedroomSelect = $("#bedroom");
         const suiteSelect = $("#suite");
         const bathroomSelect = $("#bathroom");
+        const garageSelect = $("#garage");
+        const basePriceSelect = $("#base_price");
+        const limitPriceSelect = $("#limit_price");
 
         goalSelect.val("");
         categorySelect.val("");
@@ -159,6 +164,9 @@
         bedroomSelect.val("");
         suiteSelect.val("");
         bathroomSelect.val("");
+        garageSelect.val("");
+        basePriceSelect.val("");
+        limitPriceSelect.val("");
 
         function getData(url, field) {
             $.ajax({
@@ -174,6 +182,9 @@
                     bedroom,
                     suite,
                     bathroom,
+                    garage,
+                    base_price,
+                    limit_price,
                 },
                 url,
                 success: function(res) {
@@ -207,6 +218,13 @@
             suite = "";
             bathroomSelect.val("");
             bathroom = "";
+            garageSelect.val("");
+            garage = "";
+            basePriceSelect.val("");
+            base_price = "";
+            limitPriceSelect.val("");
+            limit_price = "";
+
 
             getData($(this).data('url'), 'category');
         });
@@ -224,6 +242,12 @@
             suite = "";
             bathroomSelect.val("");
             bathroom = "";
+            garageSelect.val("");
+            garage = "";
+            basePriceSelect.val("");
+            base_price = "";
+            limitPriceSelect.val("");
+            limit_price = "";
 
             getData($(this).data('url'), 'type');
         });
@@ -239,6 +263,12 @@
             suite = "";
             bathroomSelect.val("");
             bathroom = "";
+            garageSelect.val("");
+            garage = "";
+            basePriceSelect.val("");
+            base_price = "";
+            limitPriceSelect.val("");
+            limit_price = "";
 
             getData($(this).data('url'), 'city');
         });
@@ -252,18 +282,30 @@
             suite = "";
             bathroomSelect.val("");
             bathroom = "";
+            garageSelect.val("");
+            garage = "";
+            basePriceSelect.val("");
+            base_price = "";
+            limitPriceSelect.val("");
+            limit_price = "";
 
             getData($(this).data('url'), 'bedroom');
         });
 
         bedroomSelect.on('change', function() {
             bedroom = $(this).val();
-           
+
             suiteSelect.val("");
             suite = "";
             bathroomSelect.val("");
-            bathroom = "";                
-            
+            bathroom = "";
+            garageSelect.val("");
+            garage = "";
+            basePriceSelect.val("");
+            base_price = "";
+            limitPriceSelect.val("");
+            limit_price = "";
+
             getData($(this).data('url'), 'suite');
         });
 
@@ -271,9 +313,71 @@
             suite = $(this).val();
 
             bathroomSelect.val("");
-            bathroom = "";                
-            
+            bathroom = "";
+            garageSelect.val("");
+            garage = "";
+            basePriceSelect.val("");
+            base_price = "";
+            limitPriceSelect.val("");
+            limit_price = "";
+
             getData($(this).data('url'), 'bathroom');
+        });
+
+        bathroomSelect.on('change', function() {
+            bathroom = $(this).val();
+
+            garageSelect.val("");
+            garage = "";
+            basePriceSelect.val("");
+            base_price = "";
+            limitPriceSelect.val("");
+            limit_price = "";
+
+            getData($(this).data('url'), 'garage');
+        });
+
+        garageSelect.on('change', function() {
+            garage = $(this).val();
+
+            basePriceSelect.val("");
+            base_price = "";
+            limitPriceSelect.val("");
+            limit_price = "";
+
+            getData($(this).data('url'), 'base_price');
+        });
+
+        basePriceSelect.on('change', function() {
+            base_price = $(this).val();
+
+            limitPriceSelect.val("");
+            limit_price = "";
+
+            getData($(this).data('url'), 'limit_price');
+        });
+
+        $("form").submit(function(e) {
+            
+            $.ajax({
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                },
+                url: $(this).attr('action'),
+                data: {
+                    goal,
+                    category,
+                    type,
+                    city,
+                    bedroom,
+                    suite,
+                    bathroom,
+                    garage,
+                    base_price,
+                    limit_price,
+                },
+            });
         });
     </script>
 @endsection
