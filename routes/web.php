@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\{
 };
 use App\Http\Controllers\Web\{
     ContactController,
+    CookieController,
     FilterController,
     HomeController,
     PolicyController,
@@ -125,7 +126,7 @@ Route::group(['middleware' => ['log']], function () {
         Route::get('/imovel/{slug}', [WebPropertyController::class, 'index'])->name('property');
 
         /** Cookie */
-        // Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');
+        Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');
     });
 });
 

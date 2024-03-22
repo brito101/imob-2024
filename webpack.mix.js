@@ -38,6 +38,10 @@ mix.js("resources/js/app.js", "public/js")
         "resources/js/properties-filter.js",
         "public/js/properties-filter.js"
     )
+    .scripts(
+        "resources/js/cookie.js",
+        "public/js/cookie.js"
+    )
     .options({
         processCssUrls: false,
     })

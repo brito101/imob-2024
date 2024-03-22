@@ -5,7 +5,7 @@
         <div class="container">
             <section class="row">
                 <div class="col-12">
-                    <h2 class="text-front icon-search-plus mb-5">Filtro</h2>
+                    <h2 class="text-front mb-5"><i class="fa fa-search-plus me-2"></i> Filtro</h2>
                 </div>
 
                 <div class="col-12 col-md-4">

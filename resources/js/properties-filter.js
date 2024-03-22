@@ -1,3 +1,18 @@
+$('.open_filter').on('click', function(event) {
+    event.preventDefault();
+
+    box = $(".form_advanced");
+    button = $(this);
+
+    if (box.css("display") !== "none") {
+        button.text("Filtro Avançado ↓");
+    } else {
+        button.text("✗ Fechar");
+    }
+
+    box.slideToggle();
+});
+
 let goal = "";
 let category = "";
 let type = "";

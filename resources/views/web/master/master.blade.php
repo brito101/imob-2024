@@ -15,9 +15,19 @@
     @endif
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/webp" href="{{ asset('img/logo.webp') }}" />
+
+    @if ($cookieConsent == 'accept')
+        @include('web._partials.gtm-head')
+    @endif
+
 </head>
 
 <body>
+
+    @if ($cookieConsent == 'accept')
+        @include('web._partials.gtm-body')
+    @endif
+
     <header class="main_header">
         <div class="header_bar">
             <div class="container">
@@ -67,7 +77,8 @@
                     <ul class="navbar-nav">
                         <li class="nav-item"><a href="{{ route('web.home') }}" class="nav-link text-support">Home</a>
                         </li>
-                        <li class="nav-item"><a href="{{ route('web.sale') }}" class="nav-link text-support">Comprar</a>
+                        <li class="nav-item"><a href="{{ route('web.sale') }}"
+                                class="nav-link text-support">Comprar</a>
                         </li>
                         <li class="nav-item"><a href="{{ route('web.rent') }}" class="nav-link text-support">Alugar</a>
                         </li>
@@ -103,63 +114,89 @@
         </div>
     </article>
 
-    <section class="main_footer bg-light">
-        <div class="container pt-5" style="padding-bottom: 120px;">
+    <footer>
+        <section class="main_footer bg-light">
+            <div class="container pt-5" style="padding-bottom: 120px;">
 
-            <div class="row d-flex justify-content-around text-muted">
+                <div class="row d-flex justify-content-around text-muted">
 
-                <div class="col-12 col-md-3 col-lg-3">
-                    <h1 class="pb-2">Navegue <span class="text-front">Aqui!</span></h1>
-                    <ul>
-                        <li><a href="{{ route('web.home') }}" class="text-back text-decoration-none">Home</a></li>
-                        <li><a href="{{ route('web.sale') }}" class="text-back text-decoration-none">Comprar</a></li>
-                        <li><a href="{{ route('web.rent') }}" class="text-back text-decoration-none">Alugar</a></li>
-                        <li><a href="{{ route('web.contact') }}" class="text-back text-decoration-none">Contato</a>
-                        </li>
-                        <li><a href="{{ route('web.policy') }}" class="text-back text-decoration-none">Política de
-                                Privacidade</a></li>
-                    </ul>
+                    <div class="col-12 col-md-3 col-lg-3">
+                        <h1 class="pb-2">Navegue <span class="text-front">Aqui!</span></h1>
+                        <ul>
+                            <li><a href="{{ route('web.home') }}" class="text-back text-decoration-none">Home</a></li>
+                            <li><a href="{{ route('web.sale') }}" class="text-back text-decoration-none">Comprar</a>
+                            </li>
+                            <li><a href="{{ route('web.rent') }}" class="text-back text-decoration-none">Alugar</a>
+                            </li>
+                            <li><a href="{{ route('web.contact') }}" class="text-back text-decoration-none">Contato</a>
+                            </li>
+                            <li><a href="{{ route('web.policy') }}" class="text-back text-decoration-none">Política de
+                                    Privacidade</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-12 col-md-9 col-lg-6">
+                        <h1 class="pb-2">Nos <span class="text-front">Conheça!</span></h1>
+                        <p>Nossa maior satisfação é lhe ajudar a encontrar seu imóvel dos sonhos nos bairros de toda
+                            grande
+                            Vitória.</p>
+
+                        <h1 class="pb-2">Quer <span class="text-front">Investir?</span></h1>
+                        <p>Entre em contato com a nossa equipe e vamos lhe informar sempre sobre os melhores negócios.
+                        </p>
+                    </div>
+
+                    <div class="col-12 col-md-12 col-lg-3 text-center">
+                        <a href="{{ env('CLIENT_DATA_LINK_FACEBOOK') }}" target="_blank"><i
+                                class="fab fa-facebook btn-custom text-opposit"></i></a>
+                        <a href="{{ env('CLIENT_DATA_LINK_INSTAGRAM') }}" target="_blank"><i
+                                class="fab fa-instagram btn-custom text-opposit"></i></a>
+                        <a href="{{ env('CLIENT_DATA_LINK_YOUTUBE') }}" target="_blank"><i
+                                class="fab fa-youtube btn-custom text-opposit"></i></a>
+
+                    </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="col-12 col-md-9 col-lg-6">
-                    <h1 class="pb-2">Nos <span class="text-front">Conheça!</span></h1>
-                    <p>Nossa maior satisfação é lhe ajudar a encontrar seu imóvel dos sonhos nos bairros de toda grande
-                        Vitória.</p>
-
-                    <h1 class="pb-2">Quer <span class="text-front">Investir?</span></h1>
-                    <p>Entre em contato com a nossa equipe e vamos lhe informar sempre sobre os melhores negócios.</p>
-                </div>
-
-                <div class="col-12 col-md-12 col-lg-3 text-center">
-                    <a href="{{ env('CLIENT_DATA_LINK_FACEBOOK') }}" target="_blank"><i
-                            class="fab fa-facebook btn-custom text-opposit"></i></a>
-                    <a href="{{ env('CLIENT_DATA_LINK_INSTAGRAM') }}" target="_blank"><i
-                            class="fab fa-instagram btn-custom text-opposit"></i></a>
-                    <a href="{{ env('CLIENT_DATA_LINK_YOUTUBE') }}" target="_blank"><i
-                            class="fab fa-youtube btn-custom text-opposit"></i></a>
-
+        <div class="main_copyright py-3 text-opposit text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">CRECI 11185-J | CNPJ: 43.100.157/0001.00 | Vila Velha-ES</p>
+                        <p class="mb-0">Todos os Direitos Reservados - {{ env('APP_NAME') }} ®</p>
+                        <p class="mb-0">Desenvolvido com <i class="fa fa-heart me-2"></i>por
+                            <a href="https://www.vmdimoveis.com.br" class="text-white text-decoration-none">
+                                VDM Imóveis</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </footer>
 
-    <div class="main_copyright py-3 text-opposit text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <p class="mb-0">CRECI 11185-J | CNPJ: 43.100.157/0001.00 | Vila Velha-ES</p>
-                    <p class="mb-0">Todos os Direitos Reservados - {{ env('APP_NAME') }} ®</p>
-                    <p class="mb-0">Desenvolvido com <i class="fa fa-heart me-2"></i>por
-                        <a href="https://www.vmdimoveis.com.br" class="text-white text-decoration-none">
-                            VDM Imóveis</a>
-                    </p>
-                </div>
-            </div>
+    @if (!$cookieConsent)
+        <div id="cookieConsent">
+            <p>Este website utiliza cookies próprios e de terceiros a fim de personalizar o conteúdo, melhorar a
+                experiência
+                do usuário, fornecer funções de mídias sociais e analisar o tráfego. Para continuar navegando você deve
+                concordar com nossa
+                <a href="{{ route('web.policy') }}">Política de Privacidade</a>
+            </p>
+            <a data-action="{{ route('web.cookie.consent') }}" data-cookie="accept" href="#"
+                class="footer_opt_out_btn icon-thumbs-up">
+                Sim, eu aceito.
+            </a>
+            <a data-action="{{ route('web.cookie.consent') }}" data-cookie="decline" href="#"
+                class="footer_opt_out_btn icon-thumbs-down">
+                Não, eu não aceito.
+            </a>
         </div>
-    </div>
+    @endif
 
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/cookie.js') }}"></script>
     @yield('custom_js')
 
 </body>
