@@ -102,6 +102,7 @@ Route::group(['middleware' => ['log']], function () {
         /** Home */
         Route::get('/', [HomeController::class, 'index'])->name('home');
         /** Contact */
+        Route::post('/enviar-contato', [ContactController::class, 'send'])->name('contact.send');
         Route::get('/contato', [ContactController::class, 'index'])->name('contact');
         /** Policies */
         Route::get('/politica-de-privacidade', [PolicyController::class, 'index'])->name('policy');

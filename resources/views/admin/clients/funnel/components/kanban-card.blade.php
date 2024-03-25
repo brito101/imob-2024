@@ -13,7 +13,7 @@
                     <b>Corretor:</b><br /> <span class="kanban_seller">{{ $client->broker }}</span>
                 </p>
                 <p>
-                    <b>Imóvel:</b><br /> <span class="kanban_description"></span>
+                    <b>Imóvel: {{ $client->getProperty() }}</b><br /> <span class="kanban_description"></span>
                 </p>
             </div>
         </div>

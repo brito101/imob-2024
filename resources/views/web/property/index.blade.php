@@ -181,8 +181,9 @@
                         <div class="main_property_contact">
                             <h2 class="bg-custom">Entre em contato</h2>
 
-                            <form action="#" method="post">
+                            <form action="{{ route('web.contact.send') }}" method="post">
                                 @csrf
+                                <input type="hidden" name="property_id" value="{{ $property->id }}">
                                 <div class="mb-3">
                                     <label for="name">Seu nome:</label>
                                     <input type="text" class="form-control" name="name"
