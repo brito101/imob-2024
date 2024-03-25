@@ -41,17 +41,19 @@ class ContactController extends Controller
         $property = Property::find($request->property_id);
 
         $data = $request->all();
-        $data['user_id'] = $property->user_id;
-        $data['agency_id'] = $property->agency_id;
+        if ($property) {
+            $data['user_id'] = $property->user_id;
+            $data['agency_id'] = $property->agency_id;
+            $data['property_interest'] = $property->id;
+        }
+
+        $data['contact_message'] = Str::limit($request->message);
+
         $data['step_id'] = Step::orderBy('sequence', 'asc')->first()->id;
         $client = Client::create($data);
 
         if ($client->save()) {
-            $contact = new ClientContact();
-            $contact->client_id = $client->id;
-            $contact->property_id = $property->id;
-            $contact->message = Str::limit($request->message);
-            $contact->save();
+            dd($client);
         }
     }
 }

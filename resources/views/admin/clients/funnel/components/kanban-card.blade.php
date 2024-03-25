@@ -9,12 +9,21 @@
 
         <div class="collapse" id="collapse{{ $client->id }}">
             <div class="card-body">
-                <p>
-                    <b>Corretor:</b><br /> <span class="kanban_seller">{{ $client->broker }}</span>
-                </p>
-                <p>
-                    <b>Imóvel: {{ $client->getProperty() }}</b><br /> <span class="kanban_description"></span>
-                </p>
+                @if ($client->broker)
+                    <p>
+                        <b>Corretor:</b><br /> <span class="kanban_seller">{{ $client->broker }}</span>
+                    </p>
+                @endif
+                @if ($client->property_title)
+                    <p>
+                        <b>Imóvel:</b><br /> <span class="kanban_description">{{ $client->property_title }}</span>
+                    </p>
+                @endif
+                @if ($client->contact_message)
+                    <p>
+                        <b>Mensagem:</b><br /> <span class="kanban_description"> {{ $client->contact_message }}</span>
+                    </p>
+                @endif
             </div>
         </div>
     </div>

@@ -16,6 +16,7 @@ class Client extends Model
         'name', 'document_person', 'document_registry',
         'email', 'telephone', 'cell', 'zipcode', 'street', 'number', 'complement',
         'neighborhood', 'state', 'city', 'company', 'observations', 'step_id',  'agency_id', 'user_id', 'meeting',
+        'property_interest', 'contact_message',
     ];
 
     /** Relationships */

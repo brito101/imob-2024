@@ -61,9 +61,9 @@
                                     <div class="timeline-body">
                                         Status nesta data: <b>{{ $history->step->name }}</b>.
                                     </div>
-                                    @if ($history->agency)
+                                    @if ($history->agency && $history->agency->alias_name != 'Inexistente')
                                         <div class="timeline-body pt-0">
-                                            Filial nesta data: {{ $history->agency->alias_name }} de
+                                            Agência nesta data: {{ $history->agency->alias_name }} de
                                             {{ $history->agency->city }}/{{ $history->agency->state }}.
                                         </div>
                                     @endif
