@@ -1,18 +1,5 @@
 const cookieButton = document.querySelectorAll("#cookieConsent [data-action]");
 
-function fadeOut(el) {
-    let opacity = 1;
-    const timer = setInterval(() => {
-        if (opacity > 0) {
-            el.style.opacity = opacity;
-            opacity -= 0.1;
-        } else {
-            clearInterval(timer);
-            el.remove();
-        }
-    }, 25);
-}
-
 if (cookieButton) {
     cookieButton.forEach((el) => {
         el.addEventListener("click", (e) => {
@@ -30,7 +17,7 @@ if (cookieButton) {
             })
                 .then((res) => res.json())
                 .then((res) => {
-                    fadeOut(el.parentElement);
+                    $("#cookieConsent").fadeOut();
                     if (res.gtmHead) {
                         document
                             .querySelector("head")

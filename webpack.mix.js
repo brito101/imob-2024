@@ -42,6 +42,10 @@ mix.js("resources/js/app.js", "public/js")
         "resources/js/cookie.js",
         "public/js/cookie.js"
     )
+    .scripts(
+        "resources/js/button-top.js",
+        "public/js/button-top.js"
+    )
     .options({
         processCssUrls: false,
     })

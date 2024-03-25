@@ -176,27 +176,36 @@
     </footer>
 
     @if (!$cookieConsent)
-        <div id="cookieConsent">
-            <p>Este website utiliza cookies próprios e de terceiros a fim de personalizar o conteúdo, melhorar a
-                experiência
-                do usuário, fornecer funções de mídias sociais e analisar o tráfego. Para continuar navegando você deve
-                concordar com nossa
-                <a href="{{ route('web.policy') }}">Política de Privacidade</a>
-            </p>
-            <a data-action="{{ route('web.cookie.consent') }}" data-cookie="accept" href="#"
-                class="footer_opt_out_btn icon-thumbs-up">
-                Sim, eu aceito.
-            </a>
-            <a data-action="{{ route('web.cookie.consent') }}" data-cookie="decline" href="#"
-                class="footer_opt_out_btn icon-thumbs-down">
-                Não, eu não aceito.
-            </a>
+        <div id="cookieConsent" class="fixed-bottom bg-dark py-3 text-white" style="opacity: .9;">
+            <div class="container">
+                <p>Este website utiliza cookies próprios e de terceiros a fim de personalizar o conteúdo, melhorar a
+                    experiência
+                    do usuário, fornecer funções de mídias sociais e analisar o tráfego. Para continuar navegando você
+                    deve
+                    concordar com nossa
+                    <a href="{{ route('web.policy') }}" class="badge badge-front"><b>Política de Privacidade</b></a>
+                </p>
+                <div class="d-flex flex-wrap justify-content-end gap-2">
+                    <a data-action="{{ route('web.cookie.consent') }}" data-cookie="accept" href="#"
+                        class="btn float-right btn-custom"><i class="fas fa-thumbs-up me-2"></i> Sim, eu aceito.
+                    </a>
+                    <a data-action="{{ route('web.cookie.consent') }}" data-cookie="decline" href="#"
+                        class="btn float-right btn-custom icon-thumbs-down"><i class="fas fa-thumbs-down me-2"></i>
+                        Não,
+                        eu não aceito.
+                    </a>
+                </div>
+            </div>
         </div>
     @endif
+
+    <button aria-label="Voltar ao topo da página" title="Voltar ao topo da página" class="smoothScroll-top"><i
+            class="fas fa-chevron-up"></i></button>
 
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/cookie.js') }}"></script>
+    <script src="{{ asset('js/button-top.js') }}"></script>
     @yield('custom_js')
 
 </body>

@@ -15,8 +15,8 @@ class CookieController extends Controller
         Cookie::set('cookieConsent', $cookie, (12 * 43200));  // 1 year
 
         if ($cookie == 'accept') {
-            $json['gtmHead'] = view('site._partials.gtm-head')->render();
-            $json['gtmBody'] = view('site._partials.gtm-body')->render();
+            $json['gtmHead'] = view('web._partials.gtm-head')->render();
+            $json['gtmBody'] = view('web._partials.gtm-body')->render();
         }
 
         $json['cookie'] = true;
