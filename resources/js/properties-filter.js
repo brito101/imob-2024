@@ -1,13 +1,13 @@
 $('.open_filter').on('click', function(event) {
     event.preventDefault();
 
-    box = $(".form_advanced");
-    button = $(this);
+    const box = $(".form_advanced");
+    const buttonFilter = $(this);
 
     if (box.css("display") !== "none") {
-        button.text("Filtro Avançado ↓");
+        buttonFilter.text("Filtro Avançado ↓");
     } else {
-        button.text("✗ Fechar");
+        buttonFilter.text("✗ Fechar");
     }
 
     box.slideToggle();
