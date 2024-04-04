@@ -20,7 +20,7 @@ class ClientObserver
         $history->client_id = $client->id;
         $history->action = "criado";
         $history->step_id = $client->step_id;
-        $history->user_id = Auth::user()->id;
+        $history->user_id = $client->user_id;
         $history->agency_id = $client->agency_id;
         $history->saveQuietly();
     }

@@ -42,12 +42,12 @@
                         </div>
 
                         @php
-                            $heads = [['label' => 'ID', 'width' => 5], 'Nome', 'E-mail', 'Telefone', 'Status', 'Agência', 'Corretor', 'Data', ['label' => 'Data_PTBR', 'no-export' => true], ['label' => 'Ações', 'no-export' => true, 'width' => 20]];
+                            $heads = [['label' => 'ID', 'width' => 5], 'Nome', 'E-mail', 'Celular', 'Status', 'Agência', 'Corretor', 'Data', ['label' => 'Data_PTBR', 'no-export' => true], ['label' => 'Ações', 'no-export' => true, 'width' => 20]];
                             $config = [
                                 'order' => [[1, 'asc']],
                                 'ajax' => url('/admin/clients'),
                                 'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'name', 'name' => 'name'],
-                                ['data' => 'email', 'name' => 'email'], ['data' => 'telephone', 'name' => 'telephone'],
+                                ['data' => 'email', 'name' => 'email'], ['data' => 'cell', 'name' => 'cell'],
                                 ['data' => 'step', 'name' => 'step'], ['data' => 'alias_name', 'name' => 'alias_name'], ['data' => 'broker', 'name' => 'broker'], ['data' => 'created_at_pt', 'name' => 'created_at'], ['data' => 'created_at_pt', 'name' => 'created_at_pt', 'visible' => false], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],
                                 'language' => ['url' => asset('vendor/datatables/js/pt-BR.json')],
                                 'autoFill' => true,

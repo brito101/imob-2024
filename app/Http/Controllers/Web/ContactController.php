@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Web\ContactRequest;
 use App\Models\Client;
 use App\Models\ClientContact;
 use App\Models\Property;
@@ -35,9 +36,8 @@ class ContactController extends Controller
         return view('web.contact.index');
     }
 
-    public function send(Request $request)
+    public function send(ContactRequest $request)
     {
-
         $property = Property::find($request->property_id);
 
         $data = $request->all();
@@ -47,13 +47,18 @@ class ContactController extends Controller
             $data['property_interest'] = $property->id;
         }
 
-        $data['contact_message'] = Str::limit($request->message);
+        $data['contact_message'] = Str::limit($request->message, 1000);
 
         $data['step_id'] = Step::orderBy('sequence', 'asc')->first()->id;
         $client = Client::create($data);
 
         if ($client->save()) {
-            dd($client);
+            return view('web.contact.success');
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Erro ao enviar!');
         }
     }
 }

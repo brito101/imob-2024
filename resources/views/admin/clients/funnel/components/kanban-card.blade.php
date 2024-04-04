@@ -6,6 +6,15 @@
                 <span class="btn btn-tool btn-link">#{{ $client->id }}</span>{{ $client->name }}
             </h5>
         </div>
+        @if ($client->cell)
+            <div class="text-center">
+                <span>{{ $client->cell }}</span>
+            </div>
+        @endif
+        <div>
+            <a href="{{ route('admin.clients.edit', ['client' => $client->id]) }}" target="_blank"
+                class="btn btn-tool text-right w-100" title="Editar">Editar</a>
+        </div>
 
         <div class="collapse" id="collapse{{ $client->id }}">
             <div class="card-body">

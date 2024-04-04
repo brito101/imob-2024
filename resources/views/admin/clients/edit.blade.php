@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="col-12 col-md-4 form-group px-0 pl-md-2">
                                         <label for="cell">Celular</label>
-                                        <input type="trxt" class="form-control" id="cell"
+                                        <input type="text" class="form-control" id="cell"
                                             placeholder="Celular do cliente" name="cell"
                                             value="{{ old('cell') ?? $client->cell }}">
                                     </div>

@@ -57,8 +57,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         /** Clients Funnel */
         Route::post('clients-funnel-updateKanban', [ClientFunnelController::class, 'updateKanban'])->name('clients.updateKanban');
-
-        Route::resource('clients-funnel', ClientFunnelController::class);
+        Route::get('clients-funnel', [ClientFunnelController::class, 'index'])->name('clients.funnel');
 
         /** Properties */
         Route::resource('properties', PropertyController::class)->except('show');

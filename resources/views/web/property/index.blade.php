@@ -182,29 +182,45 @@
                             <h2 class="bg-custom">Entre em contato</h2>
 
                             <form action="{{ route('web.contact.send') }}" method="post">
+                                @if ($errors->any())
+                                    <span class="text-danger">{{ $errors->first('property_id') }}</span>
+                                @endif
+
                                 @csrf
                                 <input type="hidden" name="property_id" value="{{ $property->id }}">
                                 <div class="mb-3">
                                     <label for="name">Seu nome:</label>
                                     <input type="text" class="form-control" name="name"
-                                        placeholder="Informe seu nome completo" required>
+                                        placeholder="Informe seu nome completo" required value="{{ old('name') }}">
+                                    @if ($errors->any())
+                                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    @endif
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="telephone">Seu telefone:</label>
-                                    <input type="tel" name="cell" class="form-control"
-                                        placeholder="Informe seu telefone com DDD" required>
+                                    <input type="tel" name="cell" id="cell" class="form-control"
+                                        placeholder="Informe seu telefone com DDD" required value="{{ old('cell') }}">
+                                    @if ($errors->any())
+                                        <span class="text-danger">{{ $errors->first('cell') }}</span>
+                                    @endif
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="email">Seu e-mail:</label>
                                     <input type="email" name="email" class="form-control"
-                                        placeholder="Informe seu melhor e-mail" required>
+                                        placeholder="Informe seu melhor e-mail" required value="{{ old('email') }}">
+                                    @if ($errors->any())
+                                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                                    @endif
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="message">Sua Mensagem:</label>
-                                    <textarea name="message" id="message" cols="30" rows="5" class="form-control">Quero ter mais informações sobre esse imóvel.</textarea>
+                                    <textarea name="message" id="message" cols="30" rows="5" class="form-control">{{ old('message') ?? 'Queero ter mais informações sobre esse imóvel.' }}</textarea>
+                                    @if ($errors->any())
+                                        <span class="text-danger">{{ $errors->first('message') }}</span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <button class="btn-custom btn-block text-opposit w-100">Enviar</button>
@@ -288,4 +304,8 @@
         src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v3.3&appId={{ env('CLIENT_SOCIAL_FACEBOOK_APP') }}&autoLogAppEvents=1">
     </script>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+    <script src="{{ asset('vendor/jquery/jquery.inputmask.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/phone.js') }}"></script>
 @endsection

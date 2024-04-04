@@ -25,7 +25,7 @@ return new class extends Migration
 
         DB::statement("
         CREATE OR REPLACE VIEW `clients_view` AS
-        SELECT c.id, c.name, c.email, c.telephone, a.alias_name, c.agency_id, c.step_id, s.name as step, u.name as broker, c.created_at, c.property_interest, p.title as property_title, c.contact_message
+        SELECT c.id, c.name, c.email, c.cell, a.alias_name, c.agency_id, c.step_id, s.name as step, u.name as broker, c.created_at, c.property_interest, p.title as property_title, c.contact_message
         FROM clients c
         LEFT JOIN agencies a ON a.id = c.agency_id
         LEFT JOIN steps s ON s.id = c.step_id

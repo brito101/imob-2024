@@ -101,13 +101,22 @@
                 <p>Deixe o seu nome e seu melhor e-mail nos campos abaixo e nós vamos lhe informar sobre os melhores
                     negócios e todos os lançamentos do Espirito Santo</p>
 
-                <form action="#" method="post" autocomplete="off">
+                <form action="{{ route('web.contact.send') }}" method="post" autocomplete="off">
                     @csrf
                     <input type="text" class="form-control" name="name" placeholder="Digite seu nome"
-                        size="50" required>
+                        size="50" required value="{{ old('name') }}">
+                    @if ($errors->any())
+                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                    @endif
                     <input type="email" class="form-control" name="email" placeholder="Digite seu melhor e-mail"
-                        size="50" required>
+                        size="50" required value="{{ old('email') }}">
+                    @if ($errors->any())
+                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                    @endif
                     <input class="d-none" name="message" value="Quero receber notícias de lançamentos e novidades">
+                    @if ($errors->any())
+                        <span class="text-danger">{{ $errors->first('message') }}</span>
+                    @endif
                     <button type="submit" class="btn-custom text-opposit shadow-sm">Me avise!</button>
                 </form>
             </div>
@@ -128,9 +137,11 @@
                             </li>
                             <li><a href="{{ route('web.rent') }}" class="text-back text-decoration-none">Alugar</a>
                             </li>
-                            <li><a href="{{ route('web.contact') }}" class="text-back text-decoration-none">Contato</a>
+                            <li><a href="{{ route('web.contact') }}"
+                                    class="text-back text-decoration-none">Contato</a>
                             </li>
-                            <li><a href="{{ route('web.policy') }}" class="text-back text-decoration-none">Política de
+                            <li><a href="{{ route('web.policy') }}" class="text-back text-decoration-none">Política
+                                    de
                                     Privacidade</a></li>
                         </ul>
                     </div>

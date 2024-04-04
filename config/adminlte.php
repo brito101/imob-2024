@@ -289,12 +289,7 @@ return [
             'icon'        => 'fas fa-fw fa-user-plus mr-2',
             'can'         => 'Acessar Clientes',
             'submenu' => [
-                [
-                    'text' => 'Funil de Clientes',
-                    'url'  => 'admin/clients-funnel',
-                    'icon' => 'fas fa-fw fa-chevron-right',
-                    'can'  => 'Listar Clientes',
-                ],
+
                 [
                     'text' => 'Listagem de Clientes',
                     'url'  => 'admin/clients',
@@ -306,6 +301,12 @@ return [
                     'url'  => 'admin/clients/create',
                     'icon' => 'fas fa-fw fa-chevron-right',
                     'can'  => 'Criar Clientes',
+                ],
+                [
+                    'text' => 'Funil de Clientes',
+                    'url'  => 'admin/clients-funnel',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Listar Clientes',
                 ],
             ],
         ],
