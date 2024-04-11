@@ -14,11 +14,11 @@
             display: none;
         }
 
-        .draggable-item{
+        .draggable-item {
             cursor: grab;
         }
 
-        .draggable-item .dragging  {
+        .draggable-item .dragging {
             cursor: grabbing;
         }
     </style>
@@ -406,6 +406,32 @@
                                             @endforeach
                                         </div>
                                     @endif
+
+                                    <h3 class="h6 col-12 px-0 mt-2 text-bold text-center">Campanha</h3>
+
+                                    <div class="col-12 form-group px-0">
+                                        <x-adminlte-textarea name="header_pixel" label="Pixel do Cabeçalho" rows=5
+                                            igroup-size="sm"
+                                            placeholder="Cole o píxel do cabeçalho aqui">{{ old('header_pixel') ?? $property->header_pixel }}
+                                        </x-adminlte-textarea>
+                                    </div>
+
+                                    <div class="col-12 form-group px-0">
+                                        <x-adminlte-textarea name="body_pixel" label="Pixel do Corpo" rows=5
+                                            igroup-size="sm"
+                                            placeholder="Cole o píxel do corpo aqui">{{ old('body_pixel') ?? $property->body_pixel }}
+                                        </x-adminlte-textarea>
+                                    </div>
+
+                                    <div class="col-12 col-md-6form-group px-0 pr-md-2">
+                                        <label for="template">Template</label>
+                                        <x-adminlte-select2 name="template" id="template">
+                                            <option
+                                                {{ old('template') == '' ? 'selected' : ($property->template == 'default' ? 'selected' : '') }}
+                                                value="default">Padrão
+                                            </option>
+                                        </x-adminlte-select2>
+                                    </div>
 
                                 </div>
                             </div>

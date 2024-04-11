@@ -272,6 +272,8 @@ return [
         'type_id' => 'tipo',
         'goal' => 'finalidade',
         'video' => 'vídeo',
+        'header_pixel' => 'pixel do cabeçalho',
+        'body_pixel' => 'pixel do corpo',
     ],
 
 ];

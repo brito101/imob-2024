@@ -60,7 +60,10 @@ class PropertyRequest extends FormRequest
             'neighborhood' => 'nullable|max:191',
             'state' => 'nullable|max:191',
             'city' => 'nullable|max:191',
-            'agency_id' => 'nullable|exists:agencies,id'
+            'agency_id' => 'nullable|exists:agencies,id',
+            'header_pixel' => 'nullable|max:65535',
+            'body_pixel' => 'nullable|max:65535',
+            'template' => 'nullable|in:default',
         ];
     }
 }

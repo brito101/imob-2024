@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\{
     TypeController,
 };
 use App\Http\Controllers\Web\{
+    CampaignController,
     ContactController,
     CookieController,
     FilterController,
@@ -124,6 +125,9 @@ Route::group(['middleware' => ['log']], function () {
         Route::any('/filtro', [FilterController::class, 'filter'])->name('filter');
         /** Property */
         Route::get('/imovel/{slug}', [WebPropertyController::class, 'index'])->name('property');
+
+        /** Campaign */
+        Route::get('/campanha/{slug}', [CampaignController::class, 'index'])->name('campaign');
 
         /** Cookie */
         Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');

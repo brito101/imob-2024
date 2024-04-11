@@ -64,6 +64,55 @@
                 @endif
             </div>
 
+            {{-- Clients --}}
+            <div class="row">
+                <div class="col-12 px-0">
+                    <div class="card">
+                        <div class="card-header border-transparent">
+                            <h3 class="card-title"><i class="fa fa-users mr-2"></i> Últimos Clientes</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table m-0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome</th>
+                                            <th>E-mail</th>
+                                            <th>Celular</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($clients as $client)
+                                            <tr>
+                                                <td><a title="Editar Cliente" class="link"
+                                                        href="{{ route('admin.clients.edit', ['client' => $client->id]) }}">{{ $client->id }}</a>
+                                                </td>
+                                                <td>{{ $client->name }}</td>
+                                                <td>{{ $client->email }}</td>
+                                                <td>{{ $client->cell }}</td>
+                                                <td>{{ $client->step }}</td>
+                                            </tr>
+                                        @empty
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {{-- Last Properties --}}
             <div class="row">
                 <div class="col-12">
@@ -97,7 +146,8 @@
                                                     @else
                                                         <div class="col-12">
                                                             <img src="{{ asset('img/share.webp') }}" class="product-image"
-                                                                data-id="{{ $property->id }}" alt="{{ $property->title }}">
+                                                                data-id="{{ $property->id }}"
+                                                                alt="{{ $property->title }}">
                                                         </div>
                                                     @endif
                                                     <div class="col-12 product-image-thumbs">
@@ -114,7 +164,8 @@
                                                                     alt="Product Image" style="cursor: :pointer;">
                                                             </div>
                                                         @else
-                                                            <div class="product-image-thumb" data-id="{{ $property->id }}">
+                                                            <div class="product-image-thumb"
+                                                                data-id="{{ $property->id }}">
                                                                 <img src="{{ asset('img/share.webp') }}"
                                                                     alt="Product Image" style="cursor: :pointer;">
                                                             </div>
@@ -289,10 +340,28 @@
                     </div>
 
                     @php
-                        $heads = [['label' => 'Hora', 'width' => 10], 'Página', 'IP', 'User-Agent', 'Plataforma', 'Navegador', 'Usuário', 'Método'];
+                        $heads = [
+                            ['label' => 'Hora', 'width' => 10],
+                            'Página',
+                            'IP',
+                            'User-Agent',
+                            'Plataforma',
+                            'Navegador',
+                            'Usuário',
+                            'Método',
+                        ];
                         $config = [
                             'ajax' => url('/admin'),
-                            'columns' => [['data' => 'time', 'name' => 'time'], ['data' => 'url', 'name' => 'url'], ['data' => 'ip', 'name' => 'ip'], ['data' => 'useragent', 'name' => 'useragent'], ['data' => 'platform', 'name' => 'platform'], ['data' => 'browser', 'name' => 'browser'], ['data' => 'name', 'name' => 'name'], ['data' => 'method', 'name' => 'method']],
+                            'columns' => [
+                                ['data' => 'time', 'name' => 'time'],
+                                ['data' => 'url', 'name' => 'url'],
+                                ['data' => 'ip', 'name' => 'ip'],
+                                ['data' => 'useragent', 'name' => 'useragent'],
+                                ['data' => 'platform', 'name' => 'platform'],
+                                ['data' => 'browser', 'name' => 'browser'],
+                                ['data' => 'name', 'name' => 'name'],
+                                ['data' => 'method', 'name' => 'method'],
+                            ],
                             'language' => ['url' => asset('vendor/datatables/js/pt-BR.json')],
                             'order' => [0, 'desc'],
                             'destroy' => true,
@@ -304,11 +373,41 @@
                             'dom' => '<"d-flex flex-wrap col-12 justify-content-between"Bf>rtip',
                             'buttons' => [
                                 ['extend' => 'pageLength', 'className' => 'btn-default'],
-                                ['extend' => 'copy', 'className' => 'btn-default', 'text' => '<i class="fas fa-fw fa-lg fa-copy text-secondary"></i>', 'titleAttr' => 'Copiar', 'exportOptions' => ['columns' => ':not([dt-no-export])']],
-                                ['extend' => 'print', 'className' => 'btn-default', 'text' => '<i class="fas fa-fw fa-lg fa-print text-info"></i>', 'titleAttr' => 'Imprimir', 'exportOptions' => ['columns' => ':not([dt-no-export])']],
-                                ['extend' => 'csv', 'className' => 'btn-default', 'text' => '<i class="fas fa-fw fa-lg fa-file-csv text-primary"></i>', 'titleAttr' => 'Exportar para CSV', 'exportOptions' => ['columns' => ':not([dt-no-export])']],
-                                ['extend' => 'excel', 'className' => 'btn-default', 'text' => '<i class="fas fa-fw fa-lg fa-file-excel text-success"></i>', 'titleAttr' => 'Exportar para Excel', 'exportOptions' => ['columns' => ':not([dt-no-export])']],
-                                ['extend' => 'pdf', 'className' => 'btn-default', 'text' => '<i class="fas fa-fw fa-lg fa-file-pdf text-danger"></i>', 'titleAttr' => 'Exportar para PDF', 'exportOptions' => ['columns' => ':not([dt-no-export])']],
+                                [
+                                    'extend' => 'copy',
+                                    'className' => 'btn-default',
+                                    'text' => '<i class="fas fa-fw fa-lg fa-copy text-secondary"></i>',
+                                    'titleAttr' => 'Copiar',
+                                    'exportOptions' => ['columns' => ':not([dt-no-export])'],
+                                ],
+                                [
+                                    'extend' => 'print',
+                                    'className' => 'btn-default',
+                                    'text' => '<i class="fas fa-fw fa-lg fa-print text-info"></i>',
+                                    'titleAttr' => 'Imprimir',
+                                    'exportOptions' => ['columns' => ':not([dt-no-export])'],
+                                ],
+                                [
+                                    'extend' => 'csv',
+                                    'className' => 'btn-default',
+                                    'text' => '<i class="fas fa-fw fa-lg fa-file-csv text-primary"></i>',
+                                    'titleAttr' => 'Exportar para CSV',
+                                    'exportOptions' => ['columns' => ':not([dt-no-export])'],
+                                ],
+                                [
+                                    'extend' => 'excel',
+                                    'className' => 'btn-default',
+                                    'text' => '<i class="fas fa-fw fa-lg fa-file-excel text-success"></i>',
+                                    'titleAttr' => 'Exportar para Excel',
+                                    'exportOptions' => ['columns' => ':not([dt-no-export])'],
+                                ],
+                                [
+                                    'extend' => 'pdf',
+                                    'className' => 'btn-default',
+                                    'text' => '<i class="fas fa-fw fa-lg fa-file-pdf text-danger"></i>',
+                                    'titleAttr' => 'Exportar para PDF',
+                                    'exportOptions' => ['columns' => ':not([dt-no-export])'],
+                                ],
                             ],
                         ];
                     @endphp
@@ -445,58 +544,58 @@
         }
 
         const propertiesExperience = document.getElementById('properties-experience-chart');
-            if (propertiesExperience) {
-                const propertiesExperienceChart = new Chart(propertiesExperience, {
-                    type: 'bar',
-                    data: {
-                        labels: ({!! json_encode($propertiesExperienceChart['label']) !!}),
-                        datasets: [{
-                            label: '',
-                            data: {!! json_encode($propertiesExperienceChart['data']) !!},
-                            backgroundColor: [
-                                'rgba(0, 63, 92, 0.5)',
-                                'rgba(47, 75, 124, 0.5)',
-                                'rgba(102, 81, 145, 0.5)',
-                                'rgba(160, 81, 149, 0.5)',
-                                'rgba(212, 80, 135, 0.5)',
-                                'rgba(249, 93, 106, 0.5)',
-                                'rgba(255, 124, 67, 0.5)',
-                                'rgba(255, 166, 0, 0.5)'
-                            ],
-                            borderColor: [
-                                'rgba(0, 63, 92)',
-                                'rgb(47, 75, 124)',
-                                'rgb(102, 81, 145)',
-                                'rgb(160, 81, 149)',
-                                'rgb(212, 80, 135)',
-                                'rgb(249, 93, 106)',
-                                'rgb(255, 124, 67)',
-                                'rgb(255, 166, 0)'
-                            ],
-                            borderWidth: 1
+        if (propertiesExperience) {
+            const propertiesExperienceChart = new Chart(propertiesExperience, {
+                type: 'bar',
+                data: {
+                    labels: ({!! json_encode($propertiesExperienceChart['label']) !!}),
+                    datasets: [{
+                        label: '',
+                        data: {!! json_encode($propertiesExperienceChart['data']) !!},
+                        backgroundColor: [
+                            'rgba(0, 63, 92, 0.5)',
+                            'rgba(47, 75, 124, 0.5)',
+                            'rgba(102, 81, 145, 0.5)',
+                            'rgba(160, 81, 149, 0.5)',
+                            'rgba(212, 80, 135, 0.5)',
+                            'rgba(249, 93, 106, 0.5)',
+                            'rgba(255, 124, 67, 0.5)',
+                            'rgba(255, 166, 0, 0.5)'
+                        ],
+                        borderColor: [
+                            'rgba(0, 63, 92)',
+                            'rgb(47, 75, 124)',
+                            'rgb(102, 81, 145)',
+                            'rgb(160, 81, 149)',
+                            'rgb(212, 80, 135)',
+                            'rgb(249, 93, 106)',
+                            'rgb(255, 124, 67)',
+                            'rgb(255, 166, 0)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }],
+                        xAxes: [{
+                            barThickness: 50,
+                            maxBarThickness: 50
                         }]
                     },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }],
-                            xAxes: [{
-                                barThickness: 50,
-                                maxBarThickness: 50
-                            }]
-                        },
-                        legend: {
-                            labels: {
-                                boxWidth: 0,
-                            }
-                        },
+                    legend: {
+                        labels: {
+                            boxWidth: 0,
+                        }
                     },
-                });
-            }
+                },
+            });
+        }
     </script>
     <script>
         $(document).ready(function() {

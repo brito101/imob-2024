@@ -138,7 +138,8 @@
                                     <div class="col-12 form-group px-0">
                                         <label for="owner">Proprietário</label>
                                         <x-adminlte-select2 name="owner" id="owner">
-                                            <option {{ old('owner') == '' ? 'selected' : '' }} value="">Não Informado</option>
+                                            <option {{ old('owner') == '' ? 'selected' : '' }} value="">Não Informado
+                                            </option>
                                             @foreach ($clients as $client)
                                                 <option {{ old('owner') == $client->id ? 'selected' : '' }}
                                                     value="{{ $client->id }}">
@@ -151,7 +152,8 @@
                                     <div class="col-12 form-group px-0">
                                         <label for="client_id">Cliente</label>
                                         <x-adminlte-select2 name="client_id" id="client_id">
-                                            <option {{ old('client_id') == '' ? 'selected' : '' }} value="">Não Informado</option>
+                                            <option {{ old('client_id') == '' ? 'selected' : '' }} value="">Não
+                                                Informado</option>
                                             @foreach ($clients as $client)
                                                 <option {{ old('client_id') == $client->id ? 'selected' : '' }}
                                                     value="{{ $client->id }}">
@@ -164,7 +166,8 @@
                                     <div class="col-12 form-group px-0">
                                         <label for="agency_id">Agência</label>
                                         <x-adminlte-select2 name="agency_id" id="agency_id">
-                                            <option {{ old('agency_id') == '' ? 'selected' : '' }} value="">Não Informada</option>
+                                            <option {{ old('agency_id') == '' ? 'selected' : '' }} value="">Não
+                                                Informada</option>
                                             @foreach ($agencies as $agency)
                                                 <option {{ old('agency_id') == $agency->id ? 'selected' : '' }}
                                                     value="{{ $agency->id }}">
@@ -319,10 +322,32 @@
                                     </div>
 
                                     <div class="col-12 form-group px-0">
-                                        <x-adminlte-input-file id="images" name="images[]" label="Imagens da Propriedade"
-                                            placeholder="Selecione múltiplos..." igroup-size="md" legend="Selecione"
-                                            multiple>
+                                        <x-adminlte-input-file id="images" name="images[]"
+                                            label="Imagens da Propriedade" placeholder="Selecione múltiplos..."
+                                            igroup-size="md" legend="Selecione" multiple>
                                         </x-adminlte-input-file>
+                                    </div>
+
+                                    <h3 class="h6 col-12 px-0 mt-2 text-bold text-center">Campanha</h3>
+
+                                    <div class="col-12 form-group px-0">
+                                        <x-adminlte-textarea name="header_pixel" label="Pixel do Cabeçalho" rows=5
+                                            igroup-size="sm" placeholder="Cole o píxel do cabeçalho aqui">
+                                        </x-adminlte-textarea>
+                                    </div>
+
+                                    <div class="col-12 form-group px-0">
+                                        <x-adminlte-textarea name="body_pixel" label="Pixel do Corpo" rows=5
+                                            igroup-size="sm" placeholder="Cole o píxel do corpo aqui">
+                                        </x-adminlte-textarea>
+                                    </div>
+
+                                    <div class="col-12 col-md-6form-group px-0 pr-md-2">
+                                        <label for="template">Template</label>
+                                        <x-adminlte-select2 name="template" id="template">
+                                            <option {{ old('template') == '' ? 'selected' : '' }} value="default">Padrão
+                                            </option>
+                                        </x-adminlte-select2>
                                     </div>
 
                                 </div>

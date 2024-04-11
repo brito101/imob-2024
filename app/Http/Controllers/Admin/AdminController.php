@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Property;
 use App\Models\User;
 use App\Models\Views\Agency as ViewsAgency;
+use App\Models\Views\Client as ViewsClient;
 use App\Models\Views\Property as ViewsProperty;
 use App\Models\Views\User as ViewsUser;
 use App\Models\Views\Visit;
@@ -28,12 +29,14 @@ class AdminController extends Controller
             $propertiesModel = ViewsProperty::all();
             $properties =  $propertiesModel->count();
             $lastProperties = Property::latest()->limit(6)->get();
+            $clients = ViewsClient::latest()->limit(10)->get();
         } else {
             $agencies_id = Auth::user()->brokers->pluck('agency_id');
             $agencies = ViewsAgency::whereIn('id', $agencies_id)->count();
             $propertiesModel = ViewsProperty::whereIn('agency_id', $agencies)->count();
             $properties =  $propertiesModel->count();
             $lastProperties = Property::whereIn('id', $agencies)->latest()->limit(6)->get();
+            $clients = ViewsClient::whereIn('agency_id', Auth::user()->brokers->pluck('agency_id'))->latest()->limit(10)->get();
         }
 
         $propertiesType = $propertiesModel->groupBy('type')->toArray();
@@ -87,6 +90,7 @@ class AdminController extends Controller
             'administrators',
             'brokers',
             'agencies',
+            'clients',
             'properties',
             'lastProperties',
             'onlineUsers',
