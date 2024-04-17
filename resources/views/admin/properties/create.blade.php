@@ -70,7 +70,7 @@
                                     </div>
 
                                     <div class="col-12 form-group px-0">
-                                        <x-adminlte-input-file name="cover" label="Imagem de capa"
+                                        <x-adminlte-input-file name="cover" label="Imagem de capa 860 x 490"
                                             placeholder="Selecione uma imagem..." legend="Selecionar" />
                                     </div>
 
@@ -323,7 +323,7 @@
 
                                     <div class="col-12 form-group px-0">
                                         <x-adminlte-input-file id="images" name="images[]"
-                                            label="Imagens da Propriedade" placeholder="Selecione múltiplos..."
+                                            label="Imagens da Propriedade 860 x 490" placeholder="Selecione múltiplos..."
                                             igroup-size="md" legend="Selecione" multiple>
                                         </x-adminlte-input-file>
                                     </div>

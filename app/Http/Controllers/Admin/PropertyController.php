@@ -50,7 +50,13 @@ class PropertyController extends Controller
                 ->addColumn('action', function ($row) use ($token) {
                     $btn = '<a class="btn btn-xs btn-success mx-1 shadow" title="Visualizar" target="_blank" href="' .
                         route('web.property', $row->slug)  .
-                        '"><i class="fa fa-lg fa-fw fa-eye"></i></a>' . '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="properties/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' . '<form method="POST" action="properties/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão desta propriedade?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
+                        '"><i class="fa fa-lg fa-fw fa-eye"></i></a>' .
+
+                        '<a class="btn btn-xs btn-secondary mx-1 shadow" title="Campanha" target="_blank" href="' .
+                        route('web.campaign', $row->slug)  .
+                        '"><i class="fa fa-lg fa-fw fa-rocket"></i></a>'
+
+                        . '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="properties/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' . '<form method="POST" action="properties/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão desta propriedade?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
                     return $btn;
                 })
                 ->addColumn('cover', function ($row) {
@@ -97,7 +103,6 @@ class PropertyController extends Controller
 
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
-        $data['slug'] = Str::slug(mb_substr($data['title'], 0, 100) . '-' .  time());
 
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
             $name = Str::slug(mb_substr($data['title'], 0, 100)) . time();
@@ -148,6 +153,13 @@ class PropertyController extends Controller
         }
 
         if ($property->save()) {
+
+            $slug = Str::slug(mb_substr($property->title, 0, 100));
+            if (Property::where('slug', $slug)->first()) {
+                $property->update(['slug' => $slug . '-' . $property->id]);
+            } else {
+                $property->update(['slug' => $slug]);
+            }
 
             if ($request->images) {
                 $rules = array(
@@ -266,7 +278,13 @@ class PropertyController extends Controller
 
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
-        $data['slug'] = Str::slug(mb_substr($data['title'], 0, 100) . '-' .  time());
+
+        $slug = Str::slug(mb_substr($data['title'], 0, 100));
+        if (Property::where('slug', $slug)->where('id', '!=', $property->id)->first()) {
+            $data['slug'] = $slug . '-' . $property->id;
+        } else {
+            $data['slug'] = $slug;
+        }
 
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
             $name = Str::slug(mb_substr($data['title'], 0, 100)) . time();

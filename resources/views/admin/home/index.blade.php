@@ -204,14 +204,20 @@
                                                         <div class="mt-4">
                                                             @can('Editar Propriedades')
                                                                 <a class="btn btn-primary btn-lg btn-flat"
-                                                                    href="{{ route('admin.properties.edit', ['property' => $property->id]) }}">
+                                                                    href="{{ route('admin.properties.edit', ['property' => $property->id]) }}"
+                                                                    title="Editar">
                                                                     <i class="fas fa-edit fa-lg"></i>
                                                                 </a>
                                                             @endcan
-
-                                                            <a class="btn btn-success btn-lg btn-flat" href="#"
-                                                                target="_blank">
+                                                            <a class="btn btn-success btn-lg btn-flat"
+                                                                href="{{ route('web.property', ['slug' => $property->slug]) }}"
+                                                                target="_blank" title="Visualizar">
                                                                 <i class="fas fa-eye fa-lg"></i>
+                                                            </a>
+                                                            <a class="btn btn-secondary btn-lg btn-flat"
+                                                                href="{{ route('web.campaign', ['slug' => $property->slug]) }}"
+                                                                target="_blank" title="Campanha">
+                                                                <i class="fas fa-rocket fa-lg"></i>
                                                             </a>
                                                         </div>
                                                 </div>
