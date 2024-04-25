@@ -163,7 +163,7 @@ class PropertyController extends Controller
 
             if ($request->images) {
                 $rules = array(
-                    'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000'
+                    'image' => 'mimes:jpeg,jpg,png|required|max:10000'
                 );
 
                 $validator = Validator::make($request->images, $rules);
@@ -336,7 +336,7 @@ class PropertyController extends Controller
 
             if ($request->images) {
                 $rules = array(
-                    'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000'
+                    'image' => 'mimes:jpeg,jpg,png|required|max:10000'
                 );
 
                 $validator = Validator::make($request->images, $rules);
