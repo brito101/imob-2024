@@ -28,6 +28,22 @@ class Agency extends Model
         'city'
     ];
 
+
+    protected $appends = [
+        'address',
+    ];
+
+    /** Appends */
+    public function getAddressAttribute()
+    {
+        return $this->street  . ($this->number ? ', nº ' . $this->number : '') .
+            ($this->complement ? '. Complemento: ' . $this->complement : '') .
+            ($this->neighborhood ? '. Bairro: ' . $this->neighborhood  : '') .
+            ($this->city ? '. ' . $this->city : '') .
+            ($this->state ? '-' . $this->state : '') .
+            ($this->zipcode ? '. CEP: ' . $this->zipcode : '');
+    }
+
     /** Relationships */
     public function brokers()
     {

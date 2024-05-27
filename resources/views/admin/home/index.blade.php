@@ -66,7 +66,7 @@
 
             {{-- Clients --}}
             <div class="row">
-                <div class="col-12 px-0">
+                <div class="col-12 px-2">
                     <div class="card">
                         <div class="card-header border-transparent">
                             <h3 class="card-title"><i class="fa fa-users mr-2"></i> Últimos Clientes</h3>
