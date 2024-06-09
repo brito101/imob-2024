@@ -108,7 +108,7 @@
 
                     <div class="col-12 col-md-6 mt-3">
                         <a href="" class="text-front open_filter text-decoration-none">Filtro avançado
-                            &downarrow;</a>
+                            ↓</a>
                     </div>
 
                     <div class="col-12 col-md-6 text-right mt-3 button_search">
