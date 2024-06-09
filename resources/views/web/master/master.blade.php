@@ -160,7 +160,7 @@
                     <div class="col-12 col-md-12 col-lg-3 text-center">
                         <a href="{{ env('CLIENT_DATA_LINK_FACEBOOK') }}" target="_blank"><i
                                 class="fab fa-facebook btn-custom text-opposit"></i></a>
-                        <a href="{{ env('CLIENT_DATA_LINK_INSTAGRAM') }}" target="_blank"><i
+                        <a href="{{ env('CLIENT_DATA_LINK_INSTAGRAM') }}" target="_blank" class="mx-1"><i
                                 class="fab fa-instagram btn-custom text-opposit"></i></a>
                         <a href="{{ env('CLIENT_DATA_LINK_YOUTUBE') }}" target="_blank"><i
                                 class="fab fa-youtube btn-custom text-opposit"></i></a>
