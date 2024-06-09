@@ -7,6 +7,7 @@
     "/img/404-error.webp": "/img/404-error.webp",
     "/img/brand.jpeg": "/img/brand.jpeg",
     "/img/brand.webp": "/img/brand.webp",
+    "/img/campaign/default/footer.webp": "/img/campaign/default/footer.webp",
     "/img/experiences/alto.webp": "/img/experiences/alto.webp",
     "/img/experiences/alto_padrao.webp": "/img/experiences/alto_padrao.webp",
     "/img/experiences/apartamento.webp": "/img/experiences/apartamento.webp",
@@ -45,6 +46,5 @@
     "/js/bootstrap.js": "/js/bootstrap.js",
     "/js/properties-filter.js": "/js/properties-filter.js",
     "/js/cookie.js": "/js/cookie.js",
-    "/js/button-top.js": "/js/button-top.js",
-    "/img/campaign/default/footer.webp": "/img/campaign/default/footer.webp"
+    "/js/button-top.js": "/js/button-top.js"
 }
