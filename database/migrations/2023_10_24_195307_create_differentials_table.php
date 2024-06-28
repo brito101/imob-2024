@@ -42,10 +42,6 @@ return new class extends Migration
                 'created_at' => new \DateTime('now')
             ],
             [
-                'name'      => 'Cozinha Planejada',
-                'created_at' => new \DateTime('now')
-            ],
-            [
                 'name'      => 'Despensa',
                 'created_at' => new \DateTime('now')
             ],
