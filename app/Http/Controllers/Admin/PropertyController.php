@@ -340,7 +340,7 @@ class PropertyController extends Controller
                 );
 
                 $validator = Validator::make($request->images, $rules);
-                $lastImage = $property->images->last()->order;
+                $lastImage = $property->images->last()->order ?? 0;
 
                 if ($validator) {
                     foreach ($request->images as $key => $img) {

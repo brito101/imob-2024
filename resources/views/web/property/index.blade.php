@@ -1,5 +1,13 @@
 @extends('web.master.master')
 
+@section('css')
+    <style>
+        li::marker {
+            font-size: 0;
+        }
+    </style>
+@endsection
+
 @section('content')
     <section class="main_property">
         <div class="main_property_header py-5 bg-light">
