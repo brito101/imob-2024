@@ -78,16 +78,16 @@
 
                             @switch($property->goal)
                                 @case('Venda')
-                                    <p class="main_property_price_big">Valor do Imóvel: R$ {{ $property->sale_price }}</p>
+                                    <p class="main_property_price_big">Valor do Imóvel: {{ $property->sale_price }}</p>
                                 @break
 
                                 @case('Locação')
-                                    <p class="main_property_price_big">Valor do Imóvel: R$ {{ $property->sale_price }}</p>
+                                    <p class="main_property_price_big">Valor do Imóvel: {{ $property->sale_price }}</p>
                                 @break
 
                                 @case('Venda ou Locação')
-                                    <p class="main_property_price_big">Valor do Imóvel: R$ {{ $property->sale_price }} <br>
-                                        ou Valor do Aluguel: R$ {{ $property->rent_price }}/mês</p>
+                                    <p class="main_property_price_big">Valor do Imóvel: {{ $property->sale_price }} <br>
+                                        ou Valor do Aluguel: {{ $property->rent_price }}/mês</p>
                                 @break
 
                                 @default
