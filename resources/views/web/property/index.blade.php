@@ -39,15 +39,16 @@
                                         <div class="carousel-item {{ $loop->iteration == 1 ? 'active' : '' }}">
 
                                             @if ($image->type == 'cover')
-                                                <a href="{{ url('storage/properties/' . $image) }}" data-toggle="lightbox"
-                                                    data-gallery="property-gallery" data-type="image">
+                                                <a href="{{ url('storage/properties/' . $image->location) }}"
+                                                    data-toggle="lightbox" data-gallery="property-gallery" data-type="image"
+                                                    target="_blank">
                                                     <img src="{{ url('storage/properties/' . $image->location) }}"
                                                         class="d-block w-100" alt="{{ $property->title }}">
                                                 </a>
                                             @else
-                                                <a href="{{ url('storage/properties/album/' . $image) }}"
-                                                    data-toggle="lightbox" data-gallery="property-gallery"
-                                                    data-type="image">
+                                                <a href="{{ url('storage/properties/album/' . $image->location) }}"
+                                                    data-toggle="lightbox" data-gallery="property-gallery" data-type="image"
+                                                    target="_blank">
                                                     <img src="{{ url('storage/properties/album/' . $image->location) }}"
                                                         class="d-block w-100" alt="{{ $property->title }}">
                                                 </a>
