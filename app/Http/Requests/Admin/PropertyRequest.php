@@ -64,6 +64,7 @@ class PropertyRequest extends FormRequest
             'header_pixel' => 'nullable|max:65535',
             'body_pixel' => 'nullable|max:65535',
             'template' => 'nullable|in:default',
+            'landing_page_text' => 'nullable|max:65000',
         ];
     }
 }

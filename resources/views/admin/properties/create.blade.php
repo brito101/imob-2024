@@ -342,6 +342,12 @@
                                         </x-adminlte-textarea>
                                     </div>
 
+                                    <div class="col-12 form-group px-0">
+                                        <label for="landing_page_text">Headline da landing page</label>
+                                        <input type="text" class="form-control" id="landing_page_text" placeholder="Texto para a landing page"
+                                            name="landing_page_text" value="{{ old('landing_page_text') }}">
+                                    </div>
+
                                     <div class="col-12 col-md-6form-group px-0 pr-md-2">
                                         <label for="template">Template</label>
                                         <x-adminlte-select2 name="template" id="template">

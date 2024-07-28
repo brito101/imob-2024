@@ -39,6 +39,7 @@ class ClientRequest extends FormRequest
             'observations' => 'nullable|max:4000000000',
             'agency_id' => 'nullable|exists:agencies,id',
             'meeting' => 'nullable|date_format:Y-m-d',
+            'instagram' => 'nullable|max:191',
         ];
     }
 }

@@ -19,7 +19,7 @@ class Property extends Model
         'sale_price', 'rent_price', 'condominium', 'description',
         'rooms', 'bedrooms', 'suites', 'bathrooms', 'garage', 'garage_covered', 'area_total', 'area_util',
         'zipcode', 'street', 'number', 'complement', 'neighborhood', 'state', 'city',
-        'video', 'views', 'user_id', 'agency_id', 'header_pixel', 'body_pixel', 'template',
+        'video', 'views', 'user_id', 'agency_id', 'header_pixel', 'body_pixel', 'template', 'landing_page_text',
     ];
 
     /** Relationships */
