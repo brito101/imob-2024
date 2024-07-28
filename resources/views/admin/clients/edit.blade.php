@@ -60,19 +60,25 @@
                                             value="{{ old('document_registry') ?? $client->document_registry }}">
                                     </div>
 
-                                    <div class="col-12 col-md-4 form-group px-0 pr-md-2">
+                                    <div class="col-12 col-md-3 form-group px-0 pr-md-2">
                                         <label for="email">E-mail</label>
                                         <input type="email" class="form-control" id="email"
                                             placeholder="E-mail do cliente" name="email"
                                             value="{{ old('email') ?? $client->email }}">
                                     </div>
-                                    <div class="col-12 col-md-4 form-group px-0 px-md-2">
+                                    <div class="col-12 col-md-3 form-group px-0 px-md-2">
+                                        <label for="instagram">Instagram</label>
+                                        <input type="text" class="form-control" id="instagram"
+                                            placeholder="Instagram do cliente" name="instagram"
+                                            value="{{ old('instagram') ?? $client->instagram }}">
+                                    </div>
+                                    <div class="col-12 col-md-3 form-group px-0 px-md-2">
                                         <label for="telephone">Telefone</label>
                                         <input type="text" class="form-control" id="telephone"
                                             placeholder="Telefone do cliente" name="telephone"
                                             value="{{ old('telephone') ?? $client->telephone }}">
                                     </div>
-                                    <div class="col-12 col-md-4 form-group px-0 pl-md-2">
+                                    <div class="col-12 col-md-3 form-group px-0 pl-md-2">
                                         <label for="cell">Celular</label>
                                         <input type="text" class="form-control" id="cell"
                                             placeholder="Celular do cliente" name="cell"

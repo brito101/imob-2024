@@ -89,6 +89,7 @@
                                             <th>Nome</th>
                                             <th>E-mail</th>
                                             <th>Celular</th>
+                                            <th>Instagram</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -101,9 +102,13 @@
                                                 <td>{{ $client->name }}</td>
                                                 <td>{{ $client->email }}</td>
                                                 <td>{{ $client->cell }}</td>
+                                                <td>{{ $client->instagram }}</td>
                                                 <td>{{ $client->step }}</td>
                                             </tr>
                                         @empty
+                                            <tr>
+                                                <td colspan="6" class="text-center">Nenhum cliente cadastrado</td>
+                                            </tr>
                                         @endforelse
                                     </tbody>
                                 </table>

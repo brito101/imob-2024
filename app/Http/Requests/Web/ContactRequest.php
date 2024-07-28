@@ -27,6 +27,7 @@ class ContactRequest extends FormRequest
             "cell" => "nullable|min:8|max:25",
             "email" => "required|email",
             "message" => "required|min:10|max:1000",
+            "instagram" => "nullable|max:191",
         ];
     }
 

@@ -75,7 +75,7 @@
                     <div class="col-12 col-md-12 col-lg-6 order-1 order-md-2">
 
                         <x-adminlte-profile-widget name="{{ env('APP_NAME') }}" desc="{{ env('APP_DES') }}"
-                            theme="bg-gradient-dark" img="{{ asset('img/favicon.svg') }}" layout-type="classic">
+                            theme="bg-gradient-dark" img="{{ asset('img/logo.png') }}" layout-type="classic">
                             <x-adminlte-profile-row-item
                                 title="Criador: Rodrigo Carvalho de Brito, e-mail: contato@rodrigobrito.dev.br"
                                 class="text-left border-bottom border-secondary" />
