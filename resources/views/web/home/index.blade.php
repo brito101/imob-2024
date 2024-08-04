@@ -152,7 +152,7 @@
             <div class="container">
                 <header class="d-flex justify-content-between align-items-center mb-5 flex-wrap">
                     <h1 class="text-front main_properties_title">À Venda</h1>
-                    <a href="#" class="badge badge-front p-2 text-opposit text-decoration-none text-bold">Ver
+                    <a href="{{ route('web.properties', ['type' => 'sale']) }}" class="badge badge-front p-2 text-opposit text-decoration-none text-bold">Ver
                         mais</a>
                 </header>
 
@@ -173,7 +173,7 @@
             <div class="container">
                 <header class="d-flex justify-content-between align-items-center mb-5">
                     <h1 class="text-front main_properties_title">Para Alugar</h1>
-                    <a href="#" class="badge badge-front p-2 text-opposit text-decoration-none text-bold">Ver
+                    <a href="{{ route('web.properties', ['type' => 'rent']) }}" class="badge badge-front p-2 text-opposit text-decoration-none text-bold">Ver
                         mais</a>
                 </header>
 
