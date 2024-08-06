@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz@6..12&family=Roboto:wght@400;700&display=swap");
 
-//Colors
-$default-color: #fff;
-$color-front-support: #9f925e;
-$color-opposite: #062330;
-$bg-dark: #2f2f2f;
-$color-front-opposite: #000;
+body {
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 0.875rem;
+    color: #1f201f;
+    background-color: #fbfbfb;
+}
 
 // DEFAULT
 * {
@@ -13,63 +13,41 @@ $color-front-opposite: #000;
     list-style: none !important;
 }
 
-//FOOTER
-#footer {
-    position: relative;
-    background-color: rgba(0, 0, 0, 0.7);
+#differentials {
+    color: #00354e;
 
     h3 {
-        font-weight: 700;
-        color: $default-color;
+        font-size: 1.6rem;
+        background-color: #b5ad62;
+        padding: 5px 10px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        font-weight: bold;
+        max-width: fit-content;
+        border-radius: 5px;
     }
 
-    li {
-        i {
-            color: $color-front-support;
-        }
-
-        a,
-        span {
-            color: $default-color;
-            transition: all 0.3s ease-in-out;
-            -webkit-transition: all 0.3s ease-in-out;
-            -moz-transition: all 0.3s ease-in-out;
-            cursor: pointer;
-
-            &:hover {
-                color: $color-front-support;
-            }
-        }
-
-        span {
-            cursor: none;
-        }
-    }
-
-    &::before {
-        content: " ";
-        display: block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        background-image: url("/img/campaign/default/footer.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+    p {
+        margin: 0 !important;
+        font-size: 1.4rem;
+        
     }
 }
 
-//COPYRIGHT
-#copyright {
-    color: #fff;
-    background-color: $bg-dark;
-    border-top: 2px solid $color-front-support;
+#neighborhood {
+    color: #00354e;
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: 1.6rem;
+}
 
-    a {
-        color: $color-front-support;
+//FOOTER
+#footer {
+    background-color: #00354e;
+    color: #fbfbfb;
+
+    i {
+        font-size: 1.6rem;
     }
 }
 

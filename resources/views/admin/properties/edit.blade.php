@@ -332,6 +332,22 @@
                                         </div>
                                     </div>
 
+                                    @php
+                                        $configResumeDifferentials = [
+                                            'height' => '100',
+                                            'toolbar' => []
+                                        ];
+                                    @endphp
+
+                                    <div class="col-12 px-0">
+                                        <x-adminlte-text-editor name="differentials_resume"
+                                            label="Resumo dos diferenciais" id="differentials_resume" igroup-size="sm"
+                                            placeholder="Texto para apresentação na landing page referente aos diferenciais...."
+                                            :config="$configResumeDifferentials">
+                                            {{ old('differentials_resume') ?? $property->differentials_resume }}
+                                        </x-adminlte-text-editor>
+                                    </div>
+
                                     <h3 class="h6 col-12 px-0 mt-2 text-bold">Endereço</h3>
 
                                     <div class="col-12 col-md-4 form-group px-0 pr-md-2">
@@ -428,9 +444,9 @@
                                         <input type="text" class="form-control" id="landing_page_text"
                                             placeholder="Texto para a landing page" name="landing_page_text"
                                             value="{{ old('landing_page_text') ?? $property->landing_page_text }}">
-                                    </div>
+                                    </div>                                    
 
-                                    <div class="col-12 col-md-6form-group px-0 pr-md-2">
+                                    <div class="col-12 col-md-6 form-group px-0 pr-md-2">
                                         <label for="template">Template</label>
                                         <x-adminlte-select2 name="template" id="template">
                                             <option

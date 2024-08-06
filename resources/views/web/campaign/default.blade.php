@@ -26,85 +26,114 @@
 </head>
 
 <body>
-    {!! $property->body_pixel !!}
+    {!! $property->body_pixel !!}   
 
-    <div class="shadow-lg sticky-top bg-light" id="header">
-        <div class="container">
-            <header class="d-flex flex-wrap justify-content-center py-3 mb-4">
-                <h1 class="d-none">{{ env('APP_NAME') . ' - ' . env('APP_DESCRIPTION') }}</h1>
-                <a href="{{ route('web.home') }}"
-                    class="d-flex align-items-center mb-0 mb-md-2 mb-lg-0 m-md-auto m-lg-0 me-lg-auto text-decoration-none">
-                    <img src="{{ asset('img/logo.webp') }}" class="me-3" width="100" height="60" alt="logo">
-                    <span class="fs-2 fw-bold">{{ $property->title }}</span>
-                </a>
-                <ul class="nav nav-pills d-none d-md-flex align-items-center">
-                    <li class="nav-item"><a href="#differentials" class="nav-link">DIFERENCIAIS</a></li>
-                    <li class="nav-item"><a href="#footer" class="nav-link">CONTATO</a></li>
-                </ul>
-            </header>
-        </div>
-    </div>
+    <main class="container py-5">
 
-    <main>
+        @if ($property->differentials_resume)
+            <section id="differentials">
+                <h3>Caracterísiticas do imóvel</h3>
+                <div>
+                    {!! $property->differentials_resume !!}
+                </div>
+            </section>
+        @endif
 
-        <section id="hero">
-            <div class="container">
+        @if ($property->images->count() > 0 && $property->video)
+            <section class="pt-5 pb-3">
+                <div class="col-12 col-lg-8">
+                    <div id="carouselProperty" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            @if (count($property->images) > 0)
+                                @foreach ($property->images as $image)
+                                    <li data-target="#carouselProperty" data-slide-to="{{ $loop->iteration - 1 }}"
+                                        {!! $loop->iteration == 1 ? 'class="active"' : '' !!}></li>
+                                @endforeach
+                            @endif
+                        </ol>
 
-            </div>
-        </section>
+                        <div class="carousel-inner">
+                            @if (count($property->images) > 0)
+                                @foreach ($property->images->sortBy('order') as $image)
+                                    <div class="carousel-item {{ $loop->iteration == 1 ? 'active' : '' }}">
+
+                                        @if ($image->type == 'cover')
+                                            <a href="{{ url('storage/properties/' . $image->location) }}"
+                                                data-toggle="lightbox" data-gallery="property-gallery" data-type="image"
+                                                target="_blank">
+                                                <img src="{{ url('storage/properties/' . $image->location) }}"
+                                                    class="d-block w-100" alt="{{ $property->title }}">
+                                            </a>
+                                        @else
+                                            <a href="{{ url('storage/properties/album/' . $image->location) }}"
+                                                data-toggle="lightbox" data-gallery="property-gallery" data-type="image"
+                                                target="_blank">
+                                                <img src="{{ url('storage/properties/album/' . $image->location) }}"
+                                                    class="d-block w-100" alt="{{ $property->title }}">
+                                            </a>
+                                        @endif
+
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+
+                        <a class="carousel-control-prev" href="#carouselProperty" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Anterior</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselProperty" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Próximo</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        @endif
+
+        @if ($property->neighborhood)
+            <section class="pt-5" id="neighborhood">
+                <p>Agende uma visita e venha conhecer seu novo lar no bairro {{ $property->neighborhood }}.</p>
+            </section>
+        @endif
 
     </main>
 
     <footer id="footer">
-        <section>
-            <div class="container py-5">
-                <div class="d-flex flex-wrap py-5">
-                    <div class="col-12 col-md-4 text-center text-lg-start">
-                        <img src="{{ asset('img/brand.webp') }}" alt="{{ env('APP_NAME') }}" width="284"
-                            height="100" class="mb-4 mb-lg-0">
+        <div class="container py-4 px-0">
+            <div class="d-flex flex-wrap justify-content-center">
+                <div class="col-12 col-md-5 d-flex  align-items-center p-2">
+                    <div><i class="fa fa-map-marked-alt me-4"></i></div>
+                    <div>
+                        <p class="m-0">Avenida Capixaba, Sl 308, Edifício Morais Business,</p>
+                        <p class="m-0">Bairro Divino Espírito Santo,</p>
+                        <p class="m-0">Vila Velha-ES</p>
                     </div>
-                    <div class="col-12 col-md-8 d-flex flex-wrap align-items-center">
-                        <div class="col-12 mb-2 mb-md-4">
-                            <h3 class="w-100 text-center text-md-start">
-                                {{ $property->agency->alias_name ?? env('APP_NAME') }}</h3>
-                        </div>
-                        <div class="col-12">
-                            <ul class="w-100 text-center text-md-start p-0">
-                                <li class="my-2"><i class="fa fa-envelope me-2"></i> <a title="Contato por e-mail"
-                                        href="{{ $property->agency->email ?? 'contato@vmdimoveis.com.br' }}"
-                                        target="_blank"
-                                        rel="noreferrer">{{ $property->agency->email ?? 'contato@vmdimoveis.com.br' }}</a>
-                                </li>
-                                @php
-                                    $cell = null;
-                                    if (isset($property->agency->phone)) {
-                                        $cell = preg_replace('/[^0-9]/', '', $property->agency->phone);
-                                    }
-                                @endphp
-                                <li class="my-2"><i class="fab fa-whatsapp me-2"></i> <a title="Contato por WhatApp"
-                                        href="https://wa.me/{{ $cell ?? '5527996235139' }}" target="_blank"
-                                        rel="noreferrer">{{ $property->agency->phone ?? '+55 (27) 99623-5139' }}</a>
-                                </li>
-                                <li class="my-2"><i class="fa fa-map-marked-alt me-2"></i>
-                                    <span>{{ $property->agency->address ?? 'Avenida Capixaba, Sl 308, Edifício Morais Business, Bairro Divino Espírito Santo, Vila Velha-ES' }}</span>
-                                </li>
-                            </ul>
-                        </div>
+                </div>
+                <div class="col-12 col-md-3 d-flex align-items-center p-2">
+                    <div><i class="fa fa-clock me-4"></i></div>
+                    <div>
+                        <p class="m-0">Seg/Sex: 09:00h - 19:00h</p>
+                        <p class="m-0">Sáb/Dom: Plantão</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 d-flex align-items-center p-2">
+                    <div><i class="fa fa-envelope me-4"></i></div>
+                    <div>
+                        <p class="m-0">contato@vmdimoveis.com.br</p>
+                        <p class="m-0">+55 (27) 99623-5139</p>
+                        <p class="m-0">+55 (27) 99244-0238</p>
                     </div>
                 </div>
             </div>
-            <div id="copyright">
-                <div class="container py-4 d-flex justify-content-center align-items-center">
-                    <p class="m-0"><a href="{{ route('web.home') }}" title="{{ env('APP_NAME') }}"
-                            target="_blank">{{ env('APP_NAME') }}</a> ® {{ date('Y') }} Todos os direitos
-                        reservados.</p>
-                </div>
-            </div>
-        </section>
+        </div>
     </footer>
 
     <button aria-label="Voltar ao topo da página" title="Voltar ao topo da página" class="button-top"><i
             class="fa fa-chevron-up"></i></button>
+
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 
     <script src="{{ asset('js/button-top.js') }}"></script>
 </body>

@@ -20,6 +20,7 @@ class PropertyRequest extends FormRequest
             'sale_price'  => str_replace(',', '.', str_replace('.', '', str_replace('R$ ', '', $this->sale_price))),
             'rent_price'  => str_replace(',', '.', str_replace('.', '', str_replace('R$ ', '', $this->rent_price))),
             'condominium'  => str_replace(',', '.', str_replace('.', '', str_replace('R$ ', '', $this->condominium))),
+            'differentials_resume' => strip_tags($this->differentials_resume, '<p>'),
         ]);
     }
 
@@ -65,6 +66,7 @@ class PropertyRequest extends FormRequest
             'body_pixel' => 'nullable|max:65535',
             'template' => 'nullable|in:default',
             'landing_page_text' => 'nullable|max:65000',
+            'differentials_resume' => 'nullable|max:65000',
         ];
     }
 }
