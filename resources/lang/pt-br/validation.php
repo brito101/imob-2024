@@ -274,7 +274,6 @@ return [
         'video' => 'vídeo',
         'header_pixel' => 'pixel do cabeçalho',
         'body_pixel' => 'pixel do corpo',
-        'landing_page_text' => 'texto da landing page',
         'differentials_resume' => 'resumo dos diferenciais',
     ],
 

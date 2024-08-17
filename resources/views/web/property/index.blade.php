@@ -226,7 +226,7 @@
 
                                 <div class="mb-3">
                                     <label for="message">Sua Mensagem:</label>
-                                    <textarea name="message" id="message" cols="30" rows="5" class="form-control">{{ old('message') ?? 'Queero ter mais informações sobre esse imóvel.' }}</textarea>
+                                    <textarea name="message" id="message" cols="30" rows="5" class="form-control">{{ old('message') ?? 'Quero ter mais informações sobre esse imóvel.' }}</textarea>
                                     @if ($errors->any())
                                         <span class="text-danger">{{ $errors->first('message') }}</span>
                                     @endif

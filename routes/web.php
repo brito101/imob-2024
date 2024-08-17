@@ -131,6 +131,7 @@ Route::group(['middleware' => ['log']], function () {
 
         /** Cookie */
         Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');
+        Route::post("/cookie-consent-lp/{id}", [CookieController::class, 'landingPage'])->name('cookie.consent-lp');
     });
 });
 
