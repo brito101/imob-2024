@@ -197,7 +197,7 @@
                                                             </h2>
                                                             <h2 class="mb-0">
                                                                 @if (str_ends_with($property->goal, 'Locação'))
-                                                                    Locação: {{ $property->sale_price }}
+                                                                    Locação: {{ $property->rent_price }}
                                                                 @endif
                                                             </h2>
                                                             @if ($property->condominium != 'R$ 0,00')
