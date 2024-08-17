@@ -306,7 +306,7 @@
     @endif
 
     <button aria-label="Voltar ao topo da página" title="Voltar ao topo da página" class="smoothScroll-top"><i
-            class="fa fa-chevron-up"></i></button>
+            class="fa fa-chevron-up mx-auto"></i></button>
 
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
