@@ -210,7 +210,7 @@
         </div>
     @endif
 
-    <button aria-label="Voltar ao topo da página" title="Voltar ao topo da página" class="smoothScroll-top"><i
+    <button aria-label="Voltar ao topo da página" title="Voltar ao topo da página" class="smoothScroll-top p-0 text-center"><i
             class="fas fa-chevron-up mx-auto"></i></button>
 
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
