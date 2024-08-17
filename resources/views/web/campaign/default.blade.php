@@ -117,7 +117,7 @@
                         </div>
                     @endif
                 </div>
-                <div class="col-12 col-lg-4 px-lg-4">
+                <div class="col-12 col-lg-4 px-lg-4 pb-3 pb-lg-0">
                     <div id="contact">
                         <h3 class="bg-custom">Entre em contato</h3>
                         <form action="{{ route('web.contact.send') }}" method="post">
