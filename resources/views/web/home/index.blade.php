@@ -7,9 +7,9 @@
                 <div class="col-lg-9">
                     <p class="main_slide_content text-opposit">EXPERIÊNCIA DE ENCONTRAR O <span>IMÓVEL</span>
                         DOS <span>SONHOS</span> PARA UMA FAMÍLIA <span>FELIZ</span>!</p>
-                    <a href="#" class="btn-custom-2 text-opposit me-2" style="font-size: 1.4rem;">Quero
+                    <a href="{{ route('web.buy') }}" class="btn-custom-2 text-opposit me-2" style="font-size: 1.4rem;">Quero
                         <b>Comprar</b>!</a>
-                    <a href="#" class="btn-custom text-opposit" style="font-size: 1.4rem;">Quero
+                    <a href="{{ route('web.rent') }}" class="btn-custom text-opposit" style="font-size: 1.4rem;">Quero
                         <b>Alugar</b>!</a>
                 </div>
             </div>
