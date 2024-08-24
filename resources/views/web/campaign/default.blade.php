@@ -182,7 +182,7 @@
 
         @if ($property->differentials_resume)
             <section id="differentials">
-                <h3>Caracterísiticas do imóvel</h3>
+                <h3>Características do imóvel</h3>
                 <div>
                     {!! $property->differentials_resume !!}
                 </div>
