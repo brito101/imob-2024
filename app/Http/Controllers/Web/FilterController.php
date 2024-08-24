@@ -356,7 +356,7 @@ class FilterController extends Controller
         $base_price = [];
         foreach ($properties as $property) {
             if (($property->garage + $property->garage_covered) == $request->garage) {
-                if ($request->type == 'Venda') {
+                if ($request->goal == 'Venda') {
                     $base_price[] = $property->sale_price;
                 } else {
                     $base_price[] = $property->rent_price;
@@ -410,7 +410,7 @@ class FilterController extends Controller
         $limit_price = [];
         foreach ($properties as $property) {
             if (($property->garage + $property->garage_covered) == $request->garage) {
-                if ($request->type == 'Venda') {
+                if ($request->goal == 'Venda') {
                     $limit_price[] = $property->sale_price;
                 } else {
                     $limit_price[] = $property->rent_price;
