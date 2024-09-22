@@ -29,6 +29,16 @@ class CampaignController extends Controller
             Meta::set('image', $property->cover ? url('storage/properties/' . $property->cover) : asset('img/share.webp'));
             Meta::set('canonical', $route);
 
+            if ($property->cover) {
+                $cover = new PropertyImage();
+                $cover->order = -1;
+                $cover->name = 'cover';
+                $cover->location = $property->cover;
+                $cover->property_id = $property->id;
+                $cover->type = 'cover';
+                $property->images->push($cover);
+            }
+
             switch ($property->template) {
                 case 'default':
                     return view('web.campaign.default', compact('property'));

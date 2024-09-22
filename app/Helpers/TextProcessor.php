@@ -26,6 +26,9 @@ class TextProcessor
         $imageFile = $dom->getElementsByTagName('img');
 
         foreach ($imageFile as $item => $image) {
+            //XSS prevention
+            $image->removeAttribute('onerror');
+
             $img = $image->getAttribute('src');
             if (!filter_var($img, FILTER_VALIDATE_URL)) {
                 if (array_key_exists(1, explode(';', $img))) {
