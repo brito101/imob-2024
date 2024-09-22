@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Property;
+use App\Models\PropertyImage;
 use Illuminate\Http\Request;
 use Meta;
 
